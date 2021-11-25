@@ -1,0 +1,1 @@
+java -Djava.rmi.server.codebase=file:/home/dave/bio/maxd/maxdView/rmiDemo/ -classpath /home/dave/bio/maxd/maxdView/:/home/dave/bio/maxd/maxdView/rmiDemo  RMIDemo

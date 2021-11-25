@@ -1,0 +1,279 @@
+<HTML>
+<HEAD>
+<TITLE>Annotation Loader</TITLE>
+</HEAD>
+<BODY>
+
+<H1>Annotation Loader</H1>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#sources">Sources</A>
+<LI><A HREF="#caching">Caching</A>
+<LI><A HREF="#autoloading">Autoloading</A>
+</UL>
+
+<P><HR></P>
+
+<A NAME="overview"><H2>Overview</H2></A>
+
+<P>Annotation refers to any text which is associated with a Probe or Gene
+name. Annotation for a particular entity can be gathered from multiple
+sources (i.e databases like EMBL and SwissProt) and stored locally to
+reduce data loading times.</P>
+
+<P>Annotation is displayed in the <A
+HREF="AnnotationViewer.html">Annotation Viewer</A> which is activated
+when you select "Display Annotation" in the main window's <A
+HREF="Popup.html">popup</A> menu. The viewer also allows you to access
+the annotation loading options.</P>
+
+<P><B>maxdView</B> caches the annotation data as it is first loaded,
+this makes subsequent accesses faster. If you need to reload the data
+(because you have changed the data source for example) you have to
+empty the cache manually using the button in the loading options panel
+(see <A HREF="#caching">below</A>).</P>
+
+<P><HR></P>
+
+<A NAME="sources"><H2>Sources</H2></A>
+
+<CENTER><P><IMG SRC="images/AnnotationLoader-sources.jpg"><BR>The sources tab
+in the loader options panel</P></CENTER>
+
+<P>You can change the order in which the sources are searched using
+the up and down arrows to the right of each source. The delete button
+(immediately to the right of the source name) permanently removes the
+source. To temporarily disable a source, uncheck the "Active" checkbox
+below the source's name.</P>
+
+<P>Three type of data source are currently supported; Script, URL and
+File. Any number and mixture of these source types can be used to
+retrieve annotation for a given spot.</P>
+
+<P>Each source is has the following controls:
+<UL>
+<LI><B>Name</B>: how the source will be titled displayed in the Annotation Viewer
+<LI><B>Active</B>: whether the source should be used 
+<LI><B>Type</B>: sources can be 'Script', 'URL' or 'File' (see below)
+<LI><B>Location</B> where to find the script, URL or directory for this source
+<LI><B>Parameters</B>: the arguments to be passed to the source
+</UL></P>
+
+<P>The 'name' line is unimportant in the data gathering purpose - it
+is only used to refer the source. The use of the <B>Location</B> and
+<B>Parameters</B> controls depends on the type of the source and is
+explained in the sections below.</P>
+
+<P ALIGN=LEFT><HR ALIGN=LEFT WIDTH=25%></P>
+
+<P><B>Script</B> sources are programs which can be invoked to generate
+annotation</P>
+
+<TABLE WIDTH="80%">
+<TR><TD><FONT COLOR="#222222" SIZE="-1">
+
+<P>The full path and name of the script should be specified in the
+sources <B>Location</B> control, for example
+"<TT>/home/people/dave/bin/srs-wrap.pl</TT>".</P>
+
+<A NAME="vars"><P>Parameters are passed to the script using <B>variables</B> which refer to
+the names or name attributes of the spot. All variable names begin
+with a '$' (dollar) character and are enclosed in curly braces
+'{}'. For example, the probe name associated with a spot is called
+"<TT>${Probe.Name}</TT>". Any attribute that a name has can be used as
+a variable, for example "<TT>${Gene.ACC_NO}</TT>" and
+"<TT>${Spot.ROW}</TT>". </P></A>
+
+<P>Any text in the argument list that is not recognised as a variable
+name is passed directly to the script. At least one variable must
+appear in the <B>Parameters</B> control for the source to be
+considered valid. Names that appear to be variable names but which
+cannot be matched with real attribute names will cause an error
+message to be displayed.</P>
+
+<P><I>Example:</I> Calling the <TT>wgetz</TT> utility (from the <A
+HREF="http://www.ebi.ac.uk/srs/">SRS</A> package)</P>
+
+<P>In the  source's <B>Location</B> control specify
+the full path and name of the
+script:<BR>&nbsp;&nbsp;<TT>/home/SRS/bin/wgetz</TT>.</P>
+
+<P>In the source's <B>Parameters</B> control specify the command-line
+arguments to pass to the script:<BR> &nbsp;&nbsp;<TT>-e
+"[embl-all:${Gene.Name} acc:desc]"</TT></P>
+
+<P>When the a request is made to the source, the <TT>${Gene.Name}</TT>
+part of the argument list will be replaced with the actual gene name
+and the script will be invoked. If, for example, the gene is called
+'Y1234' then the following command will be executed:</P>
+
+<NOBR><TT>&nbsp;&nbsp;/home/SRS/bin/wgetz -e "[embl-all:Y1234 acc:desc]"</TT></NOBR>
+
+<P>Any text that the command produces (on either it's standard or
+error output streams) will be captured.</P>
+
+
+</FONT></TD></TR></TABLE>
+
+<P ALIGN=LEFT><HR ALIGN=LEFT WIDTH=25%></P>
+
+<P><B>URL</B> sources represent a web servers which generate
+annotation in response to CGI requests.</P>
+
+<P>Note: The HTTP POST method is used to send the parameters. This
+will not work with URL handling scripts that use the GET method.</P>
+
+<TABLE WIDTH="80%">
+<TR><TD><FONT COLOR="#222222" SIZE="-1">
+
+<P>CGI is the mechanism used to handle the forms commonly found on
+web sites. A request is sent to the URL named in the source's
+<B>Location</B> field along with the data in the <B>Parameter</B>
+control.</P>
+
+<P>Variables are used in exactly the same way as with script sources,
+see <A HREF="#vars">above</A> for details.</P>
+
+<P>The <B>Parameter</B>s must be in the correct <I>URL encoded</I>
+form. The encoding is the same as that used for specifying CGI
+parameters within a URL, for example:</P>
+
+<NOBR><TT>&nbsp;&nbsp;http://www.demo.org/cgi-bin/demo.pl?arg1=val1&arg2=val2</TT></NOBR>
+
+<P>An easy way to discover which parameters to use and how to encode
+them is to use a web browser to access the annotation source
+'manually'. The URL location displayed in the browser will show you
+how the <B>Parameters</B> should be defined.</P>
+
+<P>You do not need to specify the '?' character that separates the
+URL's location from it's parameters.  For example, to access the above
+URL the source's <B>Location</B> would be:</P>
+
+<NOBR><TT>&nbsp;&nbsp;http://www.demo.org/cgi-bin/demo.pl</TT></NOBR>
+
+<P>and the parameters would be</P>
+
+<NOBR><TT>&nbsp;&nbsp;search=all&id=${Probe.Name}</TT></NOBR>
+
+<P></P>
+
+<TABLE WIDTH="90%">
+<TR><TD><FONT COLOR="#222222" SIZE="-1">
+<P>Aside: Using a proxy server:</P>
+<P>If your internet connection requires the use of a <B>Proxy
+Server</B> you must inform the Java environment when you start
+<B>maxdView</B>. The following command-line parameters are used:
+</P>
+<P><PRE>
+   java -Dhttp.proxyHost=proxyhost
+        [-Dhttp.proxyPort=portNumber] -classpath .... 
+</PRE></P>
+
+</TABLE>
+
+<TABLE WIDTH="90%">
+<TR><TD><FONT COLOR="#222222" SIZE="-1">
+<P>Aside: basic rules for encoding URL parameters:</P>
+<UL>
+<LI>Each parameter should be separated by an ampersand ('&') character
+<LI>Spaces should be replaced by plus ('+') characters 
+<LI>Any non-alphanumeric character should be represented as a
+3-character string "%xy", where xy is the two-digit hexadecimal
+representation of the lower 8-bits of the character.
+</UL></P>
+</TABLE>
+
+
+</FONT></TD></TR></TABLE>
+
+<P ALIGN=LEFT><HR ALIGN=LEFT WIDTH=25%></P>
+
+<P><B>File</B> sources are directories on a local filestore that
+contain annotation text.</P>
+
+<TABLE WIDTH="80%">
+<TR><TD><FONT COLOR="#222222" SIZE="-1">
+
+<P>Annotation is looked for in the directory specified in the source's
+<B>Location</B>. The file name will be generated using the source's
+<B>Parameters</B> value. </P>
+
+<P>If the path separator ('/' on Unix, '\' in MS-Windows) or a
+non-alphahumeric character occurs in a value specified for the file
+name, it is replaced with an underscore ('_') before the file is
+searched for.</P>
+
+<P><I>Example:</I> Assume you have created files with names based on
+the position of a spot on it's array. Information about the spot at
+row X and column Y is stored in a file called "<TT>spot_X_Y.dat</TT>".
+A source to load this information would have it's <B>Parameter</B> set
+to:</P>
+
+<NOBR><TT>&nbsp;&nbsp;spot_${Spot.ROW}_${Spot.COL}.dat</TT></NOBR>
+
+<P>(this assume that you have created Spot name attributes called "ROW"
+and "COL" and populated them with values).</P>
+
+<P>Note: having tens of thousands of files in the same directory is
+likely to make your file system very unhappy.</P>
+
+</FONT></TD></TR></TABLE>
+
+<P><HR></P>
+
+<A NAME="caching"><H2>Caching</H2></A>
+
+<P>As data is loaded by a source it will be cached in memory. Next
+time the source is requested to load the same annotation, the data
+will be retrieved from the cache rather than it's real location.</P>
+
+<P>Data is cached on a per-source basis, that is, each source stores
+it's data separately. If you change either the source's
+<B>Location</B> or <B>Parameters</B>, data cached for the old location
+or parameters will be ignored and the new data will be cached. </P>
+
+<P>The entire cache can be written to and read from a file. This
+allows you to retrieve annotation one time only and save it between
+runs of <B>maxdVIew</B>.</P>
+
+<P>The cache is controlled by a tab in the loader options panel, open
+this panel using the "Options" button in the <I>Annotation Viewer</I>.</P>
+
+<P>The controls are:</P>
+
+<UL>
+<LI><B>Empty</B> the cache of all data
+<LI><B>Save</B> the cache to a file
+<LI><B>Load</B> the cache from a file
+</UL>
+
+<P>A panel also displays some statistics about the amount of data
+currently in the cache. The "Hit Rate" shows how effective the cache
+is being.</P>
+
+<P><HR></P>
+
+<A NAME="autoloading"><H2>Autoloading</H2></A>
+
+<P>The autoload feature attempts to load the annotation for all spots
+using threads running in the background. You can use this to retrieve
+annotation for a large number of spots as a one-off process and then
+save the cache (see <A HREF="#caching">above</A>) for later use.</P>
+
+<P>Autoload generates a load requests for all of the spots and the
+background threads consume these load requests one at a time. The
+status label informs you how many load requests are currently pending
+and how many threads are currently active.</P>
+
+<P><HR></P>
+
+<P>See Also:<BR>
+<UL>
+<LI><A HREF="AnnotationViewer.html">Annotation Viewer</A>
+<LI><A HREF="Overview.html">Overview</A>
+<LI><A HREF="FileFormats.html">File formats</A>
+</UL></P>
+
+</BODY>
+</HTML>

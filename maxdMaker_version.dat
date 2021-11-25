@@ -1,0 +1,38 @@
+################################################################
+#
+# maxdMaker version info file for use by maxdSetup
+#
+###############################################################
+
+#
+# the "latest: " line must appear before any alerts
+#
+
+latest: 1.2
+released: 10th October 2002
+size: 57120
+
+
+#
+# there can be more than one 'flavour' of the latest version
+#
+# "urlbase:" specifies the root of the URL for all flavours
+#
+urlbase: http://www.bioinf.man.ac.uk/microarray/maxd/dist/
+#urlbase: file://C:/Documents and Settings/dave/bio/maxdSQL/
+#
+#
+# each flavour line starts "flavour:", followed by a filename,
+# then size, then a description (all on one line)
+#
+# "default:" is the flavour for people who don't care
+#
+#
+#
+default: maxdMaker_1_2.jar 57120 compiled with Sun JDK 1.3.0
+
+
+description: 
+description: An application to create the SQL needed to set up a new database
+description: 
+

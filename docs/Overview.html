@@ -1,0 +1,136 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView Overview</TITLE>
+</HEAD>
+<BODY>
+<H1>maxdView Overview</H1>
+
+<UL>
+<LI><A HREF="#intro">What is maxdView?</A>
+<LI><A HREF="#data">What sort of data does it handle?</A>
+<LI><A HREF="#display">What can it display?</A>
+<LI><A HREF="#do">What can it do?</A></H2>
+</UL>
+
+<H2><A NAME="intro">What is maxdView?</A></H2>
+
+<P><B>maxdView</B> is a system for integrating techniques for analysis
+and visualisation of expression data.</P>
+
+<P>The design is focused on providing a comprehensive model of
+expression data and a flexible, extensible architecture to allow
+functionality to be added as desired, and as new techniques are
+developed.</P>
+
+<P><B>maxdView</B> provides three ways of integrating algorithms and
+visualisations.
+<UL>
+<LI>Write Java 'plug-in' modules which are installed in the
+<B>maxdView</B> menu hierarchy and have full access to the internal
+data representation and underlying event model (see more information on <A
+HREF="Plugins.html">plugins</A>).
+<LI>Enter 'fragments' of code directly into a dialog box and compile
+and execute it dynamically with a single button press. Code run in
+this way has complete access to the internal data representation (see the <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code Runner</A> plugin).
+<LI>Interface to external programs or scripts, with two-way exchange
+of both symbolic and numeric data. The data transfer can be via
+standard input and output or via temporary files (see the <A
+HREF="../plugins/Transform/RunExternal/RunExternal.html">Run
+External</A> plugin).
+</UL>
+
+<P><B>maxdView</B> is by no means a complete analysis package, for
+example it has no facilities for image processing. It is not intended
+to be an all-encompassing solution. Instead, it's purpose is to
+provide an infrastructure into which existing tools can be fitted, and
+to assist rapid prototyping of new algorithms and visualisation
+techniques.</P>
+
+<H2><A NAME="data">What sort of data does it handle?</A></H2>
+
+The core of the <B>maxdView</B> data model is the <B>ExprData</B>
+class which represents expression data, comprising inner classes
+modeling the following features:
+
+<UL>
+<LI><B>Measurements</B> represent collections of expression levels (or
+other data associated with image analysis process) recorded under a
+known condition.
+
+<LI><B>Annotation</B> of each expression value records the name of the
+array, spot, probe, and gene(s) associated with each numerical value,
+and provides methods for retrieving textual descriptions of biological
+entities from different sources. Annotation can be <A
+HREF="AnnotationLoader.html">retrieved</A> from different sources then
+<A HREF="AnnotationViewer.html">browsed</A> and <A
+HREF="../plugins/Viewer/TextExplorer/TextExplorer.html">searched</A>.
+
+<LI><B>Clusters</B> are a fairly general purpose way of handling
+connections between groups of entities within a data set. <B>maxdView</B>
+models clusters as a hierarchical collection of sequences of
+items.</P>
+
+</UL>
+
+<H2><A NAME="display">What can it display?</A></H2>
+
+<P>The main window of <B>maxdView</B> displays the conventional table
+view of expression data, with the rows showing the different spots on
+an array, and the columns showing the different measurement conditions
+for which values are known.</P>
+
+<P>Rows can be labelled with the name of the spot, the probe in the
+spot, or the names of biological entities known to be targeted by the
+probe. The table view is augmented with a dendrogram showing
+relationships between rows. These relationships can be created and
+modified interactively in a variety of ways.</P>
+
+<P>Additional visualisations of the data are provided by plugin
+modules, including a co-relation plots (<A
+HREF="../plugins/Viewer/StackPlot/StackPlot.html">Stack Plot</A>, <A
+HREF="../plugins/Viewer/ScatterPlot/ScatterPlot.html">Scatter
+Plot</A>), multi-dimensional projections (<A
+HREF="../plugins/Viewer/ProfileViewer/ProfileViewer.html">Profile
+Viewer</A>, <A HREF="../plugins/Viewer/WebPlot/WebPlot.html">Web
+Plot</A> and <A
+HREF="../plugins/Viewer/HyperCubePlot/HyperCubePlot.html">HyperCube
+Plot</A>) and distribution histograms (<A
+HREF="../plugins/Viewer/Distogram/Distogram.html">Distogram</A>).</P>
+
+<H2><A NAME="do">What can it do?</A></H2>
+
+<P><B>maxdView</B> provides a number of useful data transformation
+operations, such as sorting, and <A HREF="Filters.html">filtering</A>
+the data values in a variety of ways.</P>
+
+<P>New transformations can be added via any of the three integration
+routes outlined above. For example, if a new filtering technique is
+installed as a plugin class, it will become available to all of the
+other parts of <B>maxdView</B>.</P>
+
+<P>The current version of <B>maxdView</B> provides plugins for reading
+and writing  native XML and plain  text files and for  loading data to
+and from <B>maxdSQL</B> databases.  Additional methods  for importing
+and exporting data can be added via the plugin system. </P>
+
+<HR>
+
+See Also:
+<UL>
+<LI>
+<A HREF="Concepts.html">Concepts</A>
+<LI>
+<A HREF="Glossary.html">Glossary</A>
+<LI>
+<A HREF="DataModel.html">Data Model</A>
+<LI>
+<A HREF="Commands.html">Commands</A>
+<LI>
+<A HREF="Plugins.html">Plugins</A>
+<LI>
+<A HREF="FileFormats.html">File formats</A>
+</UL>
+
+</BODY>
+</HTML>

@@ -1,0 +1,158 @@
+<HTML>
+<HEAD>
+<TITLE>Plugin Manager</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<P><TABLE WIDTH=100% BGCOLOR="#555555" CELLPADDING=1><TR><TD VALIGN=MIDDLE><A NAME="overview"><FONT SIZE="+1" COLOR="#eeeeee">&nbsp;Overview</FONT></A></TD><TD VALIGN=MIDDLE ALIGN=RIGHT><A HREF="#interface"><IMG BORDER=0 SRC="../images/docnext.gif"></A></TD></TR></TABLE></P>
+
+<P>Much of the functionality of <B>maxdView</B> is provided by
+'plugin' modules that are loaded into the system as required. The
+<i>Plugin Manager</i> provides a number of useful administrative
+features:</P>
+
+<UL>
+<LI>Automatically download and <A HREF="#checkweb">install new plugins</A> (from the <B>maxdView</B> web site)<BR>
+<LI>Discover and <A HREF="#checkweb">install updated versions</A> of existing plugins<BR>
+<LI><A HREF="#hide">Remove plugins</A> that are no longer required<BR>
+<LI><A HREF="#scan">Register plugins</A> which have been installed by hand<BR>
+<LI><A HREF="#menus">Change the order</A> in which plugins are listed in menus<BR>
+</UL>
+
+<P>The <i>Plugin Manager</i> has two display modes: a table listing
+the name, type and version of plugins and a tree representing the
+organisation of plugins in the main menu hierarchy. A tabbed panel is
+used to switch between the two different views.</P>
+
+<P><CENTER>
+<TABLE>
+<TR><TD><IMG SRC="images/PluginManagerTable.jpg"></TD><TD><IMG SRC="images/PluginManagerTree.jpg"></TD></TR>
+<TR><TD ALIGN=CENTER>Plugin Information (table)</TD><TD ALIGN=CENTER>Menu Structure (tree)</TD></TR>
+</TABLE>
+</CENTER></P>
+
+<P>&nbsp;</P>
+
+<P><TABLE WIDTH=100% BGCOLOR="#555555" CELLPADDING=1><TR><TD VALIGN=MIDDLE><A NAME="install"><FONT SIZE="+1" COLOR="#eeeeee">&nbsp;Installing and Removing Plugins</FONT></A></TD><TD VALIGN=MIDDLE ALIGN=RIGHT><A HREF="#overview"><IMG BORDER=0 SRC="../images/docprev.gif"></A><A HREF="#checkweb"><IMG BORDER=0 SRC="../images/docnext.gif"></A></TD></TR></TABLE></P>
+
+<P>The 'Plugin' tabbed panel contains a table which has one row per
+plugin. The name, type and version of each plugin is displayed. Each
+row also contains a checkbox which controls whether the plugin is
+enabled. Plugins which are not enabled are not displayed in the main
+menus or on-line documentation.</P>
+
+<UL>
+<LI>The '<B>name</B>' of the plugin is the name that will appear in
+the relevant menu entry and in the index for the on-line
+documentation. Each plugin must have a unique name, and the name of a
+plugin cannot be changed by the user.<BR>
+
+<LI>The '<B>type</B>' determines which of the top-level menus the
+plugin will be listed in. There are 5 possible types: importer,
+exporter, transform, filter and viewer. The type of a plugin is fixed
+by it's author and cannot be changed. Is it however possible to <A
+HREF="#menus">change the order</A> in which plugins are listed in each
+menu.<BR>
+
+<LI>The '<B>version</B>' number identifies a particular release of a
+plugin. For example version "1.5.0" is newer than version "1.4.1"
+which in turn is newer than version "1.4.0".<BR>
+</UL>
+
+<P>Clicking on any of the column headings sorts the table based on
+that column, for example in alphetical order of name.</P>
+
+<P>Changes made in this table (i.e. disabling or enabling plugins) are
+not activated until the "<B>Apply</B>" button is pressed. If it is
+attempted to close the <i>Plugin Manager</i> before the changes have
+been applied, then a warning message will be displayed with the option to apply
+or discard the changes.</P>
+
+
+<P><TABLE WIDTH=100% BGCOLOR="#cccccc" CELLPADDING=1><TR><TD VALIGN=MIDDLE><A NAME="checkweb"><B>Automatic update</B></A></TD><TD VALIGN=MIDDLE ALIGN=RIGHT><A HREF="#install"><IMG BORDER=0 SRC="../images/subdocprev.gif"></A><A HREF="#hide"><IMG BORDER=0 SRC="../images/subdocnext.gif"></A></TD></TR></TABLE></P>
+
+<P>The "<B>Check for updates</B>" button starts the automatic updating
+process (note that this button is only visible when the tabbed panel
+containing plugin information table is selected). A connection to the
+internet must be available for this process to work, if the
+<B>maxdView</B> website cannot be located then an error message will
+be displayed.</P>
+
+<P>Once <B>maxdView</B> has retrieved information from the website a
+dialog box will be displayed which will list any plugins that are
+newer than the versions currently installed. Select one or more
+plugins from this list and press the "<B>Install</B>" button to begin
+downloading the plugins. Once the download is finished, the plugins
+will be registered automatically and will be available for use.</P>
+
+<P>Plugins that are downloaded from the website will be installed in
+the <I>per-user</I> plugin hierarchy, which means they will only be
+available to the user who installed them. The <I>per-user</I> plugin
+hierarchy is seperate from the <I>shared</I> plugin hierarchy, which
+contains the set of 'standard' plugins that are shipped with
+<b>maxdView</b>. If a plugin in the <I>per-user</I> hierarchy has
+the same name as one in the <I>shared</I> hierarchy, then it will be
+used preferentially.</P>
+
+<P>Some updated plugins might rely on features only available in the
+latest version of <B>maxdView</B>. If that is the case then these
+plugins will be identifed and it will not be possible to select them
+for installation. The latest version of <B>maxdView</B> can be
+installed using the automatic setup program; see the <B>maxdView</B>
+website for full details.</P>
+
+
+
+<P><TABLE WIDTH=100% BGCOLOR="#cccccc" CELLPADDING=1><TR><TD VALIGN=MIDDLE><A NAME="hide"><B>Removing unwanted plugins</B></A></TD><TD VALIGN=MIDDLE ALIGN=RIGHT><A HREF="#checkweb"><IMG BORDER=0 SRC="../images/subdocprev.gif"></A><A HREF="#scan"><IMG BORDER=0 SRC="../images/subdocnext.gif"></A></TD></TR></TABLE></P>
+
+<P>Plugins can be removed from the system by un-ticking the relevant
+checkbox in the information table visile in the "Plugins" tabbed
+panel. Once the change is confimed by pressing the "<B>Apply</B>"
+button, the entry for the plugin will be removed from the main menu
+and from the on-line documentation. There will still be an entry for
+the plugin in the information table should it be desired to re-enable
+it at a later date.</P>
+
+<P>When a plugin is disabled,the program code (and associated files)
+for the plugin is not actually deleted from the <TT>plugins/</TT>
+directory (this makes it easier to re-enable the plugin later). To
+permanently remove a plugin, the subdirectory in which it resides can
+be deleted by hand.</P>
+
+
+<P><TABLE WIDTH=100% BGCOLOR="#cccccc" CELLPADDING=1><TR><TD VALIGN=MIDDLE><A NAME="scan"><B>Scanning the plugin directory</B></A></TD><TD VALIGN=MIDDLE ALIGN=RIGHT><A HREF="#hide"><IMG BORDER=0 SRC="../images/subdocprev.gif"></A><A HREF="#menus"><IMG BORDER=0 SRC="../images/subdocnext.gif"></A></TD></TR></TABLE></P>
+
+<P>The "<B>Scan plugin directory</B>" button causes <B>maxdView</B> to
+examine all of the files in the <TT>plugins/</TT> directory (and
+subdirectories) looking for Java class files which appear to be
+plugins. This feature is typically only used when a new plugin has
+been added 'by hand', i.e. not by the automatic updating system.</P>
+
+
+<P>&nbsp;</P>
+
+<P><TABLE WIDTH=100% BGCOLOR="#555555" CELLPADDING=1><TR><TD VALIGN=MIDDLE><A NAME="menus"><FONT SIZE="+1" COLOR="#eeeeee">&nbsp;Controlling the menu hierarchy</FONT></A></TD><TD VALIGN=MIDDLE ALIGN=RIGHT><A HREF="#scan"><IMG BORDER=0 SRC="../images/docprev.gif"></A></TD></TR></TABLE></P>
+
+<P>The "Menu" tabbed panel contains a representation of the main menu
+structure as a tree. Each menu is displayed as a branch of the
+tree. Branches can be expanded or collapsed by clicking on the small
+symbol to left of their names.</P>
+
+<P>Entries can be dragged up and down within each menu. Entries cannot
+be dragged betwen menus, for example the "<I>Read Native</I>" plugin
+must always be in the "Import" menu.</P>
+
+<P>Changes made in the tree are not commited until the "<B>Apply</B>"
+button is pressed. If it is attempted to close the <i>Plugin
+Manager</i> before the changes have been applied, then a warning
+message will be displayed with the option to apply or discard the
+changes.</P>
+
+<P>The "<B>Reset</B>" button returns the menu arrangement to the
+built-in default setting. Any user applied changes will be removed.</P>
+
+<P>&nbsp;</P>
+
+</BODY>
+</HTML>

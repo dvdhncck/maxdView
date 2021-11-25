@@ -1,0 +1,110 @@
+<HTML>
+<HEAD>
+<TITLE>XCluster</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>XCluster</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>This plugin provides an interface to the XCluster software by Gavin
+Sherlock, for details of the parameters see the <A
+HREF="http://www.genome.stanford.edu/"> XCluster website</A>.</P>
+
+<P></P>
+
+<HR>
+
+<CENTER><P><IMG SRC="XCluster.jpg"></P></CENTER>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P>Clustering can be done on either Spots (i.e. finding genes with
+similar profiles ) or Measurements (i.e. finding experiments or
+organisms with similar profiles).</P>
+
+<P>All Measurements is displayed in a list. Use `shift-click' or
+`ctrl-click' to select one or more Measurements to be passed to the
+clustering algorithm.</P>
+
+<P><B>Apply filter</B> restricts the clustering to the Spots which
+pass through the current <A
+HREF="../../../docs/Filters.html">Filter</A>(s).</P>
+
+<P>The clustering process takes place in a separate thread. You can
+continue to use other features of <B>maxdView</B> whilst the
+clustering is under way, but take care not to load new data points
+until the clustering has finshed.</P>
+
+<P>The controls and parameters are organised in three groups:</P>
+
+<DL>
+<DT><B>Options</B></DT> 
+
+<DD><P>This panel is used to specify where the XCluster package has
+been installed and where temporary files should be stored.</P>
+
+<P>The "<B>Location of Cluster program</b>" field should
+contain the full path to the `<TT>cluster</TT>' binary,
+e.g. <TT>/usr/local/apps/xcluster/cluster</TT>.</P>
+
+<P>The "<B>Directory for temporary files</B>" field can optionally
+give the path of a directory in which files can be stored. Tempoprary
+files are used to communicate data from <B>maxdView</B> to
+`XCluster'. If this field is left blank then the directory where
+<B>maxdView</B> is installed will be used.</P>
+
+<P>The "<B>Delete after use</B>" option refers to the temporary files
+and should normally be switched on (unless you wish to manually
+inspect the output of the `XCluster' for some reason).</P></DD>
+
+<P>&nbsp;</P>
+
+<DT><B>Partition</B></DT>
+<DD>
+<P>This panel is used to select which (if any) of two possible
+partitioning schemes to use whilst clustering.</P>
+
+<P>"<B>No partition</B>" results in normal hierarchical clustering.</P>
+
+<P>"<B>K-means</B>" attempts to group the data into a fixed number of
+categories, each of which is organised by a separate hierarchical
+clustering.</P>
+
+<P>"<B>Self-Organising-Map</B>" attempts to group the data into
+categories as with k-means. Here the categories are further organised
+into a grid arranged by their similarity with one another.</P>
+</DD>
+
+<P>&nbsp;</P>
+
+<DT><B>Cluster</B></DT>
+<DD>
+<P>This panel contains options used by XCluster when determining how
+similar one Spot or Measurement is to another one. The options are
+explained fully in the documentation that accompanies 'XCluster'.</P>
+
+<P>"<B>Pearson corelation</B>"</P>
+
+<P>"<B>Euclidean distance</B>"</P>
+
+<P>"<B>Centered distance</B>"</P>
+
+<P>"<B>Log transform data</B>"</P>
+
+</DD>
+</DL>
+
+<P>&nbsp;</P>
+
+</BODY>
+</HTML>

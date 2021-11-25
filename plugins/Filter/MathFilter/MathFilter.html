@@ -1,0 +1,269 @@
+<HTML>
+<HEAD>
+<TITLE>Math Filter</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Math Filter</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#syntax">Syntax</A>
+<LI><A HREF="#nans">Handling of NaN and Infinity values</A>
+<LI><A HREF="#grammar">Grammar Rules</A>
+<LI><A HREF="#commands">Plugin Commands</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The Math Filter uses mathematical inequalites to filter the
+spots.</P>
+
+<P>
+Example filters:<BR>
+<FONT SIZE="-1"><I>(assuming there are Measurements called M100,
+M101 and M102).</I></FONT></P>
+
+<TABLE>
+<TR><TD ALIGN=RIGHT>Filter Rule...&nbsp;</TD><TD>...Displays</TD></TR>
+
+<TR><TD VALIGN=MIDDLE ALIGN=RIGHT>
+<TT><FONT COLOR="#663333">M100 &gt; M101&nbsp;</FONT></TT></TD>
+<TD VALIGN=MIDDLE ><FONT COLOR="#336633" SIZE="-1">spots in which the 
+value in M100 is <I>greater than</I> the value in
+M101.</FONT></TD></TR> 
+
+<TR><TD VALIGN=MIDDLE ALIGN=RIGHT>
+<TT><NOBR><FONT COLOR="#663333">M100 &gt; (5 * M101)&nbsp;</FONT></NOBR></TT></TD>
+<TD VALIGN=MIDDLE><FONT COLOR="#336633" SIZE="-1">spots in which the 
+value in M100 is <I>greater than five
+times</I> the value in M101.</FONT></TD></TR>
+
+<TR><TD VALIGN=MIDDLE ALIGN=RIGHT>
+<TT><NOBR><FONT COLOR="#663333">M101 &gt; 0 and M102 &lt; 0&nbsp;</FONT></NOBR></TT></TD>
+<TD VALIGN=MIDDLE><FONT COLOR="#336633" SIZE="-1">spots in which the 
+value in M101 is positive <I>and</I> the
+ value in M102 is negative.</FONT></TD></TR>
+
+<TR><TD VALIGN=MIDDLE ALIGN=RIGHT>
+<TT><NOBR><FONT COLOR="#663333">M101.Source = &quot;Fred&quot;</FONT></NOBR></TT></TD>
+<TD VALIGN=MIDDLE><FONT COLOR="#336633" SIZE="-1">spots in which the
+value of the SpotAttribute "Source" in Measurement M101 is "Fred".</FONT></TD></TR>
+
+</TABLE>
+
+</P>
+
+<P>As with all filter plugins, Closing the plugin's window deactives
+the filter (but iconifying it does not).</P>
+
+<P>&nbsp;</P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P><IMG SRC="MathFilter.jpg"></P>
+
+<P>The interface is divided into four areas:</P>
+<P><TABLE>
+<TR><TD VALIGN="TOP"><B>Top-left</B></TD>
+
+<TD>A text entry area where the rule is displayed and can be edited.</TD>
+
+<TR><TD VALIGN="TOP"><B>Bottom-left</B></TD> <TD>A panel showing a graphical
+representation of the current filter rule. The graph can be scaled to
+fit into the available space. The plugin's window can be resized to
+make more room for the graph. </TD>
+
+<TR><TD VALIGN="TOP"><B>Top-right</B></TD> <TD>A list of available
+Measurement names, and the names of any Spot Attributes linked to
+these Measurements. The list can be arranged either my Measurement (in
+which case Spot Attributes are listed after each Measurement) or by
+Spot Attribute (in which case the Spot Attributes are grouped together
+by name). Clicking on any name in this list will insert the
+corresponding text into the rule.</TD>
+
+<TR><TD VALIGN="TOP"><B>Bottom-right</B></TD> <TD>Palettes for
+entering mathematical operators and functions and a <A
+HREF="#history">history list</A> in which you can store commonly used
+filtering rules.</TD> </TABLE></P>
+
+<P>The percentage of spots which are trapped by each term in the rule
+is continuously displayed. The figure in green above each node shows
+the percentage of spots that pass through the node. The figure in red
+(below each node) is the percentage of spots that are trapped by this
+term of the rule. Note that the percentages only reflect the filtering
+that is done by this filter, and do not take into account any
+filtering being done by other filter plugins that are also active.</P>
+
+<P>The <B>Load</B> and <B>Save</B> buttons allow the rule to be read
+from and written to a file respectively. The rule is stored in plain
+text format in the file.</P>
+
+<P>&nbsp;</P>
+
+<HR>
+
+<A NAME="history"><H3>The History List</H3></A>
+
+<P>The current rule can be added to history list using the "<B>Add
+current</B>" button. This rule will then be permanently stored and can be
+easily retrieved next time the plugin is used. Items can be removed
+from the history list by selecting them and pressing the "<B>Remove
+selected</B>" button.</P>
+
+<P>&nbsp;</P>
+
+<HR>
+
+<A NAME="syntax"><H3>Syntax</H3></A>
+
+<P>Math Filter supports the following operators:</P>
+<P>
+<TABLE>
+<TR><TD><B>and</B></TD><TD><B>or</B></TD><TD><FONT SIZE=-1>&nbsp;&nbsp;(logical operators, either true or
+false)</FONT></TD></TR>
+<TR><TD><B>&lt;</B></TD><TD><B>&gt;</B></TD><TD><FONT SIZE="-1">&nbsp;&nbsp;(relational operators, either true or
+false)</FONT></TD></TR>
+<TR><TD><B>&lt;=</B></TD><TD><B>&gt;=</B></TD><TD>&nbsp;</TD></TR>
+<TR><TD><B>=</B></TD><TD><B>!=</B></TD><TD>&nbsp;</TD></TR>
+<TR><TD><B>+</B></TD><TD><B>-</B></TD><TD><FONT SIZE=-1>&nbsp;&nbsp;(arithmetic operators, type dependant)</FONT></TD></TR>
+<TR><TD><B>*</B></TD><TD><B>/</B></TD><TD>&nbsp;</TD></TR>
+</TABLE>
+
+<P><FONT SIZE="-1">The operator <B>!=</B> means 'not-equal-to'.</P>
+
+<P><FONT SIZE="-1">The symbols <B>&</B> or <B>&&</B> may be used instead of <B>and</B>
+and the symbols <B>|</B> or <B>||</B> may be used instead of
+<B>or</B>.</FONT></P>
+
+<P>The above table is order by decreasing precedence. Expressions are
+evaluated left-to-right. Parentheses can be used to force precedence,
+for example:<BR>
+<PRE>
+a &gt; 1 & b &lt; 1 | c = 1
+</PRE>
+is, by default, interpreted as:
+<PRE>
+(a &gt; 1 & b &lt; 1) | c = 1
+</PRE>
+but, by the addition of some parentheses, it can be changed to:
+<PRE>
+a &gt; 1 & (b &lt; 1 | c = 1)
+</PRE>
+</P>
+
+<P>The graphical representation of the filter rule makes it clear how
+the rule is being interpreted.</P>
+
+<P>Spot Attributes are referred to as
+<TT>MeasurementName.SpotAttrName</TT>. The data type of the spot
+attribute is determined, and the other operand in the term must match
+this type.</P>
+
+<P>As an example, assume Measurement M102 has two spot attributes,
+<TT>Cy3 Signal</TT> (an Integer), <TT>Call</TT> (a Char). These
+attributes are referenced like this:</P>
+
+<P>
+<PRE>
+( M102.Call = 'Y' and "M102.Cy3 Signal" &lt; 100 )
+</PRE>
+</P>
+
+<P>String constants are enclosed in &quot;double quotes&quot; and Char
+constants are enclosed in 'single quotes'. Double and Integer
+numerical values are specified as expected, and interpreted depending
+on context.</P>
+
+<P>Measurement or Spot Attribute names which contain white space or
+characters which mean something to the Math Filter (such as &lt; and
+&gt;) must be enclosed in double quotes, &quot;like this&quot;.</P>
+
+<P><HR></P>
+
+<A NAME="nans"><H3>Handling of NaN and Infinity values</H3></A>
+
+<P><B>Note:</B> This behaviour is different to that of versions prior to 1.0.4</P>
+
+<P>The special value '<TT>NaN</TT>' (<I>not-a-number</I>) is used to represent
+a value which is unknown or missing.</P>
+
+<P>All comparisions in which a <TT>NaN</TT> value is tested against any non-<TT>NaN</TT> value
+will be false, for example "<TT>NaN &gt; 3</TT>",  "<TT>NaN &gt;=
+-2000</TT>", "<TT>400 &lt; NaN</TT>"
+and "<TT>NaN &gt; NaN</TT>" are all false.</P> 
+
+<P><TT>NaN</TT> values are equal to other <TT>NaN</TT> values, for example "<TT>NaN
+&gt;= NaN</TT>", "<TT>NaN &lt;= NaN</TT>" and "<TT>NaN = NaN</TT>" are
+all true.</P>
+
+<P><TT>NaN</TT> values are not equal to any other value, for example "<TT>NaN
+= 1.0</TT>" is false.</P>
+
+<P>The special values '<TT>Infinity</TT>' and '<TT>-Infinity</TT>' represent positive and
+negative infinity respectively.</P>
+
+<P>Infinity values behave like extreme versions of normal values, so
+<TT>Infinity</TT> is greater than any other number, and
+<TT>-Infinity</TT> is less than any other number.</P>
+
+<P>Magnitude comparisons of <TT>NaN</TT> values with <TT>Infinity</TT>
+values are always false, for example "<TT>Infinity &lt; NaN</TT>" and
+"<TT>NaN &gt;= -Infinity</TT>" are both false. However, equality tests
+between <TT>NaN</TT> values with <TT>Infinity</TT> values behave as
+normal, so "<TT>Infinity = NaN</TT>" is false and "<TT>-Infinity !=
+NaN</TT>" is true.</P>
+
+<P>A complete description of how comparisons with <TT>NaN</TT>,
+<TT>-Infinity</TT> and <TT>-Infinity</TT> values work can be found <A
+HREF="../../../docs/DoubleCompare.html">here</A>.</P>
+
+<P><HR></P>
+
+<A NAME="grammar"><H3>Grammar Rules</H3></A>
+
+<P>A formal description of the grammar, in pseudo-BNF form is:</P>
+
+<FONT SIZE="-2">
+<TT>
+<BR>
+Filter    :=  Operand Operator Operand<BR>
+<BR>
+Operator  :=  BoolOp | RelOp | MathOp<BR>
+<BR>
+BoolOp    :=  'and' | 'or'<BR>
+<BR>
+RelOp     :=  '&lt;' | '&gt;' | '&gt;=' | '&lt;=' | '=' | '!='<BR>
+<BR>
+MathOp    :=  '+' | '-' | '*' | '/'<BR>
+<BR>
+Operand   :=  Constant | Variable| Operand  Operator  Operand<BR>
+<BR>
+Constant  :=  DoubleConstant | IntConstant | 'CharConstant' | "TextConstant"<BR>
+<BR>
+Variable  :=  MeasurementName | MeasurementSpotAttributeName<BR> 
+</TT>
+</FONT>
+
+<P><HR></P>
+
+<A NAME="commands"><H3>Plugin Commands</H3></A>
+
+<UL>
+<P><LI><TT>start</TT></P>
+<FONT SIZE=-1>
+<P>&nbsp;&nbsp;<TT>string : filter</TT><BR>
+</FONT></P>
+<P><LI><TT>stop</TT></P>
+</UL>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

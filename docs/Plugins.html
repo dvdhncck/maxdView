@@ -1,0 +1,155 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView Plugins</TITLE>
+</HEAD>
+<BODY>
+
+<H1><A NAME="intro">Plugins</H1>
+
+<UL>
+<LI>
+<A HREF="#about">About plugins</A>
+<LI>
+<A HREF="#manager">The Plugin Manager</A>
+<LI>
+<A HREF="#list">The Standard plugins</A>
+</UL>
+
+<HR>
+
+<A NAME="about"><H2>About plugins</H2></A>
+
+<P>Plugins provide an easy way to extend <B>maxdView</B> to add extra
+capabilites. Plugins can have a user interface and manipulate and
+display data in any way they want using the <B>maxdView</B> core as a
+support environment.</P>
+
+<P>The Java code for the plugins is not loaded until the plugin is
+<I>launched</I> by the user. This speeds up the loading of the main
+application, and reduces the memory footprint as functions which are
+not used never take up any space.</P>
+
+<P>Plugins are kept in a directory called <TT>plugins/</TT>, which is
+futher subdivided into directories for the main types of plugin. When
+<I>scanning</I> for plugins, the application will search any class
+files and directories in the file system starting at the "plugins/"
+directory.</P>
+
+<P>You can find out more about the plugins that are currently known to
+the system on the "<A HREF="About.html">About</A>" help page.</P>
+
+<P>Plugins can provide commands which allow you to access them from
+within your own code. You can write simple scripts which use these
+commands with the <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code Runner</A>
+plugin. A complete list of all plugin commands is <A
+HREF="PluginCommands.html">available</A>.</P>
+
+<P>Plugins that are downloaded from the <b>maxd</b>website, or created
+'locally' by a user will be installed in the
+<I>per-user</I> plugin hierarchy, which means they will only be
+available to the user who installed them. The <I>per-user</I> plugin
+hierarchy is seperate from the <I>shared</I> plugin hierarchy, which
+contains the set of 'standard' plugins that are shipped with
+<b>maxdView</b>. If a plugin in the <I>per-user</I> hierarchy has
+the same name as one in the <I>shared</I> hierarchy, then it will be
+used preferentially.</P>
+
+
+<P><HR></P>
+
+
+<A NAME="manager"><H2>The Plugin Manager</H2></A>
+
+<P>The <A HREF="PluginManager.html">Plugin Manager</A> is activated
+using the entry on the <B>System</B> menu.</P>
+
+<P>The Plugin Manager can automatically download new plugins (and
+updated versions of existing plugins) from the <B>maxdView</B> web
+site. It can also be used to un-install plugins that are not required
+and to change the order in which plugins are listed in the main
+menu.</P>
+
+<P>In addition, the Plugin Manager provides the "Rescan Plugins"
+feature which is used to 'manually' register new plugins with the
+system.</P>
+
+<P><HR></P>
+
+<A NAME="list"><H2>The supplied plugins</H2></A>
+
+<P>The set of plugins distributed with this version of the
+<B>maxdView</B> is:</P>
+
+<UL>
+<LI>App In A Box
+<LI>Cluster Manager
+<LI>Code Runner
+<LI>Compare Clusters
+<LI><FONT COLOR="#992222">Database Loader</FONT>
+<LI>Distogram
+<LI><FONT COLOR="#222299">Event Watcher</FONT>
+<LI>Filter By Clusters
+<LI>Filter By Name Or Value
+<LI>Filter By Selection
+<LI>HyperCube Plot
+<LI>Just-o-Clust
+<LI>Load Plain Text
+<LI>Math Filter
+<LI>Measurement Manager
+<LI>Multi Filter
+<LI>Name Munger
+<LI>Normalise
+<LI>Notepad
+<LI><FONT COLOR="#222299">Old Load Plain Text</FONT>
+<LI>Profile Filter
+<LI>Profile Viewer
+<LI><FONT COLOR="#992299">Read Native</FONT>
+<LI><FONT COLOR="#992299">RegExp Filter</FONT>
+<LI>Raw Write
+<LI>Reorder Measurements 
+<LI>Run External
+<LI>Save As Text
+<LI><FONT COLOR="#229922">Save To Database</FONT>
+<LI>Scatter Plot
+<LI>Simple Maths
+<LI>Sort Clusters
+<LI>Sort by Name or Value
+<LI><FONT COLOR="#229922">Space Plot</FONT>
+<LI>Spot Attributes
+<LI>Stack Plot
+<LI><FONT COLOR="#229922">Super Grouper</FONT>
+<LI><FONT COLOR="#992222">SVD</FONT>
+<LI>Text Explorer
+<LI>Web Plot
+<LI><FONT COLOR="#992222">Weka Cluster</FONT>
+<LI>Write Native
+<LI><FONT COLOR="#992222">XCluster</FONT>
+<LI>XML Exporter
+</UL>
+
+<P><I>(plugins coloured <FONT COLOR="#992299">like this</FONT> utilise
+public domain software that is distributed with maxdView)</I></P>
+
+<P><I>(plugins coloured <FONT COLOR="#992222">like this</FONT> require extra
+software that is not part of the maxdView distribution)</I></P>
+
+<P><I>(plugins coloured <FONT COLOR="#222299">like this</FONT> are
+provided for compatibility or testing reasons)</I></P>
+
+<P><I>(plugins coloured <FONT COLOR="#229922">like this</FONT> are new
+and/or experimental and therefore might not work as advertised and may
+have incomplete or misleading documentation)</I></P>
+
+<P>The <A HREF="Commands.html">Commands</A> help page contains an
+entry for each plugin currently available.
+
+<P><HR></P>
+
+<P>See also:</P>
+<UL>
+<LI><A HREF="ProgGuide.html">Programmer's Guide</A>
+<LI><A HREF="PluginTutorial.html">Writing a Plugin</A> tutorial
+</UL>
+</BODY>
+</HTML>

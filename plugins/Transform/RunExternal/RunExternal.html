@@ -1,0 +1,181 @@
+<HTML>
+<HEAD>
+<TITLE>Run External</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Run External</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<UL>
+<LI><A HREF="#select">Part One</A>: the program selection list
+<LI><A HREF="#define">Part Two</A>: Define an external program
+<LI><A HREF="#run">Part Three</A>: Select data and run the program
+</UL>
+<LI><A HREF="#examples">Example definitions</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>An interface to other programs or scripts; `Run External' sends
+some or all of the data to another program, and then attempts to parse
+the results produced by that program.</P>
+
+<P>`Run External' can export one or more Measurements, either to the
+standard input of a program, or to a temporary file which the external
+program can be told about via a command-line flag.</P>
+
+<P>The output of the program that has been invoked can be grabbed from
+the program's standard output, or loaded from a temporary file which
+the program has produced.</P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<TABLE><TR><TD><IMG SRC="select.jpg"></TD>
+<A NAME="select"><TD VALIGN=TOP><P><B>Part One:<BR> The program
+selection list</B></P><P>The main control panel of `Run External'
+displays a list of the programs which have already been defined and
+provides the following controls:</P></TD></A>
+</TR></TABLE>
+
+<TABLE>
+<TR><TD WIDTH=10%>&nbsp;</TD><TD WIDTH=90%>
+<P><B>Run</B> the selected program</P>
+<P><B>Edit</B> the definition of the selected program</P>
+<P><B>Delete</B> the definition of the selected program</P>
+<P><B>New</B> create a new program definition</P>
+</TD></TR></TABLE>
+
+<P>&nbsp</P>
+
+<TABLE><TR><TD><IMG SRC="define.jpg"></TD> <A NAME="define"> 
+<TD VALIGN=TOP><P><B>Part Two:<BR> Define an external
+program</B></P><P>This panel is displayed when you are creating a new
+external program definition, or editing an existing one.</P> </TD></a>
+</TR></TABLE>
+
+
+<TABLE>
+<TR><TD WIDTH=10%>&nbsp;</TD><TD WIDTH=90%>
+<P><B>Name</B> is the name that will be used in the program list (it
+does not have to correspond to the actual name of the executable
+file)</P>
+<P><B>Filename</B> specifies the full path and name of the program
+that you wish to be invoked</P>
+<P><B>Arguments</B> should contain any command-line parameters you
+want to be passed to the program as it is run. Special variables
+representing temporary file names can be used in this field, see
+below.</P>
+<P><B>Input format</B> comprises four down-down menu selections with
+which you describe what sort of data the external program is able to
+accept, and how the communication will occur.
+
+<UL>
+<LI><P>Choose between STDIN or temporary file mode for input data.</P>
+<LI><P>Choose the delimiter that will be used to separate columns in the
+data.</P>
+<LI><P>Choose what form of data can be understood by the script, options
+are 'No measurement', 'One measurement', 'Any set of measurements' and
+'Measurements of one type'.</P>
+<LI><P>Choose what (if any) source will be used to name the data rows.</P>
+</UL>
+
+<P><B>Output format</B> contains three down-down menu selections for
+describing the output format of the external program, and how the
+output communication will occur.
+
+<P><B></B>
+</TD></TR></TABLE>
+
+<P>&nbsp</P>
+
+<TABLE><TR><TD><IMG SRC="run.jpg"></TD>
+<A NAME="run"><TD VALIGN=TOP><P><B>Part Three:<BR> Select data and run
+the program</B></P>The dialog box appears before you run an external
+program, as lets you choose which data to send.
+program.</TD></a> </TR></TABLE>
+
+
+<P>&nbsp</P>
+
+<HR>
+
+<A NAME="examples"><H3>Example Definitions</H3></A>
+
+
+<P>Consider a hypothetical script called "<TT>mean</TT>" which accepts data in
+tab separated column form, like this: form:</P>
+
+<PRE>
+21431.31    43.21    54352.42   325432.1
+213.2143    3232.5   43242.5    3231.23
+5121.23     4123.2   54325.12   34.451
+</PRE>
+
+<P>and calculates the mean value on each line, producing an output file
+like this:</P>
+
+<PRE>
+67531.9
+41894.256
+42783.435
+</PRE>
+
+<P>The main thing to notice about this behaviour is that the same
+number of lines are output as were input, and that no symbolic names
+are present, only numbers. Any program which behaves like this can be
+described using the options presented in this example. A more complex
+example, in which the number of output lines is not the same as then
+number of input lines is described <A HREF="#complex">below</A>.</P>
+
+<P>To interface to this script, the <B>output format</B> selections
+should be <NOBR>"Tab delimited"</NOBR>, <NOBR>"One or more
+Measurements"</NOBR>, <NOBR>"No name"</NOBR> and the <NOBR><B>input
+format</B></NOBR> selections should be <NOBR>"Tab delimited"</NOBR>,
+<NOBR>"One Measurement"</NOBR>.</P>
+
+<P>In the case where the script can operate using standard input and
+output stream, then no additional description information is
+required.</P>
+
+<P>If the script does not understand standard input or output, then a
+temporary file can be used for either input or output (or
+both). Imagine that the "<TT>mean</TT>" script is normally operated from the
+command-line like this:
+<TT><PRE>
+ host%  ./mean -in my_data.txt -out result.txt
+</PRE></TT>
+
+`Run External' can save the input data in a temporary file, called
+for example 'temp1', and then execute the command:
+<PRE>
+ host%  ./mean -in temp1 -out temp2
+</PRE>
+
+and, once the "mean" script has completed, read the output data from
+the file 'temp2'.</P>
+
+<P>To do this, select 'Temporary file' in both the <B>output
+format</B> and <B>input format</B> selections and set the
+<B>Arguments</B> text-field to
+<PRE> 
+   -in %IN -out %OUT
+</PRE>
+
+The symbols '%IN' and '%OUT' will be replaced by the temporary
+filenames that `Run External' generates when you invoke this
+program. You can see these filenames (and change them) in the dialog
+box that appears before a program runs (see <A HREF="#run">Part
+Three</a> above).</P>
+
+<P><I>(more documentation to follow...)</I></P>
+
+</BODY>
+</HTML>

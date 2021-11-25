@@ -1,0 +1,299 @@
+HTML>
+<HEAD>
+<TITLE>Name Munger</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Name Munger</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The <I>Name Munger</I> plugin lets you add, replace and translate
+the different <A HREF="../../../docs/Concepts.html#spot">names and
+attributes</A> that can be associated with each Spot. For most
+operations, data is loaded from local text files.</P>
+
+<P>It is most useful for adding supplimentary information to
+Measurements (i.e. annotation of Probes and Genes) or for transforming
+from one naming or coding scheme to another.</P>
+
+<P><I>Name Munger</I> can also be used in conjuction with <A
+HREF="../../../docs/Filters.html">filters</A> to alter subsets of
+existing names or attributes.</P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P>The user interface reflects the five operations that <I>Name
+Munger</I> can perform: </P>
+
+<UL>
+<P><LI><A HREF="#copy"><B>Copy</B></A> one set of names or name
+attributes to another.</P>
+
+<P><LI><A HREF="#trans"><B>Translate</B></A> names or attributes using
+an
+
+<A HREF="#index">index file</A> or an <NOBR>'old name : new
+name'</NOBR> pair. Can also translate words to upper- or
+lower-case.</P>
+
+<P><LI><A HREF="#load"><B>Load</B></A> names or attributes from an <A
+HREF="#index">index file</A>.</P>
+
+<P><LI><A HREF="#save"><B>Save</B></A> names or attributes as an <A
+HREF="#index">index file</A>.</P>
+
+<P><LI><A HREF="#clear"><B>Clear/Set</B></A> mode can set names or
+name attributes to nulls, blanks, fixed values or values created by a
+<A HREF="#format">format string</A>.</P>
+
+</UL>
+
+<P>For all modes, the "Apply filter" checkbox determines whether the
+current filtering rules  (if any) will be applied to restrict the
+spots processed by the operation.<P>
+
+<P ALIGN=LEFT><HR ALIGN=LEFT WIDTH=25%></P>
+
+<A NAME="copy"><P><B>Copy</B></P></A>
+
+<P>This mode is used to move data between names or attributes. If for
+example you have loaded data from a file as "Probe name"s but later
+decide the data is really "Gene name"s then the use <B>Copy</B> mode
+to move the names.</P>
+
+<P>Select the source name or attribute in the first dropdown and the
+destination name or attribute in the second.</P>
+
+<P>You can choose whether null data (i.e. values that are not present)
+in the source will be copied or ignored. If they are ignored, then the
+previous data in the destination will be unaffected, otherwise it will
+be lost.</P>
+
+<P>The "Check" button will tell you have many values will be copied
+and how many old non-null values will be lost. The "Apply" button </P>
+
+<P ALIGN=LEFT><HR ALIGN=LEFT WIDTH=25%></P>
+
+<A NAME="trans"><P><B>Translate</B></P>
+
+<P>This mode translates data from one value to another. It is useful
+for 'decoding' one set of identifiers to another. The translations are
+specified using a text file in which each line contains the 'old' and
+'new' values separated by a TAB character.</P>
+
+<P>Translate mode can also be used to convert Names or Name Attributes
+to all upper- or lower-case characters.</P>
+
+<P><I>Example</I> Decoding Probe names:</P>
+
+<P>Assume you have Probe names that use some lab or array specific
+identifiers and you wish to convert the names to something that can be
+looked up in a database.</P>
+
+<P>You need to create a text file specifying how one set of
+identifiers relate to another set, such as this:</P>
+
+<TABLE WIDTH=80% BGCOLOR="#dddddd"><TR><TD>
+<PRE>
+Qq456.9     EC 102.45.1
+Qq382.8     EC 2.55.12
+Qq299.7     EC 34.01.18
+Qq573.5     EC 102.45.3
+</PRE>
+</TD></TR></TABLE>
+
+<P>(in this file, the probe names are on the left of the TAB character
+and the database identifiers are on the right)</P>
+
+<P>Select "Probe name"  in the  dropdown list and specify the name of
+the file in the first text field. You can press "Check" to find out
+how many names on the file match names in the current data without
+performing any changes. Press "Apply" to actually do the translation.</P>
+
+<P>If you only want to translate a single value, you can specify a one
+translate 'from' and 'to' pair of values instead of using a file.</P>
+
+<P>
+<P ALIGN=LEFT><HR ALIGN=LEFT WIDTH=25%></P>
+
+<A NAME="load"><P><B>Load</B></P>
+
+<P>This mode adds data from a file to a name or attribute. The data
+values are matched based on values in a different name or
+attribute.</P>
+
+<P><I>Example</I> To add descriptive information to Gene names:</P>
+
+<P>Assuming you have a text file like this:</P>
+
+<TABLE WIDTH=80% BGCOLOR="#dddddd"><TR><TD>
+<PRE>
+YGR008c   ATPASE STABILIZING FACTOR 15 KDA PROTEIN.
+YHR087w	  HYPOTHETICAL 12.0 KDA PROTEIN IN NAM8-GAR1.
+YNR001c	  CITRATE SYNTHASE, MITOCHONDRIAL PRECURSOR.
+....
+</PRE>
+</TD></TR></TABLE>
+
+<P>(each line contains a gene name followed by a TAB character followed
+by some descriptive text for the gene)</P>
+
+<P>Create a new attribute for Gene names (using the <A
+HREF="../../../docs/NameTagEditor.html">Name Tag Editor</A>). Call it
+something like "DESCRIPTION".</P>
+
+<P>Set the "Load" dropdown to "DESCRIPTION" (or whatever you called
+the new name attribute) and the "indexed by" dropdown to "Gene
+name". Use the "file" text box to specify the name of the text
+file. The "from column" should be set to 2 and the "in column" set to
+1 for this example.</P>
+
+<P>Any gene with a name that matches one of the names in the file will
+have the descriptive text loaded into it's "DESCRIPTION"
+attribute. </P>
+
+<P>Before doing the load you can press "Check" to find how how many
+gene names will be matched, and thus how many "DESCRIPTION" attributes
+will be set. If you are happy with the information press "Apply" to
+actually perform the load.</P>
+
+<P ALIGN=LEFT><HR ALIGN=LEFT WIDTH=25%></P>
+
+<A NAME="save"><P><B>Save</B></P>
+
+<P>Use this mode to write names or attributes to a plain text
+file. Each line will contain two elements separated by a TAB
+character. You can choose which names or attributes are used for both
+of the elements.</P>
+
+
+<P><I>Example</I> To save comment information that you have added to
+Probe names:</P>
+
+<P>If you have created a "COMMENT" attribute for Probe names and added
+information to one or more Probes (using the <A
+HREF="../../../docs/NameTagEditor.html">Name Tag Editor</A> or the <A
+HREF="../../../docs/ProgGuide.html">data API</A>) then you can export this
+information as follows.</P>
+
+<P>Set the "Save" dropdown to "COMMENT" and the "indexed by" dropdown
+to "Probe name". Choose a file name and press "Apply" to write the
+file. 
+
+<P ALIGN=LEFT><HR ALIGN=LEFT WIDTH=25%></P>
+
+<A NAME="clear"><P><B>Clear/Set</B></P>
+
+<P>This mode is used to reset the values or a name or attribute to
+empty or to a constant value.</P>
+
+<P>Use the dropdown menu to select the source name or attribute to modify.</P>
+
+
+<P>Choose between:</P>
+
+<UL>
+<LI><P><I><B>set all values to empty</B></I>
+<BR> set all values of the specified name or name attribute to the null string.</P>
+
+<LI><P><I><B>set all values to blank</B></I>
+<BR> set all values of the specified name or name attribute to a zero length string.</P>
+
+<LI><P><I><B>set all values to</B></I>
+<BR> use a <A HREF="#format">format string</A> modify all values in the specified name or name attribute.</P>
+</UL>
+
+<P>The <B>Apply filter</B> option and one or more <A
+HREF="../../../docs/Filters.html">filters</A> can be used limit the
+number of values that will be changed.</P>
+
+
+<P>&nbsp;</P>
+<P><HR></P>
+
+<A NAME="index"><P><B>Indexing</B></P></A>
+
+The term "file indexed by Spot names" refers to a file whose lines
+each begin with something to be interpreted as a Spot name, followed
+by a TAB character. For example:</P>
+
+<P><TABLE WIDTH=80% BGCOLOR="#dddddd"><TR><TD>
+<PRE>
+<TT>spot_023  \t  probe_XYZ_32a</TT>
+<TT>spot_025  \t  probe_XYZ_39a</TT>
+<TT>spot_026  \t  probe_XYZ_41bb</TT>
+<TT>...</TT>
+</TD></TR></TABLE></p>
+
+<P>(\t signifies the ASCII TAB character)</P>
+
+<P>All lines in these "Indexed" files must have two names separated by
+a TAB character. All other whitespace between the names is
+ignored. Lines without a TAB character are ignored. Names that are not
+recognised are silently ignored.</P>
+
+<P>The same rules apply for files indexed by any type of name or
+attributes.</P>
+
+<P><HR></P>
+
+<A NAME="format"><P><B>Format strings</B></P></A>
+
+<P>Format strings are used to convert a name or name attributes.</P>
+
+<P>They can be used to encoding commercially sensitive names, for
+example, or for automatically generating unique IDs for as-yet unknown
+entities.</P>
+
+<P>Format strings can include the variables:</P>
+<P>
+&nbsp;&nbsp;&nbsp;<B><TT>$N</TT></B> ... replaced by the the current
+name or name attribute<BR>
+&nbsp;&nbsp;&nbsp;<B><TT>$I</TT></B> ... replaced by a unique index, counting from
+1.<BR>
+&nbsp;&nbsp;&nbsp;<B><TT>$i</TT></B> ... replaced by a unique index, counting from
+0.<BR>
+&nbsp;&nbsp;&nbsp;<B><TT>$xI</TT></B> ...where 'x' is a single digit
+0....9,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gives a unique index, padded to x
+characters, counting from 1.<BR>
+</P>
+
+<P>All other characters in the format string will appear in the
+converted value. The "<TT>$</TT>" character can be included by
+specifying it as "<TT>$$</TT>" in the format string.</P>
+
+<P><I>Example:</I><BR>&nbsp;The format string "<TT>Probe_$I</TT>"
+generates a set of values of the form "<TT>Probe_1</TT>",
+"<TT>Probe_2</TT>", "<TT>Probe_3</TT>". The original names or name
+attributes are ignored.</P>
+
+<P><I>Example:</I><BR>&nbsp;The format string "<TT>BLANK</TT>" will convert any
+values into "<TT>BLANK</TT>".</P>
+
+<P><I>Example:</I><BR>&nbsp;The format string "<TT>$5i was ($N)</TT>" converts
+as follows:</P>
+
+<P><TT>&nbsp;&nbsp;ID_17</TT> &nbsp;&nbsp;--&gt;&nbsp; <TT>00000 (was ID_17)</TT><BR>
+<TT>&nbsp;&nbsp;ID_18</TT> &nbsp;&nbsp;--&gt;&nbsp; <TT>00001 (was ID_18)</TT><BR>
+<TT>&nbsp;&nbsp;ID_23</TT> &nbsp;&nbsp;--&gt;&nbsp; <TT>00002 (was ID_23)</TT><BR>
+<TT>&nbsp;&nbsp;ID_119</TT> &nbsp;--&gt;&nbsp; <TT>00003 (was ID_119)</TT>
+<P>&nbsp;&nbsp;and so on...</P>
+
+
+<P>&nbsp;</P>
+
+
+</BODY>
+</HTML>

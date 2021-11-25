@@ -1,0 +1,117 @@
+<HTML>
+<HEAD>
+<TITLE>Spot Attributes Viewer</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Spot Attributes</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The <I>Spot Attributes</I> viewer displays one or more <A
+HREF="../../../docs/Concepts.html#meas">Spot Attributes</A> in
+conjuction with any combination of Names and Name Attributes </P>
+
+<P><HR></P>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<CENTER><IMG SRC="SpotAttributes.jpg"></CENTER>
+
+<P>One of three possible lists can be displayed on the left-hand side of the panel:
+
+<TABLE WIDTH=95%>
+<TR><TD ALIGN=RIGHT>Names &amp; Name Attrs&nbsp;</TD><TD><I>a list of all Names and Name Attributes</I></TD></TR>
+<TR><TD ALIGN=RIGHT>Measurements&nbsp;</TD><TD><I>a list of all Measurements</I></TD></TR>
+<TR><TD ALIGN=RIGHT>Spot Attrs&nbsp;</TD><TD><I>a list of all Spot Attributes (which occur in one or more Measurement)</I></TD></TR>
+</TD></TR></TABLE>
+</P>
+
+<P>The three buttons above the list control which of the lists is
+currently displayed. The "<B>All</B>" and "<B>None</B>" buttons select
+all entries in the current list or none of the entries in the current
+list respectively.</P>
+
+<P>The right-hand side of the panel contains a table which displays
+the currently selected data. Nothing will appear in the table until at
+least one Measurement has been selected.</P>
+
+<P>Any number of Names and Name Attributes can be selected for
+inclusion in the table.</P>
+
+<P>Any number of Spot Attributes can be selected. A column is added to
+the table for each of the chosen Spot Attributes are added to the
+table which occurs in each of the selected Measurements.</P>
+
+<P>The columns in the able can be re-ordered by dragging their
+headings left or right. The width of individual columns can be changed
+by dragging the edges of the column heading left or right.</P>
+
+<P>The "<B>Apply filter</B>" option can be activated to remove Spots
+which are trapped by the current <A
+HREF="../../../docs/Filters.html">filter(s)</A> from the table.</P>
+
+<P>The "<B>Delete</B>" button permanently removes the currently selected
+SpotAttributes from the currently selected Measurements. Any
+combination of SpotAttributes and Measurements can be used, for
+example deleting one SpotAttribute from all Measurements, or deleting
+all SpotAttributes from a single Measurement.</P>
+
+
+<P>The "<B>Rename</B>" button allows the currently selected
+SpotAttribute to be renamed in the currently selected
+Measurements. Only one SpotAttribute can be renamed at a time, but the
+name can be changed in any combination of the Measurements. Renaming a
+SpotAttribute does not alter the data or the datatype of the
+SpotAttribute.</P>
+
+
+<P><HR WIDTH=33%></P>
+
+<A NAME="interface"><H3>Options</H3></A>
+
+<P>The "<B>Options</B>" button opens a dialog box containing a number of switches:</P>
+
+<UL>
+<P><LI>The "<B>Synchronise the Spot selection</B>" option keeps the row selection in
+the table synchronised with the current <A
+HREF="../../../docs/Concepts.html#selection">Spot selection</A>. </P>
+
+<P><LI>The "<B>Synchronise the Measurement selection</B>" option keeps
+the selection in the Measurement list synchronised with the current <A
+HREF="../../../docs/Concepts.html#selection">Measurement
+selection</A>. </P>
+
+<P><LI>The "<B>Always display the Measurement values</B>" option controls
+whether the expression values of selected Measurements are displayed
+in the table. When unselected, only Spot Attribute values are
+displayed.</P>
+
+<P><LI>The "<B>Expand SpotAttribute Names</B>" option determines whether
+Spot Attribute names are prefixed with the name of the Measurement
+they belong to.</P>
+
+<P><LI>When the "<B>Group SpotAttribute columns together</B>" option is
+selected, Spot Attributes columns are grouped together, when this
+option is not selected then Spot Attributes are grouped with the
+Measurement they belong to. </P>
+
+<P><LI>The "<B>Attempt to remember column layout</B>" option controls how the order of the columns in the table is maintained when columns are added or removed. When selected, the order is preserved as columms are added or removed, when unselected, the order is defined by the current Measurement order.</P>
+
+<P><LI>When the "<B>Attempt to remember column width</B>" option is
+selected, the width of columns is preserved as columns are added to or
+removed from the table. When unselected, column widths are reset
+whenever the table is altered.</P>
+
+<P>&nbsp;</P>
+
+</BODY>
+</HTML>

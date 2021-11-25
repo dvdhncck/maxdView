@@ -1,0 +1,107 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: Working with Clusters</TITLE>
+<META name="description" content="maxdView 0.8.x Working with Clusters">
+<META name="keywords" content="maxd, maxdView, microarray, expression, data,
+analysis, visualisation, visualization ,viewing">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><A NAME="top"><H1>Tutorial: Working with Clusters</H1></A></P>
+
+<UL>
+<LI><A HREF="#groups">Using Clusters to group things together</A>
+<LI><A HREF="#files">Generating files for the Cluster Manager to load</A>
+</UL>
+<P>This document describes the different parts of <B>maxdView</B> that
+allow you to create and visualise clusters.</P>
+
+<P>&nbsp;</P>
+
+<A NAME="groups"><P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Using
+Clusters to group things together</B></P></A>
+
+<P>Clusters are useful for storing groups of Spots, Probes Genes and
+Measurements.</P>
+
+<P>If you have used a filter to select an interesting set
+of Spots, creating a Cluster will allow you to quickly identify those
+Spots at a later time.</P>
+
+<P>For a practical example, we will use the the demonstration data
+file "<TT>tutorial1.maxd</TT>". See the <A HREF="Started.html">Getting
+started</A> tutorial for details on where to find this file.</P>
+
+<P>Once you have loaded "<TT>tutorial1.maxd</TT>", use a filter a
+isloate some of the Spots. For example use <A
+HREF="../plugins/Filter/FilterByNameOrValue/FilterByNameOrValue.html"><I>Filter
+by Name or Value</I></A> to select spots with "enzyme" in their Gene
+names.</P>
+
+<P>Start the <A HREF="../plugins/Viewer/ClusterManager/ClusterManager.html"><I>Cluster
+Manager</I></a> plugin. Selecting the "Create" option on the "Cluster"
+menu displays the following dialog box:</P>
+
+<CENTER><P><IMG SRC="images/CreateCluster.jpg"></P></CENTER>
+
+<P>Select the second option, "...from filtered Spots", then provide a
+name for the new Cluster. The newly created Cluster will have all of
+the Spots which pass through the filter as its elements.</P>
+
+<P>You will be able to see this new Cluster in the <A
+HREF="../plugins/Viewer/ClusterManager/ClusterManager.html"><I>Cluster
+Manager</I></a>s tree viewer. The new Cluster is allocated a random
+colour and glyph. The controls in the <A
+HREF="../plugins/Viewer/ClusterManager/ClusterManager.html"><I>Cluster
+Manager</I></a> allow you to change these properties. </P>
+
+<P>After you disable the filter (by closing its window) the new
+Cluster `remembers' which Spots were selected by the filter. If you use a
+plugin which can display Clusters, for example the <A
+HREF="../plugins/Viewer/ScatterPlot/ScatterPlot.html"><I>Scatter
+Plot</I></a>, you will be able to see the Cluster glyphs identifying
+the previously filtered Spots.</P>
+
+<P>Repeat the Cluster creating process using a different filter then
+use a <I>viewer</I> plugin to compare the two Clusters.</P>
+
+<P>The <A
+HREF="../plugins/Viewer/ClusterManager/ClusterManager.html"><I>Cluster
+Manager</I></a> provides several other ways of creating Clusters, such
+as loading names from a file or by combining existing clusters.</P>
+
+<A NAME="files"><P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Generating files for the Cluster Manager to load</B></P></A>
+
+<P>One method for loading Cluster data into <B>maxdView</B> is to
+generate files that the <A
+HREF="../plugins/Viewer/ClusterManager/ClusterManager.html"><I>Cluster Manager</I></A>
+can read.</P>
+
+<P>The simplest format 'List of Names' allows you to specify a single
+cluster in a file. Each line of the file should contain exactly one
+name, for example:</P>
+
+<PRE>
+YBR042c
+YBR108
+YBL012a
+YBL012b
+YLC0981
+</PRE>
+
+<P>You can specify any name or name attribute to match with. If one or
+more of the elements in the file match existing data then a cluster
+will be created. Names that are not recognised are ignored.</P>
+
+<P>The 'Native' file format allows you to create a hierarchy of
+clusters from a file. The format is human-readable and uses XML
+syntax. See the <A HREF="FileFormats.html#cluster">File Formats</a>
+for more details.</P>
+
+</P>
+<P>&nbsp;</P>
+
+
+</BODY>
+</HTML>

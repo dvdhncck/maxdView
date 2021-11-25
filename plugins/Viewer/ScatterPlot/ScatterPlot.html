@@ -1,0 +1,184 @@
+<HTML>
+<HEAD>
+<TITLE>Scatter Plot</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Scatter Plot</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#labels">Displaying labels</A>
+<LI><A HREF="#zoom">Zooming and panning</A>
+<LI><A HREF="#locate">Locating Spots or Measurements</A>
+<LI><A HREF="#plots">Displaying more than one plot</A>
+<LI><A HREF="#axes">Controlling the axes</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<IMG SRC="SampleImage1.jpg">
+
+<P>Show one or more corelation plots. Each plot shows how all values
+compare between two Measurements or two Spots. Name labels and cluster
+data can be overlayed on the plots.</P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P><H3><B>Defining the Plot</B></H3></P>
+
+<P>The panel along the top of the window controls which data is
+plotted and how it is displayed. 
+
+The controls are:</P>
+
+<P><IMG SRC="ControlPanel.jpg"></P>
+
+<OL>
+<P><LI>controls to add and remove plots and change the plot order
+<BR><FONT SIZE="-1">(see <A HREF="#plots">below</A>).</FONT></P>
+
+<P><LI>choose between a pair of Spots or a pair of Measurements</P>
+
+<P><LI>select the two Spots or Measurements used for
+positioning<P><FONT SIZE="-1">Each of the dots in the display are
+displayed using shapes drawn at positions determined by these two
+selections.</FONT></P></P>
+
+<P><LI>select the two Measurements used for sizing<P><FONT
+SIZE="-1">The size of shapes drawn for the Spots is determined by
+these two selections; the height and width of 0.the shape can either be
+a fixed for all Spots or be scaled by the values of a
+Measurement (used for example, for displaying error values)</FONT></P></P>
+
+<P><LI>a pair of scale controls <P><FONT
+SIZE="-1">The numbers in these boxes is used to scale the width and
+height of the shape to a range suitable for display.</FONT></P></P>
+
+<P><LI>select the fixed colour and shape. <P><FONT SIZE="-1">The shape
+can be oval, rectangle or diamond and can be filled or hollow. The
+colour can be fixed for all Spots (using the colour chooing button) or
+can be picked from any Measurement (using the drop-down list).</FONT></P></P>
+
+<P><LI>optionally apply the <A
+HREF="../../../docs/Concepts.html#filt">filter</A> and/or overlay <A
+HREF="../../../docs/Concepts.html#clust">cluster</A> glyphs.</P>
+
+</OL>
+
+<P>&nbsp</P>
+
+<A NAME="labels"><P><H3><B>Displaying labels</B></H3></P></A>
+
+<h4>Labelling a single item:</h4>
+
+<P>Click on any dot in the plot window to toggle display of a name
+label for that dot.</P>
+
+<h4>Labelling several things at once:</h4>
+
+<P>The 'Select' mouse mode is used to add labels to a collection of
+nearby items. In 'Select' mode, pressing and holding the left mouse
+button whilst dragging the mouse draws a box which can be used to
+select a region. When the mouse button is released all items within
+this region will be given labels.</P>
+
+<h4>Label Controls:</h4>
+
+<P>Any <A HREF="../../../docs/Concepts.html#names">Spot Name or
+Attribute</A> can be used for the labels. The first drop-down menu at
+the bottom of the window is used to select which name or name
+attribute to display as labels.</P>
+
+<P>The second drop-down menu contains several commands for controling
+label display:</P>
+
+<UL>
+<LI>Label all visible items
+<LI>Clear all labels
+<LI>Label all items
+<LI>Select all labelled items
+</UL>
+
+<P>&nbsp</P>
+
+
+<A NAME="zoom"><P><H3><B>Zooming and panning using the mouse</B></H3></P></A>
+
+<h4>Zoom mode:</h4>
+
+<P>Select the 'Zoom' mouse mode then press and hold the left mouse
+button and drag out a <I>rubber box</I> to define a zoom
+region. Release the button to zoom the display into the specified
+region.</P>
+
+<h4>Pan mode:</h4>
+
+<P>Select the 'Pan mouse mode then press and hold the left mouse
+button and draw a <I>rubber line</I> to define how to scroll the graph
+view. elease the button to redisplay the graph in the new position.</P>
+
+<h4>Previous views:</h4>
+
+<P>The <B>Back</B> button (in the bottom-left corner of the window)
+moves the display back after a zoom operation. Repeated presses of
+this button step backwards through the sequence of zooms or pans.</P>
+
+<h4>Resetting the view:</h4>
+
+<P>The <B>Reset view</B> button adjusts the scale so that all Spots
+are visible in all plots.</P>
+
+<P><B>Auto reset view</B> causes the
+view to rescale itself when changing from one Measurement to
+another. When this switch is off, the view position and scaling is
+unchanged when switching between Measurements.</P>
+
+<P>&nbsp</P>
+
+<A NAME="locate"><P><H3><B>Locating Spots or Measurements</B></H3></P></A>
+
+<P><A HREF="../../../docs/Concepts.html#drag">Drag-and-drop</A> can be
+used to locate particular Spots or Measurements in the plot. Drag a
+Spot or Measuremenr from the main display and drop it into the
+<I>Scatter Plot</I> window and the name will appear next to it on the
+plot. Dropping a Cluster onto the panel causes the names of all Spots
+or Measurement in the cluster to be displayed.</P>
+
+<P>&nbsp</P>
+
+<A NAME="plots"><P><H3><B>Displaying more than one plot</B></H3></P></A>
+
+<I>Scatter Plot</I> can display multiple plots at the same time. The
+'add plot' button (represented as a "+") appears to the left of the
+plot control panel (at the top of the window).</P>
+
+<P>The initial settings for a newly added plot are exactly the same as
+the existing plot. A new set of controls appears in the panel at the
+top of the window (the slider may have to be adjusted for these
+controls to become visible).</P>
+
+<P>When more than one plot is enabled, extra controls appear to the
+left of each of the plot control panels. These buttons are used to
+raise and lower a plot in the list (plots are drawn from
+top-to-bottom) and to delete a plot (the "X" icon).</P>
+
+<P>&nbsp</P>
+
+<A NAME="axes"><P><H3><B>Controlling the axes</B></H3></P></A>
+
+The axis scaling, labelling and title can be controlled via the panel
+that is displayed when the "Axes" button is pressed. More information
+about the axis controls can be found <A
+HREF="../../../docs/AxisManager.html">here</A>.
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

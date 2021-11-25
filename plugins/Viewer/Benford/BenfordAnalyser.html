@@ -1,0 +1,63 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<HTML>
+<HEAD>
+<TITLE>Benford Analyser</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Benford Analyser</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#commands">Plugin Commands</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The distribution of 1st significant digits in many real data sets is not uniform, 
+but follows Benford's law (F. Benford, ,<I>Proc. Am. Phil. Soc.</I>, <B>78</B> (1938), pp551-572). 
+In base 10 Benford's law says the probability, P(D), of D being the 1st significant digit is,</P>
+<BR>
+P(D) = log<SUB>10</SUB>(1 + D<SUP>-1</SUP>)
+<BR>
+
+<P>This curious statistical law, actually first noted by 
+Newcomb (S. Newcomb, <I>Amer. J. Math.</I>, <B>4</B> (1881), pp39-40), 
+says that numbers whose 1st significant digit is 1 occur approximately 
+30% of the time, whilst those whose 1st significant digit is 9 occur approximately 
+5% of the time. It has been noted recently (D.C. Hoyle et al, <I>Bioinformatics</I>, <B>18</B> 
+(2002), to appear) 
+that spot intensities from microarray experiments follow Benford's law very closely. This application 
+plots the frequency, f<SUB>D</SUB>, of 1st significant digits for the selected data set and compares it to 
+Benford's law. 
+The chi-squared statistic indicates the amount of agreement. The smaller the chi-squared value is, 
+the closer the agreement between the observed distribution of 1st significant digits and Benford's law.</P>
+
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P><IMG SRC="BenfordAnalysis.gif"></P>
+
+<BR>
+<P>
+The frequencies of 1st significant digits are calculated for the Measurement selected by the user from the 
+list of Measurements on the left hand side of the User-Interface. The frequencies are displayed in the graph 
+on the right hand side of the User-Interface. The Benford's law distribution is also shown on the graph as 
+a solid line. The chi-squared value, measuring the degree of agreement between the distribution of 
+1st significant digits in the selected Measurement and Benford's law, is shown above the graph.</P>
+
+<P><HR></P>
+
+<A NAME="commands"><H3>Plugin Commands</H3></A>
+
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

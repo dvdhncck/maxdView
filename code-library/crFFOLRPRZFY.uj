@@ -1,0 +1,30 @@
+
+public void doIt()
+{
+  try
+  {
+    int m_id = mview.getMeasurementChoice( );
+
+    double[] data = new double[ edata.getNumSpots() ];
+
+    for(int s=0; s < edata.getNumSpots(); s++)
+    {
+       double in = edata.eValue( m_id, s );
+
+       if(in == 0)
+          data[s]= 0;  // not right!
+       if(in > 0)
+          data[s]= Math.log(in);
+       else
+	  data[s] = 0.000000000001;
+     }
+
+     edata.addOrderedMeasurement( edata.new Measurement("logged " + edata.getMeasurementName(m_id), 
+                                  ExprData.ExpressionAbsoluteDataType, 
+                                  data ) );
+
+   }
+   catch(UserInputCancelled uic)
+   {
+   }
+}

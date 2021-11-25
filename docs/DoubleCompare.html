@@ -1,0 +1,481 @@
+<HTML><BODY>
+
+<h2>Numerical Comparisions</h2>
+
+
+<P>In additional to normal numerical values, there is a special value
+used for missing or unknown values and there are also special
+representations for positive and negative infinity. It is important to
+know how these special values interact with each other and with normal
+values when numerical comparisons are performed.</P>
+
+<P>
+<UL>
+<LI>The value 'NaN' (<I>not-a-number</I>) is used to represent a value
+which is unknown or missing.</P>
+
+<LI>The values 'Infinity' and '-Infinity' represent positive and
+negative infinity respectively.</P>
+</UL>
+</P>
+
+<P>The following tables show how comparisons between these three
+special values and normal numerical values will be evaluated.</P> 
+
+<P>In each table, the rows contains the value on the left-hand side
+of the equation and the columns contain the value on the right-hand
+side.</P>
+
+<P>For any comparison, e.g. "A = B", find the row corresponding to A
+and the column corresponding to B to see how the comparision will be
+evaluated.</P>
+
+<P>For example, to discover the result of the test "<TT>Infinity &gt;
+NaN</TT>": use the <I>greater than</I> table and check the intersection of
+the <I>second row</I> (for 'Infinity') and the <I>third column</I> (for 'NaN') to
+discover that the result is 'false' ; this means that 'Infinity' is not
+greater than 'NaN'.</P>
+
+
+<P>&nbsp;</P>
+
+
+<TABLE CELLSPACING=16>
+<TR><TD>
+
+<TABLE BORDER=1>
+
+<TR><TD BGCOLOR=#dddddd COLSPAN=7 ALIGN=CENTER><TT><B>&lt;</B></TT>&nbsp;&nbsp;<I>less than</I></TD></TR>
+
+<TR><TD>&nbsp;</TD>
+
+<TD ALIGN=CENTER BGCOLOR=#8888dd>-Infinity</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>Infinity</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>NaN</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>-1.0</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>0.0</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>1.0</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>-Infinity</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>Infinity</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>NaN</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>-1.0</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>0.0</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>1.0</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+</TABLE>
+
+</TD><TD>
+
+<TABLE BORDER=1>
+
+<TR><TD BGCOLOR=#dddddd COLSPAN=7 ALIGN=CENTER><TT><B>&lt;=</B></TT>&nbsp;&nbsp;<I>less than or equal to</I></TD></TR>
+
+<TR><TD>&nbsp;</TD>
+
+<TD ALIGN=CENTER BGCOLOR=#8888dd>-Infinity</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>Infinity</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>NaN</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>-1.0</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>0.0</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>1.0</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>-Infinity</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>Infinity</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>NaN</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>-1.0</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>0.0</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>1.0</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+</TABLE>
+
+</TD></TR><TR><TD>
+
+<TABLE BORDER=1>
+
+<TR><TD BGCOLOR=#dddddd COLSPAN=7 ALIGN=CENTER><TT><B>&gt;</B></TT>&nbsp;&nbsp;<I>greater than</I></TD></TR>
+
+<TR><TD>&nbsp;</TD>
+
+<TD ALIGN=CENTER BGCOLOR=#8888dd>-Infinity</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>Infinity</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>NaN</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>-1.0</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>0.0</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>1.0</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>-Infinity</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>Infinity</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>NaN</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>-1.0</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>0.0</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>1.0</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+</TABLE>
+
+</TD><TD>
+
+<TABLE BORDER=1>
+
+<TR><TD BGCOLOR=#dddddd COLSPAN=7 ALIGN=CENTER><TT><B>&gt;=</B></TT>&nbsp;&nbsp;<I>greater than or equal to</I></TD></TR>
+
+<TR><TD>&nbsp;</TD>
+
+<TD ALIGN=CENTER BGCOLOR=#8888dd>-Infinity</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>Infinity</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>NaN</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>-1.0</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>0.0</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>1.0</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>-Infinity</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>Infinity</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>NaN</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>-1.0</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>0.0</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>1.0</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+</TABLE>
+
+</TD></TR><TR><TD>
+
+<TABLE BORDER=1>
+
+<TR><TD BGCOLOR=#dddddd COLSPAN=7 ALIGN=CENTER><TT><B>=</B></TT>&nbsp;&nbsp;<I>equal to</I></TD></TR>
+
+<TR><TD>&nbsp;</TD>
+
+<TD ALIGN=CENTER BGCOLOR=#8888dd>-Infinity</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>Infinity</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>NaN</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>-1.0</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>0.0</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>1.0</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>-Infinity</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>Infinity</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>NaN</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>-1.0</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>0.0</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>1.0</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+</TABLE>
+
+</TD><TD>
+
+<TABLE BORDER=1>
+
+<TR><TD BGCOLOR=#dddddd COLSPAN=7 ALIGN=CENTER><TT><B>!=</B></TT>&nbsp;&nbsp;<I>not equal to</I></TD></TR>
+
+<TR><TD>&nbsp;</TD>
+
+<TD ALIGN=CENTER BGCOLOR=#8888dd>-Infinity</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>Infinity</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>NaN</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>-1.0</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>0.0</TD>
+<TD ALIGN=CENTER BGCOLOR=#8888dd>1.0</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>-Infinity</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>Infinity</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>NaN</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>-1.0</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>0.0</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+<TD ALIGN=CENTER>true</TD>
+</TR>
+
+<TR><TD ALIGN=RIGHT BGCOLOR=#88dd88>1.0</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>true</TD>
+<TD ALIGN=CENTER>false</TD>
+</TR>
+
+</TABLE>
+
+</TD></TR>
+
+</TABLE>
+
+</BODY></HTML>
+

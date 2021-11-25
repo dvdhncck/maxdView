@@ -1,0 +1,221 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: The Cluster APIs</TITLE>
+<META name="description" content="maxdView 0.8.x Working with Clusters">
+<META name="keywords" content="maxd, maxdView, microarray, expression, data,
+analysis, visualisation, visualization ,viewing">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><A NAME="top"><H1>Tutorial: The Cluster APIs</H1></A></P>
+
+<P><B>maxdView</B>s Cluster APIs allows you to interact with Cluster
+data from your own plugins, or via code-fragments in the <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code Runner</A>
+plugin.</P>
+
+<B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Accessing existing Clusters</B>
+
+<PRE>
+  ExprData.Cluster ExprData.getRootCluster() 
+</PRE>
+
+<P>This method returns the top-level cluster. From there you can use
+the clusters own <A HREF="#children">methods</a> to get its children one by one.</P>
+
+<PRE>
+  ExprData.Cluster maxdView.getCluster(String message)
+</PRE>
+
+<P>This method displays a dialog box with which the user can pick a
+cluster. If the user makes a selection, this cluster is returned.</P>
+
+<P><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Cluster Iterators</B></P>
+
+<P>The <TT>ClusterIterator</TT> provides an easy way to traverse the
+cluster hierachy. It is used as follows:</P>
+
+<PRE>
+  ExprData.ClusterIterator iterator = edata.new ClusterIterator();
+  ExprData.Cluster cluster = iterator.getCurrent();
+  while(cluster != null)
+  {
+     // do something with cluster
+     // ...
+     cluster = iterator.getNext();
+  }
+</PRE>
+
+<P>Other <TT>ClusterIterator</TT> methods can be used to adjust the
+search pattern:</P>
+
+<PRE>
+  public void    positionAt(Cluster c)    
+   <FONT SIZE="-1" COLOR="BLUE"> // move the iterator to the specified cluster</FONT>
+
+  public Cluster getFirstLeaf()
+   <FONT SIZE="-1" COLOR="BLUE"> // find the first cluster with no children</FONT>
+  public Cluster getNextLeaf()
+   <FONT SIZE="-1" COLOR="BLUE"> // find the first cluster with no children</FONT>
+</PRE>
+
+<P><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Elements and Element names</B></P>
+
+<P>The <I>elements</I>&nbsp; of a cluster is the ordered list of either Spots or
+Measurements that this cluster contains. A clusters <I>element
+names</I>&nbsp; is the list of Spot, Probe, Gene or Measurement names
+that was used to generate the <I>elements</I>.</P>
+
+<P>The reason for the distinction is that when clusters are specified
+by for example Gene names, there may be more elements than element
+names. If a Spot in the Measurement is a duplicate, then there will be
+multiple occurrences of the Gene name in that Spot.</P>
+
+<P>For example, consider a Measurement containing the folllowing
+ Spots:</P>
+
+<PRE>
+SpotName   ProbeName      
+A01        pr001
+A02        pr004
+A03        pr007
+B01        pr026
+B02        pr004
+</PRE>
+
+<P>Note that Probe 'pr004' is duplicated. If a cluster is created
+ using the <NOBR><I>element names</I></NOBR>&nbsp; 'pr001','pr004' then the <I>elements</I>&nbsp; will Spots
+ 'A01', 'A02' and 'B02'.</P>
+
+<P>The separation between elements and element names must be
+maintained in order that misleading cluster information is not
+created. The <TT>Cluster</TT> class provides methods for manipulating
+both elements and element names and attempts to keep the two
+synchronised.</P>
+
+<PRE>
+  int   getNumElements()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the number of elements</FONT>
+  int[] getElements()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns an array of Spot or Measurements indices</FONT>
+
+  int    getElementNameMode()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns one of the constants below</FONT>
+  Vector getElementNames()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the original names used to construct this cluster</FONT>
+  void setElementNames(int elem_name_mode, Vector elem_names)
+  <FONT SIZE="-1" COLOR="BLUE"> // use these constants for <B>elem_name_mode</B></FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>SpotName</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>SpotIndex</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>ProbeName</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>GeneName</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>MeasurementName</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>MeasurementIndex</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // and provide a collection of names in <B>elem_names</B></FONT>
+</PRE>
+
+<P>The <TT>getElements()</TT> method returns the actual Spot or
+Measurement indices. For example, the following code prints the
+cluster elements as Spot Names:</P>
+
+<PRE>
+  if(cluster.getElementNameMode() == ExprData.SpotIndex)
+  { 
+     int[] ids = cluster.getElements();
+     for(int s=0; s < ids.length; s++)
+       System.out.println( edata.getSpotName( ids[s] ) );
+  }
+</PRE>
+
+<P>If the example data used above were loaded, the following code
+would create a cluster containing the two Probes:</P>
+
+<PRE>
+  Vector name = new Vector();
+  names.addElement("pr001");
+  names.addElement("pr004");
+  ExprData.Cluster cluster = edata.new Cluster("Example",
+                                               ExprData.ProbeName,
+                                               names);
+</PRE>
+
+<P>This new cluster would have 3 elements.</P>
+
+<P>Although the newly created cluster exists, it has not been added to
+the data. To do this a parent for it must be chosen. The 'root'
+cluster is always present and is usually a good choice for new
+clusters. You can install the cluster as a child of root using the
+<TT>ExprData.addChildToCluster()</TT> method: </P>
+
+<PRE>
+  edata.addChildToCluster( edata.getRootCluster(), cluster );
+</PRE>
+
+
+<P><B><A NAME="children"><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Children</B></A></P>
+
+<P>Each cluster can have zero or more child clusters.</P>
+
+<PRE>
+  public int     getNumChildren()
+  <FONT SIZE="-1" COLOR="BLUE"> // return the number of children</FONT>
+  public Vector  getChildren()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns a <TT>java.util.Vector</TT> of <TT><B>Cluster</B></TT>s</FONT>
+  
+  public void addCluster(Cluster child)
+  <FONT SIZE="-1" COLOR="BLUE"> // adds a new child</FONT>
+
+</PRE>
+	
+<P>The <TT>Vector</TT> returned by <TT>getChildren()</TT> contains the
+child <TT>Cluster</TT> objects. You can access these objects using the
+usual <TT>Vector</TT> methods, for example:</P>
+
+<PRE>
+  ...
+  int nc = cluster.getNumChildren();
+  Vector ch = cluster.getChildren();
+  for(int c = 0; c < nc; c++)
+  {
+     ExprData.Cluster child = (ExprData.Cluster) ch.elementAt(c);
+     // do something with this cluster....
+  }
+</PRE>
+
+<P><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Visiblity, Colour and Glyph</B></P>
+
+<P>The visibility of the cluster (i.e. whether it is drawn or not, or
+counted in filters) is controlled using the following methods:</P>
+
+<PRE>
+  public boolean getShow()
+  public void setShow()
+</PRE>
+
+<P>The coloured glyph that is used when drawing the cluster can be
+changed using the following methods:</P>
+
+<PRE>
+  public Color getColour()
+  public void  setColour(Color c) 
+
+  public int  getGlyph()
+  public void setGlyph(int glyph_code)
+</PRE>
+
+<P>The glyph code is a number in the range 0..8 representing the
+available shapes: Shield, Arrow Up, Plus, Diamond, Cross, Arrow Down,
+Octagon, Hour Glass</P>
+
+
+<P><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Other useful methods</B></P>
+
+<PRE>
+  void  deleteCluster(Cluster)
+  void  removeAllClusters()
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,331 @@
+<HTML>
+<HEAD>
+<TITLE>Load Plain Text</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Load Plain Text</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#examples">Examples</A>
+</UL>
+
+<P><HR></P>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>This plugin imports data from a plain text file.</P>
+
+<P>The file can be in any of the encodings supported by Java,
+including ASCII and several types of 8 and 16 bit <A
+HREF="http://www.unicode.org/unicode/standard/standard.html">Unicode</A> encodings.</P>
+
+<P>Any type of column-oriented data can be loaded, for example:</P>
+
+<PRE>
+		        ROW   COL   Time_0    Valid   Time_10    Valid 
+       hum_xrna_23	 1     1    2.193427    Y     1.151119     Y   	
+       hum_xdna_23_II	 1     2    8.64423     N     -1.922       Y   	
+       hum_xrna_94	 1     7    2.6543      Y     +1.4226      Y   
+       hum_xrna_94	 5     2    -1.73525    Y     -1.24396     Y   
+       hum_xrna_94 II	 5    12    1.0916      Y     -8.66144     N   	
+</PRE>
+
+<P>The columns can be delimited by space, commas or TAB
+ characters.</P>
+
+<P>Missing numerical values can be signified by an empty column on the
+row, or by a user-specified text string.</P>
+
+<P>Files compressed using GZIP can be loaded directly without
+decompressing them first (the filename must have a ".gz" or ".zip"
+extension.</P>
+
+<P>Data is extracted from the file by tagging each of the rows and
+columns to indicate what type of data they contain (or whether they
+should be ignored). There are three methods by which the rows and
+columns can be tagged:</P>
+
+<UL>
+<LI>Drop-down controls shown on the left of each row and the top of
+each column</LI>
+<LI>A popup-menu which can be opened on any cell in the table</LI>
+<LI>The<A HREF="#quickset"><B>QuickSet</B></A> dialog box provides a
+fast way to tag sequences of rows or columns in one step </LI>
+</UL>
+
+
+<P>Several <A HREF="#examples">examples</A> are provided to illustrate
+the various ways in which data can be extracted files.</P>
+
+<P><HR></P>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+
+<CENTER><IMG ALIGN="CENTER" SRC="LoadPlainTextTable.jpg"></CENTER>
+
+<P>Two lines of controls at the top of the panel are used to select the source file and
+determine the basic parsing options:
+
+<UL>
+
+<LI>Enter the <B>File</B> name directly into the type-in field, or use the
+<B>Browse</B> button to open a file selection dialog box.<BR>Once a file has
+been chosen, it will be loaded at the contents will be displayed in
+the table.
+
+<P><LI>The <B>Mode</B> drop-down selects between replacing the current
+data with the contents of the file, or merging the new data with the
+existing data.<BR>See the <A HREF="../../../docs/Merging.html">Merging
+data</A> help page more details on how merging is performed.</P>
+
+<P><LI>The <B>Delimiter</B>, which is the character that is used to
+separate columns, can be selected as either "TAB", "Space" or
+"Comma".<BR>Changing this option will cause the file to be re-parsed and
+re-displayed.</P>
+
+<P><LI>A string can be specified as the <B>Comment prefix</B>. Lines
+in the file which begin with this prefix will be ignored.</P>
+
+<P><LI>A string can be specified as the <B>Missing value</B>. When it
+occurs in the file, this string will be ignored.<BR>For example, if the
+data file contains the string "BLANK" to signal an unknown value,
+enter "BLANK" in this control and all occurrences of the string will
+be ignored.<BR>Missing data values will be represented as "NaNs"
+(Not-A-Number) when the data is loaded.</P>
+
+</UL>
+</P>
+
+<P><HR></P>
+
+<P>Once  the  file has  been  loaded, the  main  panel  of the  plugin
+displays  the contents  of  the  file in  a  table.<BR>The table  also
+contains some controls  which are used to specify  how to extract data
+from each of the rows and columns:
+
+<UL>
+<LI>The first column of the table, coloured red, shows the row
+numbers.<BR>The first row of the table, also coloured red, shows the
+column numbers.
+
+<P><LI>The third row (coloured white on blue) of the table contains
+one drop-down selection control for each of the columns.<BR>These
+controls are used to tell the plugin how to interpret the
+columns (see <A HREF="#interp_col">below</A>).</P>
+
+<P><LI>The third column (also coloured white on blue) of the table
+contains one drop-down selection control for each of the
+rows. <BR>These controls are used to tell the plugin how to interpret
+the rows (see <A HREF="#interp_row">below</A>).</P>
+
+<P><LI>The fifth row (coloured grey on pink) contains text edit fields
+with which the <I>names</I> of the columns can be specified.<BR>The
+values in these fields are used to name Measurements and
+SpotAttributes.</P>
+
+</UL></P>
+
+<P><HR></P>
+
+<A NAME="interp_row"></A>
+<P>For each row, the interpreting modes are:</P>
+
+<CENTER><TABLE WIDTH="90%" BORDER="1" CELLSPACING="2" CELLPADDING="2">
+
+<TR><TD  WIDTH="30%"><P><I>Mode</I></P></TD><TD WIDTH="20%"><P><I>Frequency</I></P></TD><TD WIDTH="50%"><P><I>Meaning</I></P></TD></TR>
+
+<TR><TD><B>Ignore</B></TD> <TD>zero or more</TD> <TD>do not load extract any data from this row</TD></TR>
+
+<TR><TD><B>Data</B></TD> <TD>zero or more</TD> <TD>extract data values from this row</TD></TR>
+
+<TR><TD><B>ColumnHeader</B></TD> <TD>zero or one</TD> <TD>extract column names from this row</TD></TR>
+
+<TR><TD><B>MeasurementAttr</B></TD> <TD>zero or one</TD> <TD>extract <A HREF="../../../docs/Concepts.html#meas">Measurement Attributes</A> from this row</TD></TR>
+
+</TABLE></CENTER>
+
+<P>In this table, <I>Frequency</I> refers to how many times each of
+the interpreting modes can be used within a file, for example, there
+can be at most one column marked as "ColumnHeader" but any number of columns
+marked as "MeasurementAttr".</P>
+
+<P><HR></P>
+
+<A NAME="interp_col"></A>
+<P>For each column, the interpreting modes are:</P>
+
+<CENTER><TABLE WIDTH="90%" BORDER="1" CELLSPACING="2" CELLPADDING="2">
+
+<TR><TD  WIDTH="30%"><P><I>Mode</I></P></TD><TD WIDTH="20%"><P><I>Frequency</I></P></TD><TD WIDTH="50%"><P><I>Meaning</I></P></TD></TR>
+
+<TR><TD><B>Ignore</B></TD> <TD>zero or one</TD> <TD>do not load (or
+merge) this column</TD></TR>
+
+<TR><TD><B>SpotName</B></TD> <TD>zero or one</TD> <TD>Spot Names are
+optional, but must be unique if provided</TD></TR>
+
+<TR><TD><B>SpotNameAttr</B></TD> <TD>zero or more</TD> <TD>an
+attribute of the corresponding Spot name</TD></TR>
+
+<TR><TD><B>ProbeName</TD> <TD>zero or one</TD> <TD>Probe Names
+</TD></TR>
+
+<TR><TD><B>ProbeNameAttr</B></TD> <TD>zero or more</TD> <TD>an
+attribute of the corresponding Probe name</TD></TR>
+
+<TR><TD><B>GeneName</B></TD> <TD>zero or more</TD> <TD>Gene Names</TD> </TR>
+
+<TR><TD><B>GeneNameAttr</B></TD> <TD>zero or more</TD> <TD>an
+attribute of the first Gene name on this row</TD> </TR>
+
+<TR><TD><B>Data</TD> <TD>one or more</TD> <TD>Data columns may only contain numbers, blanks or "NaN"s</TD></TR>
+<TR><TD><B>DataAttrNext</B></TD> <TD>zero or more</TD> <TD>an attribute of the next Data column</TD></TR>
+<TR><TD><B>DataAttrPrev</B></TD> <TD>zero or more</TD> <TD>an attribute of the previous Data column</TD></TR>
+</TABLE></CENTER>
+
+<P>In this table, <I>Frequency</I> refers to how many times each of
+the interpreting modes can be used within a file, for example, there
+can be at most one column marked as "SpotName" but any number of columns
+marked as "SpotNameAttr".</P>
+
+<P>If no column is marked as "SpotName" then artifical names will be
+generated automatically.</P>
+
+<P>The "SpotNameAttr", "ProbeNameAttr" and "GeneNameAttr" modes allow
+you to add <A HREF="../../../docs/Concepts.html#spot">Name Attributes</A> to
+each of the types of name.</P>
+
+<P>The "DataAttrNext" and "DataAttrPrev" modes allow you to store <A
+HREF="../../../docs/Concepts.html#meas">Spot Attributes</A> along with
+the Measurement data. The data type of the Spot Attributes will be
+determined automatically based on the contents of the column.</P>
+
+<P><HR></P>
+
+<P>The <B>Data Colouring Scheme</B> is used to highlight the different varieties of data in the table.:
+
+<UL>
+
+<LI>Rows tagged as <B><TT>ColumnHeader</TT></B> are
+shown in green.
+
+<P><LI>Rows tagged as <B><TT>MeasurementAttr</TT></B> are
+shown in purple.</P>
+
+<P><LI>Rows and columns tagged as<B><TT>Ignore</TT></B> are shown with
+a grey background.</P>
+
+<P><LI>Rows which will be ignored because they start with the
+<B>Comment prefix</B> are shown with a grey background.</P>
+
+<P><LI>Cells that are blank or contain the specified 'missing value'
+are shown as white cells with a cross in the middle.</P> 
+
+</UL></P>
+
+<P><HR></P>
+
+
+<P>At the bottom of the panel are the <B>Commmand Buttons</B>
+
+<UL>
+<LI>The <B>AutoParse</B> button makes the plugin scan the data and
+guess the likely nature of each column. It also copies any names found
+in the <B>Col. names in</B> row.
+
+<P><LI>The <A HREF="#quickset"><B>QuickSet</B></A> button opens a dialog box which allows the
+interpreting mode for several rows or columns to be set in one
+go. This is handy, if for example, the first 1000 rows of the file
+should be ignored.</P>
+
+<P><LI>Once the parsing is satisfactory, the <B>Import</B> button
+starts the actual loading or merging process.</P>
+
+</UL></P>
+
+<P><HR></P>
+
+<A NAME="quickset"><H3>QuickSet</H3></A>
+
+<P>The QuickSet dialog box contains controls which allow the
+interpreting mode to be set for a sequence of rows or columns. It
+also provides a "<B>Save</B>" button which stores the current row and
+column settings in a file, and a "<B>Load</B>" button which retrieves
+the settings from a file. The file format for the row and column
+settings is very simple, and looks like this:
+
+<PRE>
+  Row 1 Ignore
+  Rows 2 to 7 Data
+  Row 8 Ignore
+  Columns 1 to 4 Ignore
+  Column 5 SpotName
+  Columns 6 to 9 Data
+</PRE>
+
+
+
+<P><HR></P>
+
+<A NAME="examples"><H3>Examples</H3></A>
+
+<P>The first example shows how Name Attributes and Spot Attributes can be extracted:</P>
+
+<IMG SRC="Example1.jpg">
+   
+<UL>
+<LI>Row 1 contains names that can be used as column
+headings, so it is tagged as "<TT>ColumnHeaders</TT>".
+
+<P><LI>Row 2 is blank, so it is tagged as "<TT>Ignore</TT>".</P> 
+
+<P><LI>Rows 3 to 7 contain data values and are therefore tagged as "<TT>Data</TT>".</P> 
+
+<P><LI>Column 1 contains values that can be used as "<TT>ProbeName</TT>".</P>
+
+<P><LI>Columns 2 and 3 contain the position of the Spot on
+the array, and so these columns are marked as "<TT>SpotNameAttr</TT>". Although
+no columns are tagged as "<TT>SpotName</TT>", the "ROW" and "COL" data will be
+assigned to the artifically generated Spot names.</P>
+
+<P><LI>Column 4 contains expression data values, so it is tagged as "<TT>Data</TT>".</P>
+
+<P><LI>Column 5 contains data which should be linked to values in
+Column 4 as it records whether data in the fourth column is `valid' or
+not. To achieve this it has been marked as
+"<TT>DataAttrPrev</TT>".</P>
+</UL>
+
+<P>&nbsp;</P>
+
+<P>The second example shows how Measurement Attributes can be extracted:</P>
+
+<IMG SRC="Example2.jpg">
+
+<UL>
+<LI>Rows 1 to 3 of this file contains data that can be used as
+Measurement Attributes, in this case values for "Sample", "Time" and
+"Temperature". These rows are tagged as "<TT>MeasurementAttr</TT>".
+
+<P><LI>Row 4 is blank, so it is tagged as "<TT>Ignore</TT>".</P> 
+
+<LI><P>Rows 5 to 8 contains the expression data values and are tagged as
+"<TT>Data</TT>".</P>
+
+<LI><P>Column 1 contains the names for the Measurement Attributes, so it
+is tagged as "<TT>MeasAttrName</TT>".
+
+<LI><P>Column 2 contains values that will be used as "<TT>GeneName</TT>".
+
+<LI><P>Columns 3 to 5 contains the expression data values, so they are
+tagged as "<TT>Data</TT>".</P>
+
+</UL>
+
+</BODY>
+</HTML>

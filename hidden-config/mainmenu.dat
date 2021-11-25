@@ -1,0 +1,59 @@
+maxdView menu format 1.0
++Menus
++Import
+Database Loader
+Load Plain Text
+Read Native
+-
++Export
+Save To Database
+Write Native
+Save As Text
+-
++Transform
+Code Runner
+Simple Maths
+SVD
+Run External
+Sort by Name or Value
+Name Munger
+Normalise
+Reorder Measurements
+Sort Clusters
+Super Grouper
+Weka Clustering
+XCluster
+Data Munger
+TTest
+-
++Filter
+Filter By Selection
+Math Filter
+Filter By Clusters
+Multi Filter
+Profile Filter
+RegExp Filter
+Filter By Name Or Value
+!Filter By List
+-
++View
+Benford Analyser
+Cluster Manager
+Distogram
+Compare Clusters
+HyperCube Plot
+Just-o-Clust
+Measurement Manager
+Profile Viewer
+Scatter Plot
+Spot Attributes
+Text Explorer
+Zipf Analyser
+Web Plot
+QCChart
+!App In A Box
+!Event Watcher
+!Notepad
+!Stack Plot
+-
+-

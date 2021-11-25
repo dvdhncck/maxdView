@@ -1,0 +1,38 @@
+maxdView: LoadFromDatabase 
+JVM: 1.4.2_05-b04 from Sun Microsystems Inc.
+OS: Windows XP 5.1 on x86
+Host: jdbc:mysql://127.0.0.1/Giles1
+
+java.lang.NullPointerException
+	at Controller.expandReverseRecursiveLinks(Controller.java:2506)
+	at Controller.retrieveLinkedInstances(Controller.java:2126)
+	at Controller.findLinkedInstances(Controller.java:1762)
+	at LoadFromDatabase.browseInstancesHaveBeenSelected(LoadFromDatabase.java:1115)
+	at LoadFromDatabase$4.valueChanged(LoadFromDatabase.java:255)
+	at javax.swing.JList.fireSelectionValueChanged(JList.java:1321)
+	at javax.swing.JList$ListSelectionHandler.valueChanged(JList.java:1335)
+	at javax.swing.DefaultListSelectionModel.fireValueChanged(DefaultListSelectionModel.java:187)
+	at javax.swing.DefaultListSelectionModel.fireValueChanged(DefaultListSelectionModel.java:157)
+	at javax.swing.DefaultListSelectionModel.setValueIsAdjusting(DefaultListSelectionModel.java:554)
+	at javax.swing.JList.setValueIsAdjusting(JList.java:1675)
+	at javax.swing.plaf.basic.BasicListUI$MouseInputHandler.mouseReleased(BasicListUI.java:1371)
+	at java.awt.AWTEventMulticaster.mouseReleased(AWTEventMulticaster.java:232)
+	at java.awt.AWTEventMulticaster.mouseReleased(AWTEventMulticaster.java:231)
+	at java.awt.Component.processMouseEvent(Component.java:5100)
+	at java.awt.Component.processEvent(Component.java:4897)
+	at java.awt.Container.processEvent(Container.java:1569)
+	at java.awt.Component.dispatchEventImpl(Component.java:3615)
+	at java.awt.Container.dispatchEventImpl(Container.java:1627)
+	at java.awt.Component.dispatchEvent(Component.java:3477)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:3483)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:3198)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:3128)
+	at java.awt.Container.dispatchEventImpl(Container.java:1613)
+	at java.awt.Window.dispatchEventImpl(Window.java:1606)
+	at java.awt.Component.dispatchEvent(Component.java:3477)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:456)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:151)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:145)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:137)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:100)

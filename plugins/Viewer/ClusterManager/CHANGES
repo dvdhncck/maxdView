@@ -1,0 +1,16 @@
+Cluster Manager
+
+17/4/2000
+
+	added tree expand and collapse commands
+	
+	tree now remembers it's state when clusters are
+	added or deleted
+
+	panel now remembers size and layout of components
+
+10/6/2000
+
+	fixed panel re-sizing
+	      
+	

@@ -1,0 +1,331 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView ISYS Integration</TITLE>
+</HEAD>
+<BODY>
+
+<H1>maxdView ISYS Integration</H1>
+
+<P>This document describes how <B>maxdView</B> can run as a client of
+the NCGR's <A HREF="http://www.ncgr.org/isys/">ISYS</A> integration
+system (see <A
+HREF="http://www.ncgr.org/isys/">http://www.ncgr.org/isys/</a> for
+full details of ISYS).</P>
+
+
+<P>Data tranfer is based on collections of one or more
+Spots. <B>maxdView</B> can send any combination of <A
+HREF="Concepts.html#spot">Names and Name Attributes</A> to other ISYS
+components.</P>
+
+<P>If some data has been sent from <B>maxdView</B> to other ISYS
+viewer services then <B>maxdView</B> is said to be synchronised with
+the components providing those services. When viewers are
+synchronised, ISYS keeps the data selection the same in each. Altering
+the <A HREF="Concepts.html#sel">selection</A> in one component will
+have a corresponding effect in all other synchronised components.</p>
+
+<P>The ISYS "hide and show" facility is integrated with
+<B>maxdView</B> via the <A HREF="Concepts.html#filt">filter</A>
+mechanism. If one or more filters are enabled in <B>maxdView</B>, hide
+and show events will be sent to other ISYS components sharing the same
+data.  Similarly, when Spots are hidden by an ISYS component, a
+corresponding filter is installed in <B>maxdView</B>. See <A
+HREF="#filter">below</A> for more details.</P>
+
+<P>&nbsp</P>
+
+<P><HR></P>
+
+<UL>
+<LI><A HREF="#package"><B>Packaging data to send to ISYS</B></A>
+<LI><A HREF="#match"><B>Matching data from ISYS</B></A>
+<LI><A HREF="#showhide"><B>Show and Hide</B></A>
+<LI><A HREF="#capture"><B>Data Capture</B></A>
+<LI><A HREF="#opts"><B>The ISYS Options Panel</B></A>
+</UL>
+
+<P><HR></P>
+
+<P>&nbsp</P>
+
+<A NAME="package"><H2>Packaging data to send to ISYS</H2></A>
+
+<P>ISYS is a centralised broker that enables communication between
+two or more individual components (such as <B>maxdView</B>).</P>
+
+<P>ISYS provides a feature called Dynamic Discovery. This allows
+clients (in this case <B>maxdView</B>) to find out about
+<I>services</I> offered by other ISYS components.</P>
+
+<P>Two types of service are supported; <I>viewer services</I> which
+provide a visualisation capability and <I>data services</I> which
+perform data manipulation. <B>maxdView</B> can send Spots to either
+type of service (and optionally capture the output from data services,
+see <A HREF="#capture">below</A>).</P>
+
+<P>Communication to ISYS is via the current <A
+HREF="Concepts.html#sel">Spot selection</A>. The ISYS Dynamic
+Discovery mechanism is invoked whenever the the selection is
+changed.</P>
+
+<P>Each available service will be represented in the "Send to" submenu
+on the <A HREF="Popup.html#select">Selection</A> popup menu.</P>
+
+<P><CENTER><IMG SRC="images/maxdViewISYSSendTo.jpg"></CENTER></P>
+
+<P><A NAME="packmap"><H3>Defining the "Data Packer" mapping</H3></A></P>
+
+<P>Before <B>maxdView</B> can talk to ISYS, a common terminology must
+be agreed on. The <B>maxdView</B> Spot data must be converted into the
+format supported by ISYS. You must specify how ISYS should interpret
+each of <B>maxdView</B>'s <A HREF="Concepts.html#spot">Names and Name
+Attributes</A>. This is done using the "Data Packer"
+dialog box:</P>
+
+<P><CENTER><IMG SRC="images/maxdViewISYSPackager.jpg"></CENTER></P>
+
+<P>The dialog box contains entries for all of the Names and Name
+Attributes in the current <B>maxdView</B> data. The
+"Include" check box on the left of each line controls whether the Name or Name
+Attribute will be included in the data sent to ISYS.</P>
+
+<P>Each of the Names or Name Attributes can be linked to one ISYS
+Attribute. More than one Name or Name Attribute can be linked to the
+same ISYS Attribute.</P>
+
+<P>The mapping specified in this dialog remains in force after the
+dialog box is closed. The dialog will not be redisplayed unless Name
+Attributes are added or removed from the <B>maxdView</B> data. If this
+has happened, then the dialog box will be redisplayed before any more
+data is sent to ISYS.</P>
+
+<P>For best results, always include the <B>maxdView</B> <TT>Spot
+Name</TT>s. As they are guaranteed to be unique, they are ideal for
+subsequent <A HREF="#match">matching</A>.</P>
+
+<H3>ISYS Object model</H3>
+
+
+<P>When sending data, <B>maxdView</B> generates one ISYS Object for
+each Spot. The Name and Name Attributes specified as included in the
+mapping are stored as ISYS Attributes within the ISYS Object.</P>
+
+<P>&nbsp</P>
+
+<P><HR></P>
+
+<A NAME="match"><H2>Receiving and matching data from ISYS</H2></A>
+
+
+<P>When <B>maxdView</B> receives data from ISYS, a <I>mapping</I> is
+needed to specify how the ISYS Attributes are converted into
+<B>maxdView</B>'s <A HREF="Concepts.html#spot">Names and Name
+Attributes</A>. This mapping is normally the inverse of the mapping
+used to convert from <B>maxdView</B> to ISYS (see <A HREF="#packmap">above</A>).</P>
+
+<P>Each time a new ISYS Attribute is encountered, the "Data Matcher"
+dialog box will be displayed:</P>
+
+<P><CENTER><IMG SRC="images/maxdViewISYSMatcher.jpg"></CENTER></P>
+
+<P>Each of the possible ISYS Attributes can be matched with one of the
+<A HREF="Concepts.html#spot">Names and Name Attributes</A> in the
+current <B>maxdView</B> data.</P>
+
+<P>Use the dropdown menus to select which Name or Name Attribute to
+compare each ISYS Attribute with. The "Ignore" option can be used to
+cause <B>maxdView</B> to disregard certain ISYS Attributes that are
+not of interest.</P>
+
+<P>When <B>maxdView</B> receives one or more ISYS Objects, it uses the
+mapping to determine how the ISYS Attributes in the received data are
+related to the Names and Name Attributes in the data it already
+has.</P>
+
+<P>Given a suitable mapping, the incoming data can be matched with
+Spots in the existing data. The values of the ISYS Attributes can be
+compared with values in the <B>maxdView</B> Names and Attributes to
+determine which ISYS Objects correspond with which Spots.</P>
+
+<P>Use the checkboxes on the right of each line to select which ISYS
+Attribute to use for matching. You may select more than one attribute
+as candidates for matching. When more than one match option exists,
+<B>maxdView</B> will choose the first one in the list that is present
+in the data that it receives. </P>
+
+<P>For best results, use <TT>Spot Name</TT>s for matching as they are
+guaranteed to be always be present and unique.</P>
+
+<H3>Example One</H3>
+
+<P>The following example shows how some ISYS format data (in the table on the
+left) can be matched with the same data in <B>maxdView</B>.</P>
+
+<P><CENTER><IMG SRC="images/maxdViewISYSExample2.jpg"></CENTER></P>
+
+<P>Using the "Data Matcher" dialog, the ISYS Attribute "ORFName" has
+been mapped to <B>maxdView</B>'s "Gene Name(s)" and selected to use
+for matching.</P>
+
+<P><CENTER><IMG SRC="images/maxdViewISYSExampleMatch2.jpg"></CENTER></P>
+
+<P>Three of the four ISYS objects can be matched with Spots by
+comparing "ORFName" with "Gene Name(s)". These matches are shown by
+the blue lines.</P>
+
+<P>Note that one object (<TT>YRD444</TT>) matches with two Spots in
+the <B>maxdView</B> data. Matches of the form "one-to-many" are handled
+automatically.</P>
+
+
+<H3>Example Two</H3>
+
+<P>In this second example, the ISYS Attribute "GeneSymbol" has been
+mapped to a <B>maxdView</B> Name Attribute called "Symbol". This
+mapping has then been selected for use in matching.</P>
+
+<P><CENTER><IMG SRC="images/maxdViewISYSExampleMatch1.jpg"></CENTER></P>
+
+<P>The follow picture shows the reduced level of matching that is
+achieved:</P>
+
+<P><CENTER><IMG SRC="images/maxdViewISYSExample1.jpg"></CENTER></P>
+
+<P>Two of the four ISYS objects can be matched with Spots by comparing
+"GeneSymbol" with "Symbol". The <TT>YRD444</TT> object (which
+previously matched two <B>maxdView</B> Spots) is ignored because it
+has no "GeneSymbol".</P>
+
+<P>&nbsp</P>
+
+<P><HR></P>
+
+<A NAME="showhide"><H2>Show and Hide</H2></A>
+
+<H3>Sending show/hide events</H3>
+
+<P>When one or more <B>maxdView</B> <A
+HREF="Concepts.html#filt">filter</A>s are enabled, ISYS "show" and
+"hide" events are sent to any synchronised components. These events
+will cause the components to hide ISYS Objects corresponding to
+filtered Spots.</P>
+
+<P>The mapping specified in the "Data Packer" dialog (see <A
+HREF="#packmap">above</A>) is for converting <B>maxdView</B> Spots
+into ISYS Objects.</P>
+
+<H3>Receiving show/hide events</H3>
+
+<P>When <B>maxdView</B> notices that a synchronised component has
+"hidden" one or more objects, it uses the <A
+HREF="#match">matching</A> process to convert the objects to Spots,
+and then installs a <A HREF="Concepts.html#filt">filter</A> which
+hides those Spots.</P>
+
+<P>The 'ISYS' filter is identical to other <B>maxdView</B> filters
+except tht it has no user interface. The filter is controlled
+automatically in response to ISYS "hide" and "show" events. When there
+are no hidden objects the filter is removed. The "<A
+HREF="Commands.html#filt">Filter</A>" menu in the main display will
+indicate the percentage of data that is currently hidden.</P>
+
+
+<P><B>Note:</B> Sending and receiving of show and hide events can be
+disabled using the <A HREF="#opts">ISYS Options</A> panel.</P>
+ 
+<P>&nbsp</P>
+
+<P><HR></P>
+
+<A NAME="capture"><H2>Data Capture</H2></A>
+
+<P><B>maxdView</B> can 'capture' data that is received from ISYS data
+services.</P>
+
+<P>Normally the result of calling an ISYS data service is sent to
+another ISYS component. When <I>capture mode</I> is enabled  the values of the
+ISYS Attributes can be stored in <B>maxdView</B> <A
+HREF="Concepts.html#spot">Names and Name Attributes</A>.</P>
+
+<P>This feature enables useful information provided by ISYS
+components (such as the "ORF to Gene Converter") to be added to
+existing <B>maxdView</B> data.</P>
+
+<P>Capture mode is enabled using the "Allow capture" checkbox in the
+<A HREF="#opts"><NOBR>ISYS Options Panel</NOBR></a>. In capture mode,
+a variant of the "Data Matcher" dialog is displayed when data is
+received from an ISYS data service:</P>
+
+<P><CENTER><IMG SRC="images/maxdViewISYSGrabber.jpg"></CENTER></P>
+
+<P>This "Capture Data" dialog has the same mapping controls as the
+"Data Matcher" dialog (see <A HREF="#match">above</A>). 
+
+<P>The "Capture" button at the bottom of the dialog starts the capture
+process. Once the ISYS Objects have been matched with <B>maxdView</B>
+Spots, each ISYS Attribute that is not mapped to "Ignore" is examined
+for 'new' values. 'New' refers to values not present in the
+<B>maxdView</B> Name or Name Attribute that the ISYS Attribute has
+been mapped to. Any new or different values in the ISYS data are
+stored in the <B>maxdView</B> data.</P>
+
+
+<P>The "Capture Data" dialog also contains a dropdown menu with a list
+of possible ISYS services. Beside the menu is a "Send" button. You
+can use these controls to send the data directly back to ISYS without
+capturing any of it.</P>
+
+<P><B>Note:</B> Capture mode is disabled by default because it is
+possible to set up mappings that cause data to become "scambled". Not
+all ISYS components use the same "one spot per object" model as
+<B>maxdView</B>. Capturing data from components such as "ORF to Gene
+Converter" works correctly, but you are advised to use this feature
+on other components with care.</P>
+
+<p>&nbsp</P>
+
+<P><HR></P>
+
+<A NAME="opts"><H2>The ISYS Options Panel</H2></A>
+
+<P>The options panel is accessed using the "ISYS Options" entry on the
+<A HREF="Popup.html">popup</A> menu in the main display.</P>
+
+<P><I>(This entry is only available when <B>maxdView</B> is
+running as an ISYS client.)</I></P>
+
+<P><CENTER><IMG SRC="images/maxdViewISYSOptions.jpg"></CENTER></P>
+
+<UL>
+<P><LI><B>Packing</B></P>
+
+<P>The "Edit mapping" button opens the "Data Packer" mapping dialog
+box.</P>
+
+<P>By default, ISYS objects are cached were possible. If you are
+running short of memory, caching can be disabled using the "Enable
+caching" checkbox.</P>
+
+<P><LI><B>Matching</B></P>
+
+<P>The "Edit mapping" button opens the "Data Matcher" mapping dialog
+box.</P>
+
+<P>The <A HREF="#capture">Capture mode</A> can be enabled
+using the "Allow capture" checkbox.</P>
+
+<P><LI><B>Show/Hide</B></P>
+
+<P>The sending and receiving of "show" and "hide" events can be
+independantly controlled by these two checkboxes.</P>
+
+<P><LI><B>Selection</B></P>
+
+<P>The "Scroll display" option makes the main display scroll to show
+each new Spot as they are selected.</P>
+
+</UL>
+
+</BODY>
+</HTML>

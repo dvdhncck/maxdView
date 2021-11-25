@@ -1,0 +1,3 @@
+Ex2 < Ex7 and Ex12 >= Ex7
+Ex2 < Ex7  or  Ex12 >= Ex7
+Ex2.owner="Susan"

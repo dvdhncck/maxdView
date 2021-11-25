@@ -1,0 +1,234 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: Compare Clusters Plugin</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Compare Clusters</H2>
+
+<P><TABLE WIDTH=100% BGCOLOR="#555555" CELLPADDING=1><TR><TD VALIGN=MIDDLE><A NAME="overview"><FONT SIZE="+1" COLOR="#eeeeee">&nbsp;Overview</FONT></A></TD><TD VALIGN=MIDDLE ALIGN=RIGHT><A HREF="#interface"><IMG BORDER=0 SRC="../../../images/docnext.gif"></A></TD></TR></TABLE></P>
+
+<P>The <I>Compare Clusters</I> plugin compares the contents of two
+clusters and reports how where they match and where they differ. It is
+useful for examining the differences between different clustering
+algorithms and/or parameters.</P>
+
+<P>
+&nbsp;&nbsp;<A HREF="#algorithm">The Algorithm</A><BR>
+&nbsp;&nbsp;<A HREF="#interface">User interface</A><BR>
+&nbsp;&nbsp;<A HREF="#example">Example</A>
+</P>
+
+<P><TABLE WIDTH=100% BGCOLOR="#555555" CELLPADDING=1><TR><TD VALIGN=MIDDLE><A NAME="algorithm"><FONT SIZE="+1" COLOR="#eeeeee">&nbsp;The Algorithm</FONT></A></TD><TD VALIGN=MIDDLE ALIGN=RIGHT><A HREF="#overview"><IMG BORDER=0 SRC="../../../images/docprev.gif"></A><A HREF="#interface"><IMG BORDER=0 SRC="../../../images/docnext.gif"></A></TD></TR></TABLE></P>
+
+<P>The algorithm <TT>compare cluster A with cluster B</TT> proceeds as
+follows:</P>
+
+<PRE>
+
+  foreach cluster A' in A
+    find smallest cluster B' in B where A' is a subset of B'
+    find B'', the smallest subset of B' where A' is a subset of B''
+    calculate coverage metric for A' over B''
+
+</PRE>    
+
+<P>The <TT>coverage metric</TT> is a measure of how many of the
+elements in one set of clusters are found in another set of
+clusters. If the two sets both contain exactly the same spots and no
+others then the coverage value is 100%.</P>
+
+<A NAME="metric"><PRE>
+ coverage_metric (A over B) = ( intersect_AB_count / B_count )
+
+ where
+  intersect_AB_count = number of elements in the intersection of A and B
+  B_count = number of element in B
+</PRE></A>
+
+<P>The operation of this plugin is best explained with an <A
+HREF="#example">example</A>.</P>
+
+
+<P>&nbsp</P>
+
+
+<P><TABLE WIDTH=100% BGCOLOR="#555555" CELLPADDING=1><TR><TD VALIGN=MIDDLE><A NAME="interface"><FONT SIZE="+1" COLOR="#eeeeee">&nbsp;User Interface</FONT></A></TD><TD VALIGN=MIDDLE ALIGN=RIGHT><A HREF="#algorithm"><IMG BORDER=0 SRC="../../../images/docprev.gif"></A><A HREF="#example"><IMG BORDER=0 SRC="../../../images/docnext.gif"></A></TD></TR></TABLE></P>
+
+<P>The interface is divided into three panels which are accessed in
+sequence:</P>
+
+<P>
+&nbsp;&nbsp;<A HREF="#pick">Pick clusters</A>
+&nbsp;&nbsp;<A HREF="#set">Set options</A>
+&nbsp;&nbsp;<A HREF="#view">View results</A>
+</P>
+
+
+<P><TABLE WIDTH=100% BGCOLOR="#cccccc" CELLPADDING=1><TR><TD><A NAME="pick"><B>Pick clusters</B></A></TD><TD VALIGN=MIDDLE ALIGN=RIGHT><A HREF="#interface"><IMG BORDER=0 SRC="../../../images/subdocprev.gif"></A><A HREF="#set"><IMG BORDER=0 SRC="../../../images/subdocnext.gif"></A></TD></TR></TABLE></P>
+
+
+<P>In the left-hand tree select one cluster and in the right-hand tree
+select the cluster to compare it to. You can use <A
+HREF="../../../docs/Concepts.html#drag">drag-and-drop</A> to transfer
+a cluster from another viewer to either tree.</P>
+
+<P>Use the "<B>Next</B>" button to advance to the next panel.</P>
+
+
+<P><TABLE WIDTH=100% BGCOLOR="#cccccc" CELLPADDING=1><TR><TD><A
+NAME="set"><B>Set options</B></A></TD><TD VALIGN=MIDDLE ALIGN=RIGHT><A HREF="#pick"><IMG BORDER=0 SRC="../../../images/subdocprev.gif"></A><A HREF="#view"><IMG BORDER=0 SRC="../../../images/subdocnext.gif"></A></TD></TR></TABLE></P>
+
+
+<P>In the following description, assume that cluster X is being compared to cluster Y:
+
+<P><UL>
+
+<LI>When a cluster in X cannot be matched with a single cluster in Y,
+the "<B>Decompose imperfect matches</B>" forces a search to be made
+for the smallest collection of clusters in Y that are needed to cover
+the cluster in X. The list of clusters from Y that were found will be
+displayed in the results panel.<BR>
+
+<LI>The "<B>Calculate total coverage</B>" option generates an
+additional table of data containing the 'reverse' coverage metric
+values. In the case where cluster X is being compared to cluster Y,
+the reverse coverage shows how the elements of Y are contained in the
+elements of X.<BR>
+
+</UL></P>
+
+<P>Use the "<B>Next</B>" button to advance to the results panel and the
+"<B>Back</B>" button to return to the "Pick Clusters" panel.</P>
+
+
+<P><TABLE WIDTH=100% BGCOLOR="#cccccc" CELLPADDING=1><TR><TD><A
+NAME="view"><B>View results</B></A></TD><TD VALIGN=MIDDLE ALIGN=RIGHT><A HREF="#set"><IMG BORDER=0 SRC="../../../images/subdocprev.gif"></A><A HREF="#example"><IMG BORDER=0 SRC="../../../images/subdocnext.gif"></A></TD></TR></TABLE></P>
+
+
+<P>Once the algorithms has finished examining the clusters the results
+table is displayed:</P>
+
+<P><CENTER><IMG SRC="ResultTable.jpg"></CENTER></P>
+
+<P>The cluster hierarchy of the cluster being compared is shown in the
+left-hand panel. Each cluster name is prefixed with a 'pie-chart'
+which indicates the match score that has been calculated for the
+cluster; a score of 100 is represented by a fully complete circle, and
+a score of 0 is shown as an empty circle.</P>
+
+<P>The full results are shown in a table in the centre panel. A
+detailed explanation of the contents of this table can be found in the
+example <A HREF="#example">below</A>.</P>
+
+<P>The rows of the table can be sorted by clicking on any of the
+column headings. The sort order will switch between ascending and
+descending on alternate clicks.</P>
+
+<P>If the "Calculate total coverage" option was selected then a second
+table is also displayed which shows the values of the reverse coverage
+metric. This is also explained <A HREF="#example">below</A>.</P>
+
+<P><B>Highlight Matches</B>:</P>
+
+<P>The "<B>Highlight Matches</B>" feature can be used to hide clusters
+which do not match well. A series of threshold values must be
+provided:</P>
+
+<UL>
+<LI>Minimum match score<BR>
+<LI>Minimum cluster size<BR>
+<LI>Maximum cluster width<BR>
+</UL>
+
+<P>These values correspond to the second, fifth and eight columns of
+the table respectively (see <A HREF="#example">below</A>). All
+clusters which fall outside the provided threshold values will be
+'hidden' revealing only the clusters which satisfy the specified
+score, size and width constraints.</P>
+
+<P>&nbsp</P>
+
+<P><TABLE WIDTH=100% BGCOLOR="#555555" CELLPADDING=1><TR><TD VALIGN=MIDDLE><A NAME="example"><FONT SIZE="+1" COLOR="#eeeeee">&nbsp;Example</FONT></A></TD><TD VALIGN=MIDDLE ALIGN=RIGHT><A HREF="#interface"><IMG BORDER=0 SRC="../../../images/docprev.gif"></A></TD></TR></TABLE></P>
+
+
+<P>Consider a data set with 16 spots (named 01...16).  Two different
+clustering algorithms (A and B) have been applied to the data resulting in two
+similar, but not identical cluster hierarchies as shown below:
+
+<P><CENTER><IMG SRC="example.jpg"></CENTER></P>
+
+<P>The diagram shows the results of clustering algorithm A on the
+left-hand side and algorithm B on the right-hand side. For example,
+cluster A5 contains spots 05, 06 and 07 and cluster A3 contains
+clusters A5 and A6 (and thus spots 05 to 11).</P>
+
+<P>The process of comparing these hierarchies would begin by selecting
+clusters A1 (in the left-hand tree) and B1 (in the right-hand tree) on
+the first panel of the plugin.</P>
+
+<P>When results panel is displayed, each of the clusters in A1 will
+have a corresponding entry in the table:
+
+<P><CENTER><TABLE>
+
+<TR><TD><B><I>Cluster</I></B></TD><TD><B><I>(size)</I></B></TD><TD><B><I>(depth)</I></B></TD><TD><B><I>matches</I></B></TD><TD><B><I>(width)</I></B></TD><TD><B><I>(size)</I></B></TD><TD><B><I>(depth)</I></B></TD><TD><B><I>Score</I></B></TD></TR>
+
+<TR><TD>A1</TD><TD>16</TD><TD>0</TD><TD>B1</TD><TD>0</TD><TD>16</TD><TD>0</TD><TD>100.0</TD></TR>
+
+<TR><TD>A2</TD><TD>11</TD><TD>1</TD><TD>B1</TD><TD>0</TD><TD>16</TD><TD>0</TD><TD>68.61</TD></TR>
+
+<TR><TD>A3</TD><TD>7</TD><TD>2</TD><TD>B1</TD><TD>0</TD><TD>16</TD><TD>0</TD><TD>43.61</TD></TR>
+
+<TR><TD>A7</TD><TD>5</TD><TD>1</TD><TD>B4</TD><TD>0</TD><TD>6</TD><TD>1</TD><TD>83.33</TD></TR>
+
+<TR><TD>A6</TD><TD>4</TD><TD>3</TD><TD>B6 B7 B8</TD><TD>3</TD><TD>9</TD><TD>6</TD><TD>44.44</TD></TR>
+
+<TR><TD>A4</TD><TD>4</TD><TD>2</TD><TD>B5</TD><TD>0</TD><TD>4</TD><TD>2</TD><TD>100.0</TD></TR>
+
+<TR><TD>A5</TD><TD>3</TD><TD>3</TD><TD>B6</TD><TD>0</TD><TD>4</TD><TD>3</TD><TD>75.0</TD></TR>
+
+</TABLE></CENTER></P>
+
+<P>There are seven columns of information for each cluster; from left-to-right:</P>
+
+<CENTER><P><TABLE>
+<TR><TD ALIGN=RIGHT><B>(size)</B>&nbsp;</TD><TD>the number of elements in the cluster</TD></TR>
+<TR><TD ALIGN=RIGHT><B>(depth)</B>&nbsp;</TD><TD>the number of parents the cluster has</TD></TR>
+<TR><TD ALIGN=RIGHT><B>matches</B>&nbsp;</TD><TD>the cluster(s) covered by this cluster</TD></TR>
+<TR><TD ALIGN=RIGHT><B>(width)</B>&nbsp;</TD><TD>the maximum distance between covered cluster(s)</TD></TR>
+<TR><TD ALIGN=RIGHT><B>(size)</B>&nbsp;</TD><TD>the total size of the covered cluster(s)</TD></TR>
+<TR><TD ALIGN=RIGHT><B>(depth)</B>&nbsp;</TD><TD>the sum of the depths of the covered cluster(s)</TD></TR>
+<TR><TD ALIGN=RIGHT><B>Score</B>&nbsp;</TD><TD>the score as given by the <A HREF="#metric">coverage metric</A></TD></TR>
+</TABLE></P></CENTER>
+
+<P><B>Explanation of the results:</B></P>
+
+<UL>
+<LI>A1 matches B1 with a score of 100. This is because both A1 and B1
+(the two 'root' clusters) contain exactly the same spots.<BR>
+
+<LI>A2 matches B1; this is because there is no smaller subset of B1's
+children that contains the spots within A2.<BR>
+
+<LI>A3  matches B1 for the same reason.<BR>
+
+<LI>A7 matches B4 with a score of 83.3. This is because B4 contains
+one extra spot which is not found in A7 (note that B4 is actually the
+parent of B8 and B9).<BR>
+
+<LI>A6 matches B6,B7 and B8, but with a low score because the are a lot
+of spots in the union of B6,B7 and B8 which do not feature in A6. The
+'(width)' value is 3 because that is the maximum distance between
+B6,B7 and B8.<BR>
+
+<LI>A4 is an exact match for B5, so the 'Score' is 100.<BR>
+
+<LI>A5 matches B6 with a score of 75 (because only three of the four
+spots in B6 are contained in A5).<BR>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,12 @@
+
+- added a 'qtlmapper' prefix to  the names for the properties 'mysqlfilepath' and 'ensjfilepath'
+
+- recompiled under jdk 1.4
+
+- changed "finish" to "next" ('finish' seemed a little confusing to me)
+  ( perhaps it should just be "Find QTL Probes" or seomthing like that? ? )
+
+- added the option to reset the JAR file locations (as I discovered that using the 'wrong' version
+  of connector/j seemed to break the login - something to do with not noticing the absence of password)
+
+

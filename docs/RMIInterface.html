@@ -1,0 +1,208 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: Using the RMI interface</TITLE>
+<META name="description" content="maxdView 0.8.x Using the RMI interface">
+<META name="keywords" content="maxd, maxdView, microarray, expression, data,
+analysis, visualsation, visualization ,viewing">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><A NAME="top"><H1>Tutorial: The RMI interface</H1></A></P>
+
+<P>This interface enables limited access to data via the Java RMI
+(Remote Method Invocation) mechanism. This allows other Java
+applications to connect to a running <b>maxdView</b> application and
+interact with it. The applications can be on the same machine or
+connected via a network.</P>
+
+<P><UL>
+<LI><A HREF="#examples">RMI Examples</A>
+<LI><A HREF="#policy">The Java Policy File</A>
+<LI><A HREF="#jvmsetup">Additional JVM Options</A>
+<LI><A HREF="#nowork">What to do when it doesn't work...</A>
+</UL></P>
+
+<P>A set of demonstration applications is provided which show how
+remote methods can be used to provide a bidirectional link between
+<B>maxdView</B> and your Java application or applet.</P>
+
+<P>The Java Tutorial provides a good introduction to RMI and contains
+some example programs illustrating what can be done.</P>
+
+<P>To enable RMI operation in the JVM, you need do a number of things
+differently:</P>
+
+<UL>
+<P><LI>A policy file which permits network connections and file
+i/o is needed. Policy files are used when a Java
+<TT>SecurityManager</TT> is enabled. When RMI is used a
+<TT>SecurityManager</TT> is required so the policy file must be
+provided (see <A HREF="#policy">below</A>).</P>
+
+<P><LI>The <TT>rmiregistry</TT> (supplied with the Java SDK) must be
+running.</P>
+
+<P><LI><B>maxdView</B> must be started with the <TT>-allow_rmi</TT>
+ command line option. </P>
+
+<P><LI>Additional RMI and security specific options must be passed to
+the JVM running <B>maxdView</B> (see <A
+HREF="#jvmsetup">below</A>).</P>
+
+</UL>
+
+
+<P>The following interfaces are defined:</P>
+
+<UL>
+
+<P><LI> <TT>RemoteExprDataInterface</TT> <BR>&nbsp;&nbsp;to access Spot and Measurement data</P>
+<P><LI> <TT>ExprData.ClusterHandle</TT><BR>&nbsp;&nbsp;to access Clusters</P>
+<P><LI> <TT>ExprData.RemoteExprDataObserver</TT><BR>&nbsp;&nbsp;to receive update events </P>
+<P><LI> <TT>ExprData.RemoteDataSink</TT> <BR>&nbsp;&nbsp;to register objects that can receive data</P>
+<P><LI> <TT>ExprData.RemoteSelectionListener</TT><BR>&nbsp;&nbsp;to monitor the Spot selection</P>
+</UL>
+
+<P>&nbsp;</P>
+
+<A NAME="examples"><P><IMG SRC="images/roundarrow.jpg">&nbsp;<B>RMI Examples</B></P></A>
+
+<P>A set of examples is provided in the <TT>rmiDemo</TT>
+directory. To compile the <TT>rmiDemo/java</TT> class you will need a
+classpth that includes the <B>maxdView</B> directory and the RMI demo
+directory, for example:</P>
+
+<PRE>
+  cd rmiDemo
+
+  javac -classpath .:.. rmiDemo.java
+</PRE>
+
+<P>Once compiled, the <TT>rmiDemo</TT> application is run as
+follows:</P>
+
+<PRE>
+  java -Djava.rmi.server.codebase=file:/<FONT COLOR="RED">LOCATION_OF_maxdVIEW</FONT>/
+       -classpath <FONT COLOR="RED">LOCATION_OF_maxdVIEW</FONT>:<FONT COLOR="RED">LOCATION_OF_RMIDemo</FONT>
+       RMIDemo [-host HOSTNAME] [-demo 1|2|3|4|5]
+</PRE>
+
+<P><B>Note</B>: sections marked in in <FONT COLOR="RED">red</FONT>
+must be replaced with the correct paths for your file system. (see <A
+HREF="#jvmsetup">below</A>)</P>
+
+<P>The <TT>-host</TT> option specifies the name of the machine running
+<B>maxdView</b>. If this option is not present <TT>localhost</TT>
+is used.</P>
+
+<P>The optional <TT>-demo</TT> argument specifies which demo to
+run. If this option is not present each of the demos are run
+sequentially. The demos are:</P>
+
+<OL>
+<LI><P>creates a <TT>Cluster</TT> of Probe names</P>
+<LI><P>creates a <TT>RemoteExprDataObserver</TT></P>
+<LI><P>creates a <TT>RemoteDataSink</TT></P>
+<LI><P>creates a <TT>RemoteSelectionListener</TT></P>
+<LI><P>creates a hierarchical <TT>Cluster</TT> of Spot names</P>
+</OL>
+
+<P>&nbsp;</P>
+
+<A NAME="policy"><P><IMG SRC="images/roundarrow.jpg">&nbsp;<B>The Java Policy File</B></P></A>
+
+<P>The following policy file allows applications to use sockets, read
+and write system properties, access certain run-time features and to
+read and write parts of the file system.</P>
+
+<P>This file is normally placed it in <TT>~/.java.policy</TT> although
+you can use a JVM option (see <A HREF="#jvmsetup">below</A>) to
+specify a different location.</P>
+
+<P>The most likely reason for the demo applications throw to
+<TT>RemoteException</TT>s is an incorrect or missing policy file. The
+error message will indicate what the application was trying to do when
+the problem arose.</P>
+
+<P><B>Note</B>: You will need to modify the relevant file paths in the final
+<TT>grant</TT> section (marked in <FONT COLOR="RED">red</FONT>) to
+suit your file system.</P>
+
+<PRE>
+  grant {
+    permission java.net.SocketPermission "*:1024-65535", "connect,accept";
+    permission java.net.SocketPermission "*:80", "connect";
+  };
+  
+  grant {
+    permission java.util.PropertyPermission "user.*", "read";
+    permission java.util.PropertyPermission "java.*", "read";
+  };
+  
+  grant {
+    permission java.lang.RuntimePermission "getClassLoader";
+    permission java.lang.RuntimePermission "createClassLoader";
+  };
+  
+  grant {
+    permission java.io.FilePermission "/", "read";
+  
+    permission java.io.FilePermission "/tmp", "read";
+    permission java.io.FilePermission "/tmp", "write";
+  
+    permission java.io.FilePermission "<FONT COLOR="RED">/home/</FONT>", "read";
+  
+    permission java.io.FilePermission "<FONT COLOR="RED">/home/dave/</FONT>", "read";
+    permission java.io.FilePermission "<FONT COLOR="RED">/home/dave/</FONT>", "write";
+  
+    permission java.io.FilePermission "<FONT COLOR="RED">/home/dave/</FONT>-", "read";
+    permission java.io.FilePermission "<FONT COLOR="RED">/home/dave/</FONT>-", "write";
+  
+    permission java.io.FilePermission "<FONT COLOR="RED">/home/dave/bio/maxd/maxdView/rmiDemo/</FONT>-", "read";
+    permission java.io.FilePermission "<FONT COLOR="RED">/home/dave/bio/maxd/maxdView/</FONT>-", "read, write";
+  };
+</PRE>
+
+<P>&nbsp;</P>
+
+<A NAME="jvmsetup"><P><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Additional JVM Options</B></P></A>
+
+<P>The JVM running <b>maxdView</B> must be informed about the policy
+file (if it is in a non-standard location) and about the
+<TT>codebase</TT> which is the location it will find remote classes
+in.<P>
+
+<P>These options are set using the JVM's <TT>-D</TT> command line
+argument:<P>
+
+<PRE>
+  java -Djava.rmi.server.codebase=file:/home/dave/bio/maxd/maxdView/ 
+       -Djava.security.policy=/home/dave/.java.policy
+       -classpath ...
+</PRE>
+
+<P><B>Note</B>: the trailing slash on the <TT>codebase</TT> is required.</P>
+
+<P>&nbsp;</P>
+
+<A NAME="nowork"><P><IMG SRC="images/roundarrow.jpg">&nbsp;<B>What to do when it doesn't work...</B></P></A>
+
+<P>A lot of different options must be configured correctly to get RMI
+properly working. If you can't get the demo applications to work ,
+make sure you have done all of the following:</P>
+
+<UL>
+<LI><P>Started the <TT>rmiregistry</TT> (which runs in the background)</P>
+<LI><P>Installed a suitable policy file</P>
+<LI><P>Started <B><TT>maxdView</TT></B> with the <TT>-allow_rmi</TT> command
+line option in a JVM with the correct <TT>codebase</TT> and
+<TT>policy.file</TT> options.</P>
+<LI><P>Compiled the <B><TT>RMIDemo</TT></B> application successfully</P>
+<LI><P>Started <B><TT>RMIDemo</TT></B> in a JVM with the correct
+<TT>codebase</TT> and <TT>policy.file</TT> options.
+
+</UL>
+
+</BODY>
+</HTML>

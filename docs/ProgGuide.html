@@ -1,0 +1,564 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: Programmer's Guide</TITLE>
+</HEAD>
+<BODY>
+
+<H1>Programmer's Guide</H1>
+
+<FONT SIZE="-1"><B>Note: </B>This document assumes a reasonable level
+of understanding of the Java language.</FONT>
+
+<UL>
+<P><LI><A HREF="#apis">Manipulating data with the <TT>ExprData</TT> APIs</a>
+<UL>
+ <LI><A HREF="#exprdata">Working with data using the <TT>ExprData</TT> class</a>
+ <LI><A HREF="#spots">Identifying Spots using <TT>DataTags</TT></a>
+ <LI><A HREF="#tagattrs">Storing extra data for names in <TT>TagAttrs</TT></A>
+ <LI><A HREF="#ordering">How Spots and Measurements are ordered and indexed</a>
+ <LI><A HREF="#spotiters">Easy data access via <TT>SpotIterator</TT> and <TT>MeasurementIterator</TT></A>
+ <LI><A HREF="#scalarfunc">Alternative data access for simple loops</A>
+ <LI><A HREF="#scalarfunc">Visiting Clusters using iterators</A>
+ <LI><A HREF="#updates">Methods which generate update events</a>
+</UL>
+<P><LI><A HREF="#maxdview">Controlling the application via the <TT>maxdView</TT> class</a>
+<P><LI><A HREF="#plugins">Writing Plugins</a></P>
+<P><LI><A HREF="#ipc">Inter-Plugin Communication</a></P>
+<P><LI><A HREF="#events">The Event Model</A></P>
+</UL>
+
+
+<P>A (nearly) complete list of all methods can be found in the <A
+HREF="MethodRef.html">Method Reference</A>.</P>
+
+<P>There is a collection of sample code in the "code-fragments"
+subdirectory.</P>
+
+<P><HR></P>
+
+<A NAME="apis"><H2>Manipulating data with the <TT>ExprData</TT> APIs</H2></a>
+
+<P><TT>ExprData</TT> and it's inner classes provide the APIs for
+manipulating the data. The <TT>maxdView</TT> class provides additional
+APIs for controlling plugins, changing the environment and interacting
+with the user.</P>
+
+<TT>ExprData</TT> has inner classes called:
+
+<UL>
+<LI><TT>Measurement</TT>
+<LI><TT>Cluster</TT>
+<LI><TT>DataTags</TT>
+<BR>
+<LI><TT>Filter</TT>
+<LI><TT>DataObserver</TT>
+</UL>
+
+<A NAME="exprdata"><P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Working with data using the <TT>ExprData</TT> class</B></P></a>
+
+<P>In these examples, it is assumed that there is a variable called
+<TT>edata</TT> which refers to an instance of <TT>ExprData</TT>
+class. When using the <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code Runner</A>
+this variable is created automatically. When writing a plugin, the
+current <TT>ExprData</TT> object can be retrieved from the
+<TT>maxdView</TT> object using the <TT>getExprData()</TT> method.</P>
+
+<P><B>Example</B>: Change the names of some Measurements</P>
+
+<P>This code loops through all of the Measurements in the current
+data, and changes the names of any that are called "old-name".</P>
+
+<FONT SIZE="-1">
+<PRE>
+  for(int m = 0; m &lt; edata.getNumMeasurements(); m++)
+  {
+    if(edata.getMeasurementName(m).equals("old-name"))
+      edata.setMeasurementName(m, "new-name")
+  }
+</PRE>
+</FONT>
+
+<P>Three <TT>ExprData</TT> methods are used. Full details of these,
+and the other methods offered by  <TT>ExprData</TT> can be found in
+the <A HREF="MethodRef.html">Method Reference</A>.
+
+
+
+<A NAME="spots"><P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Identifying Spots using <TT>DataTags</TT></B></P></A>
+
+<P>The <TT>DataTags</TT> inner class models the different ways of
+identifying Spots. Each Spot has a Spot Name, an optional Probe Name,
+zero or more Gene Names.</P>
+
+<P>Thes data can be accessed indirectly via the <TT>ExprData</TT>
+class, or directly after using the <TT>ExprData</TT> method
+<TT>getMasterDataTags()</TT> to get the current <TT>DataTags</TT>
+object. See the section on <A HREF="#updates">update events</A> below
+as to why there are two sets of methods.</P>
+
+<P><B>Example</B>: Count the frequency of a Probe name</P>
+
+<P>This code loops through all of the Spots in the current
+data and counts how many have Probe names that start with "XYZ".</P>
+
+<FONT SIZE="-1">
+<PRE>
+  int count = 0;
+  for(int s = 0; s &lt; edata.getNumSpots(); s++)
+  {
+    if(edata.getProbeName(s).startsWith("XYZ"))
+      count++
+  }
+  System.out.println(count + " matches");
+</PRE>
+</FONT>
+
+<A NAME="tagattrs"><P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Storing extra data for names in <TT>TagAttrs</TT></B></P></A>
+
+<P><B>Example</B>: Setting <TT>TagAttrs</TT> based on the contents of <TT>DataTags</TT></P>
+
+<P>This code loops through all of the current data and sets the
+"COMMENT" attribute for Gene names containing the string
+"interleuk".</P>
+
+<FONT SIZE="-1">
+<PRE>
+  for(int s = 0; s &lt; edata.getNumSpots(); s++)
+  {
+     String[] names = edata.getGeneNames(s);
+     if(names != null)
+     {
+        for(int n=0; n < names.length; n++)
+          if(names[n].toLowerCase().contains("interleuk"))
+            edata.getGeneTagAttrs().addTagAttr("COMMENT", names[n], "IL?");
+     }
+  }
+</PRE>
+</FONT>
+
+
+<A NAME="ordering"><P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>How Spots and Measurements are ordered and indexed</B></P></A>
+
+<P>Both Spots and Measurements have an <I>ordering</I>&nbsp; associated with
+them. The ordering specifies the sequence in which the Spots or
+Measurements should be displayed. When data is reordered in some way,
+e.g. by sorting it, it is these <I>orderings</I>&nbsp; which are
+changed. The data values themselves are never swapped about.</P>
+
+<P>The current Measurement ordering is accessed via <TT>int[]
+ExprData.getMeasurementOrder()</TT> and
+<TT>ExprData.setMeasurementOrder(int [])</TT>
+
+<P>The current Spot ordering is accessed via <TT>
+ExprData.getSpotOrder()</TT> and <TT>ExprData.setSpotOrder()</TT>.
+
+<P>The main display window always draws Spots and Measurements using
+their orderings. Most of the other components of <B>maxdView</B>
+ignore these orderings, as they are irrelevant unless the data is
+being displayed. The order in which the data is processed is not
+significant for many operations such as matching, clustering,
+filtering.</P>
+
+<P>If you want to access the data in the same order as it is being
+displayed, use the <TT>getIndexOf...</TT> methods like this:</P>
+
+<P><B>Example</B>: Add a comment to the 'last' Spot</P>
+
+<P>This code sets the "COMMENT" TagAttr of the 'last' Spot in the
+current data, where last means the one at the end of the current Spot
+ordering.</P>
+
+<FONT SIZE="-1">
+<PRE> 
+  int last_spot_index = edata.getNumSpots() - 1;
+  int spot_id = edata.getSpotAtIndex( last_spot_index );
+
+  edata.getSpotTagAttrs().setTagAttr("COMMENT",  edata.getSpotName(spot_id), "last of the Spots");
+</PRE>
+</FONT>
+
+<P>The <TT>getMeasurementAtIndex()</TT> method works in the same
+way.</P>
+
+<P>You can set a new ordering for the either the Spot or Measurement
+data which will re-order it in the main display.</P>
+
+<P><B>Example 2</B>: Put Spots back into the original order</P>
+
+<P>This code restores the Spot ordering to the way it was in the
+source file or database (i.e. before any sorting was performed).</P>
+
+<FONT SIZE="-1">
+<PRE> 
+  int n_spots = edata.getNumSpots();
+  int[] order = new int[ n_spots ];
+    for(int s=0; s &lt; n_spots; s++)
+     order[s] = s;
+  edata.setSpotOrder( order );
+</PRE>
+</FONT>
+
+<A NAME="spotiters"><P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Easy data access via <TT>SpotIterator</TT> and <TT>MeasurementIterator</TT></B></P></A>
+
+<P>The <TT>SpotIterator</TT> and <TT>MeasurementIterator</TT> classes
+provide methods for sequentially visiting data values.</P>
+
+<P>See example code in <TT>code-fragments/iterator-examples.java</TT></P>
+
+<P>A <TT>SpotIterator</TT> can be created in several using one of five
+<TT>ExprData</TT> methods:</P>
+
+<PRE>
+  getSpotIterator( )
+  getSpotIterator( String meas_name )
+  getSpotIterator( int flags )
+  getSpotIterator( int flags, int meas_id )
+  getSpotIterator( int flags, String meas_name )
+</PRE>
+
+<P>The <TT>flags</TT> parameter is a bitfield composed from zero or
+more of the options:</P>
+
+<PRE>
+  ExprData.ApplyFilter
+  ExprData.AllMeasurements
+  ExprData.SelectedDataOnly
+  ExprData.TraveralOrder
+</PRE>
+
+<P><B>Example</B>: Setting <TT>TagAttrs</TT> based on the expression
+values for each Spot.</P>
+
+<FONT SIZE="-1">
+<PRE>
+  SpotIterator spot_it = edata.getSpotIterator( ExprData.APPLY_FILTER );
+
+  try
+  { 
+    while(spot_it.hasMore())
+    {
+      double mean = .0;
+      int count = 0;
+      MeasurementIterator meas_it = spot_id.getMeasurementIterator( );
+  
+      while(meas_it.hasMore())
+      {
+  	 mean += meas_it.value();
+  	 count++;
+      }
+  
+      mean /= (double) count;
+  
+      String mean_str = String.valueOf(mean);
+       
+      edata.getSpotTagAttrs().addTagAttr("Mean", edata.getSpotName( spot_it.getSpotID(), mean_str));
+  
+      spot_it.next();
+    } 
+  }
+  catch(InvalidIteratorException iie)
+  {
+  }
+</PRE>
+</FONT>
+
+<P><B>Example</B>: Setting <TT>MeasurementAttribute</TT>s based on the expression
+values for each Measurement.</P>
+
+<FONT SIZE="-1">
+<PRE>
+  MeasurementIterator meas_it = spot_id.getMeasurementIterator( );
+
+  while(meas_it.hasMore())
+  {
+    double mean = .0;
+    int count = 0;
+    SpotIterator spot_it = meas_it.getSpotIterator( );
+
+    while(spot_it.hasMore())
+    {
+       mean += spot_it.value();
+       count++;
+    }
+
+    mean /= (double) count;
+    String mean_str = String.valueOf(mean);
+     
+    edata.getMeasurment( meas_is.getMeasurementID() ).setAttribute( "Mean", "demo", mean_str );
+
+    meas_it.next();
+  }
+</PRE>
+</FONT>
+
+<A NAME="scalarfunc"><P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Alternative data access for simple loops</B></P></A>
+
+<P>A number of iterator method and classes have been defined to make
+to easier to implement functions which loop over the data.</P>
+
+<P><B>ScalarFunc</B> is a class with a single method:
+<PRE>
+  public double eval(double in);
+</PRE>
+This method will be called once for each of the cells in the data
+grid, one Measurement at a time. The value of cell will be changed to
+the return value of the method call for that cell.</P>
+
+<P>A simple example of a <B>ScalarFunc</B> is to convert all values to
+a Log representation:
+<PRE>
+  public double eval(double in) { return Math.log(in); }
+</PRE>
+Note that the method is always called <TT>eval()</TT> regardless of
+it's function.<P>
+
+A scalar function can be applied to the data using one of the
+<TT>visitAll()</TT> iterator methods. The simplest of these methods
+visits all cells in the data:
+
+<PRE>
+  edata.visitAll(edata.new ScalarFunc()
+                 {
+                   public double eval(double in) 
+		   { return Math.abs(in); }  // convert to absolute value
+                 });
+</PRE>
+
+<P>Several other <TT>visitAll()</TT> methods are provided which visit the
+cells of a named Measurement, or those of Measurements of a certain
+data type.</P>
+
+<P><B>Reduction</B> functions are the family of functions which map
+many values onto a single value. Many statistical functions, such as
+<TT>min()</TT>, <TT>max()</TT> and <TT>mean()</TT> fall into this
+category. A variant of the <B>ScalarFunc</B> is available to assist in
+the implementation of this type of operator; it is called the
+<B>ScalarRedFunc</B> (to save you having to type
+ScalarReductionFunction).</P>
+
+<PRE>
+  public class ScalarRedFunc
+  {
+    public double eval(double red, double in)
+  }
+</PRE>
+
+The <B>ScalarRedFunc</B> is used in the same way as the
+<B>ScalarFunc</B>, except that <TT>visitAll</TT> now returns a
+numeric value:
+
+<PRE>
+  double max = edata.visitAll(edata.new ScalarRedFunc()
+  {
+     // find the maximum
+    public double eval(double red, double in)
+    {
+      if(red > in)
+        return red;
+      else
+        return in;
+    }
+  });
+</PRE>
+
+<P><A NAME="scalarfunc"><P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Visiting Clusters using iterators</B></a></P>
+
+<PRE>
+    ClusterIterator()
+
+    Cluster reset()
+    Cluster getCurrent() 
+    Cluster getNext()
+</PRE>
+
+<A NAME="updates"><P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Methods which generate update events</B></P></A>
+
+For most supported operations, there is a choice of methods, one
+belong to <TT>ExprData</TT> itself, and a corresponding one in one of
+it's inner classes. For example, to change the name of a Measurement,
+you can call either:
+
+<FONT SIZE="-1">
+<PRE>
+  ExprData.setMeasurementName(int id, String name);
+</PRE>
+</FONT SIZE="-1">
+or
+<FONT SIZE="-1">
+<PRE>
+  Measurement.setName(String name);
+</PRE>
+</FONT SIZE="-1">
+
+<P>Both methods will change the name, but the <TT>ExprData</TT> method
+also generates an event notifying other components of the system that
+the name has changed. Sometimes you want the event to be sent so the
+system updates itself after the change. In these cases, use
+<TT>ExprData.setMeasurementName()</TT>. </P>
+
+<P>Sometimes you'd rather that the event wasn't sent because you are
+about be make other changes and you don't want lots of repeated
+updates to be done. In these cases it is better to not use the
+<TT>ExprData</TT> method, and to then call one of the
+<TT>generateUpdate()</TT> methods to explictly force a single
+update.</P>
+
+<P><HR></P>
+
+<A NAME="maxdview"><P><H2>Controlling the application via the <TT>maxdView</TT> class</B></H2></a>
+
+<P>The <TT>maxdView</TT> class provides methods for the following:</P>
+
+<UL>
+<LI>User interaction (showing messages, getting choices, numbers etc)
+<LI>Plugin control (starting, stopping, sending commands to)
+<LI>Application properties (values that persist between runs)
+<LI>The Help subsystem (displaying pages)
+</UL>
+
+<A NAME="messages"><P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Displaying messages and getting user input</B></P></a>
+
+<P>The <TT>maxdView</TT> class provides a collection of methods for
+displaying messages to the user and for getting input for the
+user. These methods are very useful for code written in the <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code Runner</A>
+ plugin.</P>
+
+<P>To display a message use one these methods:</P>
+
+<PRE>
+  void informationMessage( String )
+  <FONT SIZE="-1" COLOR="BLUE"> // displays the string in a dialog box</FONT>
+  void successMessage( String )
+  <FONT SIZE="-1" COLOR="BLUE"> // displays the string in a dialog box decorated with a 'success' icon</FONT>
+  void errorMessage( String )
+  <FONT SIZE="-1" COLOR="BLUE"> // displays the string in a dialog box decorated with an 'error' icon</FONT>
+</PRE>
+
+<P>If the message string is very long then a large text area will be
+created and embedded in a scroll panel.</P>
+
+<P>The following methods are used to get input from the
+user. Convience methods for selecting Measurements and Clusters or
+inputing text and numbers and generalised selections are provided.</P>
+
+<P>The user input methods display a modal dialog
+box with an input area and two buttons, "OK" and "Cancel". The dialog
+box blocks interaction with other parts of <B>maxdView</B> until
+either button is pressed. Most methods also force the user to make a
+valid selection, for example ensuring the input really is a number if
+a number was asked for.</P>
+
+<P>Most methods can throw the <TT>UserInputCancelled</TT> exception to
+signal that the user has pressed the "Cancel" button.</P>
+
+
+<P><HR></P>
+
+<A NAME="plugins"><H2>Writing Plugins</H2></a>
+
+<P>The <b>maxdView</B> plugin interface is the best way to integrate
+new software with the system. In addition to the <A
+HREF="#access">data access</A> API provided via <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code Runner</A>
+, plugins can interact with the <A HREF="#events"><NOBR>event
+model</NOBR></A>. Using <A HREF="#ipc">Inter-Plugin Communication</a>,
+plugins can offer their services to other plugins, and a sequence of
+activities can be scripted. Plugins also receive an entry in the
+application's menu-bar.</P>
+
+<P>There is a <A HREF="Tutorial.html">Tutorial</A> document which
+explains the process of writing a plugin.</P>
+
+<P><B>The Plugin interface</B>
+
+<P>Plugin classes must implement the <TT>Plugin</TT> interface:</P>
+
+<PRE>
+  public interface Plugin
+  {
+    public void startPlugin();
+    public void stopPlugin();
+
+    public void runCommand(String name, 
+                           String[] args, 
+                           CommandSignal done);
+	
+    public PluginInfo      getPluginInfo();
+    public PluginCommand[] getPluginCommands();
+  }
+</PRE>
+
+<P><TT>startPlugin()</TT> is called when the plugin class should begin
+and <TT>stopPlugin()</TT> is called when the plugin is terminated
+explicitly. Plugins may choose to stop whenever they want, but they
+should not call <TT>stopPlugin()</TT> themselves. It is only ever
+called by <B>maxdView</B> or another plugin.</P>
+
+<P><TT>runCommand()</TT> can be used by by <B>maxdView</B> and other
+plugins to have this plugin do something for them. See <A
+HREF="#ipc">Inter-Plugin Communication</a> below.</P>
+
+<P><B>The <TT>PluginInfo</TT> class</B>
+
+<P>The <TT>getPluginInfo()</TT> method is used by <B>maxdView</B> to
+discover information about the plugin. The <TT>PluginInfo</TT> class
+look like this:</P>
+
+<PRE>
+  public class PluginInfo
+  {
+    public String name;
+    public String type;
+
+    public String short_description;
+    public String long_description;
+
+    public int version_major;
+    public int version_minor;
+    public int build;
+  }
+</PRE>
+
+The constructor for <TT>PluginInfo</TT> objects takes an argument for
+each of the seven fields:
+
+<PRE>
+  public PluginInfo(String name, String type, 
+                    String short_d, String long_d, 
+                    int v_major, int v_minor, int build);
+</PRE>
+
+<P><B>The <TT>PluginCommand</TT> class</B>
+
+<P>The <TT>PluginCommand</TT> records information about a command that
+the plugin understands. It look like this:</P>
+
+<PRE>
+ public class PluginCommand implements Serializable
+ {
+   public String name;
+   public String[] args;
+ }
+</PRE>
+
+and objects of this class are constructed as follows:
+
+<PRE>
+ public PluginCommand(String n, String[] a);
+</PRE>
+
+<P><HR></P>
+
+<A NAME="ipc"><H2>Inter-Plugin Communication</H2></a>
+
+<P><HR></P>
+
+
+<A NAME="events"><H2>The Event Model</H2></a>
+
+<P><I>(details to follow....)</I></P>
+
+</BODY>
+</HTML>

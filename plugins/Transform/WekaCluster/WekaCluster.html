@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<TITLE>Weka Clustering</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Weka Clustering</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The Weka machine learning package provides four clustering methods,
+"Cobweb", "Estimation Maximisation", "Simple K-Means" and "Farthest
+First". For more details on the algorithms used, see the <A
+HREF="http://www.cs.waikato.ac.nz/~ml/weka/index.html">Weka
+documentation.</A></P>
+
+
+<P>The plugin requires the file "<TT>weka.jar</TT>" which can be
+downloaded from the <A
+HREF="http://www.cs.waikato.ac.nz/~ml/weka/index.html">Weka</A> web
+site. The file is distributed in a package called
+<TT>weka-3-4.jar</TT> (although newer versions made be
+available). <B>Unpack this file</B> as per the supplied instructions. Start
+the <I>Weka Clustering</I> plugin and when it states that it cannot
+find the Weka classes, pick the "Find" option and use the file chooser
+to specify the location of the file "<TT>weka.jar</TT>".</P>
+
+<P>Note: These clustering algorithms can be very time consuming for
+large datasets. Using the <A
+HREF="../../../docs/Filters.html">Filter</A>(s) to hide uninteresting
+Spots before clustering can be very beneficial.</P>
+
+<P></P>
+
+<HR>
+
+<CENTER><P><IMG SRC="WekaCluster.jpg"></P></CENTER>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P>Clustering can be done on either Spots (i.e. finding genes with
+similar profiles ) or Measurements (i.e. finding experiments or
+organisms with similar profiles).</P>
+
+<P>Each Measurement is represented with a checkbox. Use these to
+select which Measurements will be passed to the clustering
+algorithm.</P>
+
+<P><B>Apply filter</B> restricts the clustering to the Spots which
+pass through the current <A
+HREF="../../../docs/Filters.html">Filter</A>(s).</P>
+
+
+<P>Two tabs contain the controls for the different clustering
+algorithms. Consult the Weka documentation for full details.</P>
+
+<P>The clustering process takes place in a separate thread. You can
+continue to use other features of <B>maxdView</B> whilst the
+clustering is under way, but take care not to load new data points
+until the clustering has finshed.</P>
+
+<P>&nbsp;</P>
+
+</BODY>
+</HTML>

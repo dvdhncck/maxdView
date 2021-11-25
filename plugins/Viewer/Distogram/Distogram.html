@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<TITLE>Distogram</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Distogram</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The <I>Distogram</I> plugins can display a variety of distribution
+histograms for one or more Measurements.</P>
+
+<P>Values are discretised into a
+number of bins, and a graph showing the number of values falling into
+each bin is displayed. The plot auto-scales to accomodate the values
+currently displayed. </P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P><CENTER><IMG SRC="Distogram.jpg"></CENTER></P>
+
+<P>The control panel contains (from top to bottom):</P>
+
+<UL>
+<P><LI>
+A label showing how many bins are being used in the discretisation
+process. The <B>More</B> and <B>Less</B> buttons below this label
+allow you to increase and decrease the number of bins.</P>
+
+<P><LI>
+The <B>Cumulative</B> checkbox toggles between displaying the
+distribution(s) in the normal fashion, or as a cumulative graph (in
+which each bin is the sum of the spots in that bin, and the of the the
+spots in bins to the left of it).</P>
+
+<P><LI>
+One checkbox for each Measurement in the data. The checkbox also
+shows which colour has been allocated to that Measurement. Colours are
+allocated sequentially using a predefined colour scheme that cannot be
+changed. In you really want to change colours, you can use <A
+HREF="../../Transform/ReorderMeasurements/ReorderMeasurements.html">Reorder
+Measurements</A> to change which colour gets allocated to which
+measurement.</P>
+
+<P><LI>
+Under the list of Measurements are two buttons, <B>All</B> switches
+on display of all Measurements, and <B>None</B> switches them all off.</P>
+
+<P><LI>
+<B>Apply filter</B> selects between showing the distribution
+all of the data or that of only the data items which pass through the
+current <A
+HREF="../../../docs/Filters.html">Filter</A>(s).</P>
+
+</UL>
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

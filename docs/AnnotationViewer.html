@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<TITLE>Annotation Handling in maxdView</TITLE>
+</HEAD>
+<BODY>
+
+<H1>Annotation Viewer</H1>
+
+<P>The <I>Annotation Viewer</I> displays the textual annotation
+associated with a particular Probe or Gene name. The viewer is created
+whenever you click on a spot or name in the main window, or when a
+plugin class requests that some annotation be displayed.</P>
+
+<P>The viewer contains one panel for each of the active sources. The
+panels can be resized by dragging the horizontal bar that divides
+them.</P>
+
+<P><HR></P>
+
+<H3>User Interface</H3>
+
+<P><CENTER><IMG SRC="images/AnnotationViewer.jpg"></CENTER></P>
+
+<P>The label at the top of each panel shows the source of
+that part of the annotation. Buttons at the bottom of the window (from
+left to right) lock or unlock the current view, open the loading
+options panel, display this help page, and close the
+window.</P>
+
+<P><B>Locking...</B></P>
+
+<P>By default, requests for annotation cause the text to be displayed in
+the current <I>Annotation Viewer</I>. If you want to compare two or
+more sets of annotation, "Lock"  the current viewer by clicking on the
+padlock icon in the bottom left corner. The next request for
+annotation will cause a new window to be opened. You can have as many
+windows as you want open. If you unlock one of the locked windows, it
+will be used next time an annotation reqest is made.</P>
+
+<P><B>Caching...</B></P>
+
+<P>Annotation data is cached (saved in memory) when it is first loaded
+to make subsequent accesses faster. The operation of the cache is
+controlled in the <A HREF="AnnotationLoader.html">Annotation
+Loader</A>'s options panel. </P>
+
+<P>If you need to reload the data (if you have changed the data source
+for example) use the "Reload" option on the popup menu (you can empty
+the whole cache using the button in the loading options panel).</P>
+
+<P><B>Data Sources...</B></P>
+
+<P>Annotation from different sources is presented in the order that it
+is loaded.  The data sources are selected in the <A
+HREF="AnnotationLoader.html">Annotation Loader</A>'s options
+panel.</P>
+
+<P><HR></P>
+
+<P>See Also:</BR>
+<UL>
+<LI><A HREF="AnnotationLoader.html">Annotation Loader</A>
+<LI><A HREF="NameTagEditor.html">Name Tag Editor</A>
+<LI><A HREF="Concepts.html#spot">Spots (and Names)</A>
+<LI><A HREF="../plugins/Filter/RegExpFilter/RegExpFilter.html">RegExp
+Filter</A>
+<LI><A HREF="../plugins/Viewer/TextExplorer/TextExplorer.html">Text
+Explorer</A>
+<LI><A HREF="../plugins/Viewer/JustOClust/JustOClust.html">Just-o-Clust</A>
+</UL>
+</P>
+
+</BODY>
+</HTML>

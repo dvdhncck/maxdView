@@ -1,0 +1,44 @@
+
+12/6/2000
+
+   current SQL operations for getting a Measurement:
+
+      SELECT Spot.ID, Probe.Name,Expression_Level, Output_Description_ID
+        FROM SpotMeasurement, Spot, Probe
+       WHERE Measurement_ID = xxx AND 
+	     SpotMeasurement.Spot_ID = Spot.ID AND 
+	     Spot.Probe_ID = Probe.ID
+
+   taking ~40s per Measurement (for 4439 spots) using current implementation
+   
+   ( including having an index on SpotMeasurement(Measurement, Spot) )
+
+   
+
+   1. Idea: 
+
+    make the JOIN smaller by doing the Spot->Probe matching separately
+    from the Spot->SpotMeasurment matching
+
+      SELECT Spot.ID, Probe.Name
+        FROM Spot, Probe
+       WHERE Spot.Probe_ID = Probe.ID
+         AND Spot.Array_Type_ID = xxx
+
+    then
+
+      SELECT Spot.ID, Expression_Level, Output_Description_ID
+        FROM SpotMeasurement, Spot
+       WHERE Measurement_ID = xxx  
+	 AND SpotMeasurement.Spot_ID = Spot.ID
+
+    This would also mean that the Spot->Probe info would only have to
+    be loaded once when multiple arrays of the type are loaded
+
+
+    Loading with the JOINs split into 2 parts actually tkaes about the
+    same amount of time as loading with the one big JOIN. However,
+    there is an advantage in loading the probes once only. Loading the
+    probes takes about 1/4 of time (given the current ration between
+    the cartesian products <Spot*Probe> and <SpotMeasurement*Spot>.
+

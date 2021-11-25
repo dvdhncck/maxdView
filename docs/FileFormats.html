@@ -1,0 +1,237 @@
+<HTML>
+<HEAD>
+<TITLE>File Formats</TITLE>
+</HEAD>
+<BODY>
+<H1><A NAME="intro">File Formats</H1>
+
+<UL>
+<LI>
+<A HREF="#native">Native</A>
+<LI>
+<A HREF="#plain">Plain text</A>
+<LI>
+<A HREF="#cluster">Cluster data</A>
+</UL>
+
+<HR>
+
+<A NAME="native"><H2>Native</H2></A>
+
+<P>The native file format is written in XML syntax.</P>
+
+<P>Documents are structured as follows:</P>
+
+<P>
+<FONT SIZE="-1">
+<TT>
+<FONT COLOR="#000055">
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;MeasurementGroup&gt;<BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ArrayType NAME="atn1"&gt;<BR>
+<BR>
+</FONT>
+<FONT COLOR="#ff5555">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Probe NAME="pn1" &gt;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Gene NAME="gn1" /&gt;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Probe&gt;<BR>
+<BR>
+</FONT>
+<FONT COLOR="#5555ff">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Spot NAME="sn1" PROBE="pn1" /&gt;<BR>
+</FONT>
+<BR>
+<FONT COLOR="#000055">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ArrayType&gt;<BR>
+</FONT>
+<FONT COLOR="#cc55cc">
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Environment&gt;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Environment&gt;<BR>
+<BR>    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ApplicationProperties&gt;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ApplicationProperties&gt;<BR>
+</FONT>
+<BR>
+<FONT COLOR="#5555ff">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Measurement NAME="mn1" DATATYPE="dt"&gt;<BR>
+<BR>
+</FONT>
+<FONT COLOR="#ff5555">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Attribute NAME="att" VALUE="val" /&gt;<BR>
+<BR>
+<FONT COLOR="#ff5555">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SpotAttribute NAME="sa1" UNIT="" TYPE="INTEGER"&gt;<BR>
+</FONT>
+<FONT COLOR="#000055">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;DataBlock NAME="d2"&gt;<BR>
+</FONT>
+<FONT COLOR="#5555ff">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;DataChunk START="n"&gt;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n1 n2 n3 n4 n5 .... n256<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/DataChunk&gt;<BR>
+</FONT>
+<FONT COLOR="#000055">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/DataBlock&gt;<BR>
+</FONT>
+<FONT COLOR="#ff5555">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/SpotAttribute&gt;<BR>
+</FONT>
+<BR>
+</FONT>
+<FONT COLOR="#000055">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;DataBlock NAME="d1"&gt;<BR>
+</FONT>
+<FONT COLOR="#5555ff">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;DataChunk START="n"&gt;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n1 n2 n3 n4 n5 .... n256<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/DataChunk&gt;<BR>
+</FONT>
+<FONT COLOR="#000055">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/DataBlock&gt;<BR>
+</FONT>
+<BR>
+<FONT COLOR="#5555ff">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Measurement&gt;<BR>
+</FONT>
+<BR>
+<FONT COLOR="#000055">
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/MeasurementGroup&gt;<BR>
+</FONT>
+</TT></P>
+</FONT>
+
+<FONT SIZE="-2">
+<P>
+The colour of the tag show how many times it may appear inside it's
+parent tag:<BR>
+&nbsp;<FONT COLOR="#000055">Exactly one.</FONT> <FONT COLOR="#cc55cc">One or
+none, </FONT> <FONT COLOR="#5555ff">One or more,</FONT> <FONT
+COLOR="#ff5555">Zero or more,</FONT>
+</P>
+
+</FONT>
+
+<I>(more details to follow)</I>
+
+<P><HR></P>
+
+<A NAME="plain"><H2>Plain text data</H2></A>
+
+
+<P>The <A
+HREF="../plugins/Importer/LoadPlainText/LoadPlainText.html"><I>Load
+Plain Text</I></A> plugin expects files in this format:</P>
+
+<PRE>
+
+                        Time_0      Time_10     Time_20
+       hum_xrna_22      2.193427   1.151119    -1.042308 	
+       hum_xdna_23_II   8.64423    -1.922      -10.56623 	
+       hum_xrna_24      6.50871    -1.73525    -8.24396  	
+       hum_xrna_24 II   6.0916     -2.66144    -8.75304  	
+</PRE>
+
+<P>The columns can be delimited by space, commas, tabs or any
+combination of the three. Measurement names may appear on any line of
+the file. Gene, probe and spot names may appear in any column, but
+will only be recorded if they consistently appear in the same
+column.</P>
+
+<P>The <A HREF="../plugins/Exporter/SaveAsText/SaveAsText.html"><I>Save
+As Text</I></A> plugin can write files in this format for importing
+into other software packages.</P>
+
+<P><HR></P>
+
+<A NAME="cluster"><H2>Cluster data</H2></A>
+
+<P>The <A
+HREF="../plugins/Viewer/ClusterManager/ClusterManager.html">Cluster
+Manager</A> can load cluster data from files are written in XML
+syntax, as follows:</P>
+
+<PRE>
+<FONT SIZE="-1">
+  &lt;XML&gt;
+  &lt;CLUSTER&gt;
+  &lt;NAME&gt;Pathways&lt;/NAME&gt;
+
+    &lt;CLUSTER&gt;
+    &lt;NAME&gt;PathII(a)&lt;/NAME&gt;
+      &lt;ELEMENTS&gt;
+  	 &lt;GENE&gt; TAP1 protein &lt;/GENE&gt;
+  	 &lt;GENE&gt; GDP receptor &lt;/GENE&gt;
+  	 &lt;GENE&gt; TAP6 protein &lt;/GENE&gt;
+  	 &lt;GENE&gt; putative HGFT promoter &lt;/GENE&gt;
+      &lt;/ELEMENTS&gt;
+    &lt;/CLUSTER&gt;
+  
+    &lt;CLUSTER&gt;
+    &lt;NAME&gt;PathII(b)&lt;/NAME&gt;
+      &lt;ELEMENTS&gt;
+  	 &lt;PROBE&gt; probe_6 &lt;/PROBE&gt;
+  	 &lt;PROBE&gt; probe_23 &lt;/PROBE&gt;
+  	 &lt;PROBE&gt; probe_19 &lt;/PROBE&gt;
+  	 &lt;PROBE&gt; probe_8 &lt;/PROBE&gt;
+  	 &lt;PROBE&gt; probe_1 &lt;/PROBE&gt;
+      &lt;/ELEMENTS&gt;
+
+      &lt;CLUSTER&gt;
+      &lt;NAME&gt;Blank Spots&lt;/NAME&gt;
+    	&lt;ELEMENTS&gt;
+   	   &lt;SPOT&gt; AA04 &lt;/SPOT&gt;
+   	   &lt;SPOT&gt; AB04 &lt;/SPOT&gt;
+   	   &lt;SPOT&gt; AB12 &lt;/SPOT&gt;
+	&lt;/ELEMENTS&gt;  
+      &lt;/CLUSTER&gt;
+ 
+    &lt;/CLUSTER&gt;
+
+  &lt;/CLUSTER&gt;
+  &lt;/XML&gt;
+</FONT>
+</PRE></P>
+
+<P>The file must begin with <TT>&lt;XML&gt</TT>; and end with
+<TT>&lt;/XML&gt;</TT>. Each <TT>&lt;CLUSTER&gt;</TT> tag starts a new cluster
+which must be terminated with a <TT>&lt;/CLUSTER&gt;</TT> tag.</P>
+
+<P>Each cluster can optionaly contain a list of elements enclosed in
+<TT>&lt;ELEMENTS&gt;</TT> ... <TT>&lt;/ELEMENTS&gt;</TT> tags. The
+elements can be identified as either Gene, Probe or Spot names but not
+a mixture of name types within a single cluster.</P>
+
+<P>Each cluster can also contain any number of other
+clusters.</P>
+
+<P>Indenting the file as above is encouraged, but not required.</P>
+
+<A NAME="clusteropts"><H3>Optional Tags</H3></A>
+
+<P>The following optional tags can also be included within a
+<TT>&lt;CLUSTER&gt;</TT>...<TT>&lt;/CLUSTER&gt;</TT> block:</P>
+
+
+<UL>
+<P><LI><PRE>&lt;COLOUR&gt; 11120867 &lt;/COLOUR&gt;</PRE></P>
+
+<P>The <TT>COLOUR</TT> is specified as a 24-bit integer (written in
+base 10, not hexadecimal) made by composing three 8 bit values:</P>
+
+<P>bits 16-23 store the red value<BR>
+bits 8-15 store the green value<BR>
+bits 0-7 store the blue value </P>
+
+<P><LI><PRE>&lt;GLYPH&gt; 5 &lt;/GLYPH&gt;</PRE></P>
+
+<P>The <TT>GLYPH</TT> is specified as an integer in the range
+0...8 corresponding to the list: Shield, Arrow Up, Plus, Diamond,
+Cross, Arrow Down, Octagon, Hour Glass</P>
+ 
+</UL>
+
+<P>&nbsp;</P>
+
+</BODY>
+</HTML>

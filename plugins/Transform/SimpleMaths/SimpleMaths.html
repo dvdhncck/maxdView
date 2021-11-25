@@ -1,0 +1,173 @@
+<HTML>
+<HEAD>
+<TITLE>Simple Maths</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Simple Maths</H2>
+
+<P>The <I>Simple Maths</I> plugin generates derived Measurements.</P>
+ 
+<P>New data is created using <I>expressions</I>, formed in a style similar to
+rules in a spreadsheet.<P>
+
+<UL>
+<LI><A HREF="#overview">Overview</A><BR>
+<LI><A HREF="#interface">User interface</A><BR>
+<LI><A HREF="#examples">Examples</A><BR>
+<LI><A HREF="#funcs">Available Functions</A><BR>
+<LI><A HREF="#grammar">Expression Grammar</A><BR>
+</UL>
+
+<P>&nbsp</P>
+
+
+<H3><A NAME="overview">Overview</a></H3>
+
+<P>This plugin is used to derive new Measurements from existing
+ones. Mathematical expressions such as "<TT>mean( T1, T2, T4 )</TT>"
+are used to specify how the new data is calculated. </P>
+
+<P>The expression is evaluated on a per-Spot basis. The current <A
+HREF="../../../docs/Concepts.html#filt">filter(s)</A> can be use to
+select a subset of Spots to process.</P>
+
+<P>A selection of standard arithmetic and statistical operators are
+provided, for example <TT>mean</TT>, <TTstddev</TT> and
+<TT>log</TT>.</P>
+
+
+<P>&nbsp</P>
+
+<H3><A NAME="interface">User interface</a></H3>
+
+<P><CENTER><IMG SRC="SimpleMaths.jpg"></CENTER></P>
+
+<P>You can type the expression directly into the top panel, or use the
+list of Measurements and the calculator style keypad to enter
+terms.</P>
+
+<P>If the expression can be parsed successfuly, the parse tree will be
+shown in the middle panel. The order in which the terms will be
+evaluated is shown by the way the boxes are nested.</P>
+
+<P>Press the "<B>Execute</B>" button to give the new Measurement a name and
+then calculate the values.</P>
+
+<P>The "<B>Load</B>" and "<B>Save</B>" buttons can be used to write an
+expression to a file or read an expression from a file
+respectively. The expression is stored as plain text within the
+file.</P>
+
+<P>&nbsp</P>
+
+<H3><A NAME="examples">Example expressions</a></H3>
+
+<P>The following examples assume there are Measurements called
+"<TT>Time0</TT>", "<TT>Time10</TT>" and so on.</P>
+
+<UL>
+<P><LI><PRE>
+  Time0 + Time10
+</PRE>
+<I>generates a new Measurement in which the value for each Spot is the<BR>
+sum of the values for that Spot in Measurements <TT>Time0</TT> and <TT>Time10</TT></I> </P>
+
+<P><LI><PRE>
+  ( Time0 + Time10 + Time20 ) / 3
+</PRE>
+<I>generates a new Measurement in which the value for each Spot is the<BR>
+average of the values for that Spot in Measurements <TT>Time0</TT>, <TT>Time10</TT> and <TT>Time20</TT></I> </P>
+
+<P><LI><PRE>
+  sqrt( sqr(Time0 - Time10) + sqr(Time20 - Time60 ) )
+</PRE></P>
+
+<P><LI><PRE>
+  mean( Time0, Time10, Time20, Time60 )
+</PRE></P>
+
+<P><LI><PRE>
+  log( (Time0 + Time10) / 2 ) * log ( (Time20 + Time60 / 2) )
+</PRE></P>
+
+<P><LI><PRE>
+  min( max( Time0, Time10 ), max( Time20, Time60 ) )
+</PRE></P>
+
+<P><LI><PRE>
+  sum( Time0, Time20, Time60, min ( Time120,  Time180 ) )
+</PRE></P>
+
+<P><LI><PRE>
+  sttdev( log(Time0), log(Time20), log(Time60) )
+</PRE></P>
+
+</UL>
+
+<P>&nbsp</P>
+
+<H3><A NAME="funcs">Available Functions</a></H3>
+
+<TABLE>
+<TR><TD ALIGN=RIGHT><I>Name</I></TD><TD ALIGN=CENTER><I>&nbsp;&nbsp;&nbsp;Arguments&nbsp;&nbsp;&nbsp;</I></TD><TD><I>Comment</I></TD></TR>
+<TR><TD ALIGN=RIGHT>abs</TD><TD ALIGN=CENTER>  1 </TD><TD><I>absolute value (discard minus sign)</I></TD></TR>
+<TR><TD ALIGN=RIGHT>alog2</TD><TD ALIGN=CENTER>  1 </TD><I>anti-log to the base 2<I></TR>
+<TR><TD ALIGN=RIGHT>alog10</TD><TD ALIGN=CENTER>  1 </TD><I>anti-log to the base 10<I></TR>
+<TR><TD ALIGN=RIGHT>asin</TD><TD ALIGN=CENTER>  1 </TD></TR>
+<TR><TD ALIGN=RIGHT>acos</TD><TD ALIGN=CENTER>  1 </TD></TR>
+<TR><TD ALIGN=RIGHT>atan</TD><TD ALIGN=CENTER>  1 </TD></TR>
+<TR><TD ALIGN=RIGHT>cbrt</TD><TD ALIGN=CENTER>  1 </TD><TD><I>cube root</I></TD></TR>
+<TR><TD ALIGN=RIGHT>ceil</TD><TD ALIGN=CENTER>  1 </TD><TD><I>round value upwards</I></TD></TR>
+<TR><TD ALIGN=RIGHT>cos</TD><TD ALIGN=CENTER>  1 </TD></TR>
+<TR><TD ALIGN=RIGHT>exp</TD><TD ALIGN=CENTER>  1 </TD><TD><I>exp(x) raises <B>e</B> to the <B>x</B>'th power</I></TD></TR>
+<TR><TD ALIGN=RIGHT>floor</TD><TD ALIGN=CENTER>  1 </TD><TD><I>round value downwards</I></TD></TR>
+<TR><TD ALIGN=RIGHT>inv</TD><TD ALIGN=CENTER>  1 </TD><TD><I>1 / x</I></TD></TR>
+
+<TR><TD ALIGN=RIGHT>ln</TD><TD ALIGN=CENTER>  1 </TD><TD><I>natural log</I></TD></TR>
+<TR><TD ALIGN=RIGHT>log2</TD><TD ALIGN=CENTER>  1 </TD><I>log to the base 2<I></TR>
+<TR><TD ALIGN=RIGHT>log10</TD><TD ALIGN=CENTER>  1 </TD><I>log to the base 10<I></TR>
+
+<TR><TD ALIGN=RIGHT>max</TD><TD ALIGN=CENTER> &gt; 1 </TD><TD><I>the largest of the arguments, ignores null values</I></TD></TR>
+<TR><TD ALIGN=RIGHT>mean</TD><TD ALIGN=CENTER> &gt; 1 </TD><TD><I>the mean value of the arguments, ignores null values</I></TD></TR>
+<TR><TD ALIGN=RIGHT>min</TD><TD ALIGN=CENTER> &gt; 1 </TD><TD><I>the smallest of the arguments, gnores null values</I></TD></TR>
+<TR><TD ALIGN=RIGHT>neg</TD><TD ALIGN=CENTER> 1 </TD><TD><I>negate value ( i.e. invert sign)</I></TD></TR>
+<TR><TD ALIGN=RIGHT>pow</TD><TD ALIGN=CENTER>  2 </TD><TD><I>pow(x,y) raises <B>x</B> to the <B>y</B>'th power</I></TD></TR>
+<TR><TD ALIGN=RIGHT>rand</TD><TD ALIGN=CENTER> 0 </TD><TD><I>random value in the range 0 ... 1</I></TD></TR>
+<TR><TD ALIGN=RIGHT>range</TD><TD ALIGN=CENTER> &gt; 1 </TD><TD><I>i.e. max()-min(), ignores null values</I></TD></TR>
+<TR><TD ALIGN=RIGHT>round</TD><TD ALIGN=CENTER> &gt; 1 </TD><TD><I>convert to nearest whole number</I></TD></TR>
+<TR><TD ALIGN=RIGHT>sin</TD><TD ALIGN=CENTER>  1 </TD></TR>
+<TR><TD ALIGN=RIGHT>sqrt</TD><TD ALIGN=CENTER>  1 </TD><TD><I>square root</I></TD></TR>
+<TR><TD ALIGN=RIGHT>sqr</TD><TD ALIGN=CENTER>  1 </TD><TD><I>squared</I></TD></TR>
+<TR><TD ALIGN=RIGHT>stddev</TD><TD ALIGN=CENTER> 1 </TD><TD><I>standard deviation, ignores null values</I></TD></TR>
+<TR><TD ALIGN=RIGHT>sum</TD><TD ALIGN=CENTER> &gt; 1 </TD><TD><I>ignores null values</I></TD></TR>
+<TR><TD ALIGN=RIGHT>tan</TD><TD ALIGN=CENTER>  1 </TD></TR>
+<TR><TD ALIGN=RIGHT>var</TD><TD ALIGN=CENTER> &gt; 1 </TD><TD><I>variance, ignores null values</I></TD></TR>
+</TABLE>
+
+
+<P>&nbsp</P>
+
+<H3><A NAME="grammar">Expression Grammar</a></H3>
+
+<PRE>
+
+ Expression        := Constant | Variable | Function | ComplexExpression
+	      
+ Constant          := Double | Integer
+	      
+ Variable          := MeasurementName | MeasurementSpotAttributeName   
+	
+ Function          := FunctionName "(" [ Expression [ "," ] ]*  ")"
+	    
+ ComplexExpression := Expression  Operator  Expression
+	
+ Operator          := '+'  |  '-'  |  '*'  |  '/'
+
+</PRE>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

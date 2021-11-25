@@ -1,0 +1,173 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: Text Explorer Plugin</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Text Explorer</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#phrase">Phrase Viewer</A>
+<LI><A HREF="#delims">Delimiters</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The <I>Text Explorer</I> finds repeated words and word patterns in
+names and name attributes and in annotation. Spots associated with
+interesting words can then be tagged in a cluster.</P>
+
+<P><HR></P>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P><CENTER><IMG SRC="TextExplorer.jpg"></CENTER></P>
+
+<P>Select a "Source" for the text and which "Delimiters" (see <A
+HREF="#delims">below</A>) to use to convert the text into tokens
+(i.e. words). The resulting frequency counts for the tokens are then
+displayed in the table.</P>
+
+<P>You can order the table by "Token" (i.e. alphabetically) or by
+"Count" (i.e. the frequency of the token).</P>
+
+<P>The "Make cluster(s)" button creates a cluster for each of the
+selected tokens. You can select a token in the table by clicking on
+it, multiple selections are made using `shift-click' and
+`cntrl-click'.</P>
+
+<P>The "Find phrases" button opens a <A HREF="#phrase">Phrase
+Viewer</A> panel for each of the selected tokens. </P>
+
+<P>&nbsp</P>
+
+<P><HR></P>
+
+<A NAME="phrase"><H3>Phrase Viewer</H3></A>
+
+<P>The <I>Phrase Display</I> portion of the <A
+HREF="overview.html"><I>Text Explorer</I></A>&nbsp; shows how one
+fixed token occurs in conjunction with all other tokens.</P>
+
+<P>The fixed token is determined when the <I>Phrase Display</I> is
+created. The tokenised text is then scanned for tokens which occur
+near the fixed token. The resulting frequency count for pairs of
+tokens is then displayed in a table.</P>
+
+<P>Example:</P>
+
+<P>If there are three text strings being explored:</P>
+
+<P><FONT SIZE="-1">
+<PRE>   this is the first piece of text
+   
+   and this is the second piece of text
+   
+   and this is the third piece of text
+</PRE>
+</FONT></P>
+
+<P>and the token "piece" has been selected, then the 'phrase' table
+would contain these entries:</P>
+
+<P><FONT SIZE="-1">
+<PRE>
+   second    0    piece     1
+   first     0    piece     1
+   third     0    piece     1
+   piece     0    of        3
+   the       1    piece     3
+   piece     1    text      3
+   is        2    piece     3
+   this      3    piece     3
+   and       4    piece     2
+</PRE>
+</FONT></P>
+
+<P>The first and third columns show the 'phrase' (i.e. pair of tokens)
+that has been found. The first two phrases in this example are "second
+piece" and "first piece".</P>
+
+<P>The second column is the "Distance", i.e. the number of other
+tokens between the tokens in the phrase. For this example the
+distance of the first phrase is 0 meaning that "second" and "piece"
+occur next to one another. The distance of the last phrase, made from
+the tokens "and" and "piece", is 4. This means that there are 4 other
+tokens between "and" and "piece" in occurences of this phrase.</P>
+
+<P>The fourth column in the table is the "Count" of times that the
+phrase has been found in the text. In the example data, the final
+phrase "and X X X X piece" (i.e. the tokens "and" and "piece"
+seperated by 4 other tokens) occurs 2 times.</P>
+
+<P><CENTER><IMG SRC="PhraseDisplay.jpg"></CENTER></P>
+
+<P>The "Max. distance" setting determines how far apart two tokens can
+be in a phrase. Larger values increase the data processing time
+considerably.</P>
+
+<P>The "Min. count" setting determines the minimum number of times
+that a phrase must occur to be displayed in the result.</P>
+
+<P>You can order the table by "Distance" (between the two tokens),
+"Token" (i.e. alphabetically) or by "Count" (i.e. the frequency of the
+phrase).</P>
+
+<P>The "Make cluster(s)" button creates a cluster for each of the
+selected phrases. You can select a phrase the table by clicking on it,
+multiple selections are made using `shift-click' and
+`cntrl-click'.</P>
+
+<P>&nbsp</P>
+
+<P><HR></P>
+
+<A NAME="delims"><H3>Delimiters</H3></A>
+
+<P>Chunks of text are converted into 'tokens' by splitting the text
+every time one or more of the delimiter characters are seen.</P>
+
+<P>The characters to use for finding tokens are specified in the
+"Delimiters" string. You can customise the "<B>Delimiters</B>" to
+suit the format of the text you have.</P>
+
+<P>The delimeters string should contain the sort of non-letter
+characters that are used between words, for example ' ' (space) '<TT>,</TT>'
+(comma) and '<TT>"</TT>' (quote).</P>
+
+<P>The special characters '<TT>\t</TT>' and '<TT>\n</TT>' are used to
+refer to TAB and RETURN respectively.</P>
+
+<P><B><I>Examples</I></B>:</P>
+
+<P>&nbsp;&nbsp;using the delimiters:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<TT> ,:</TT>" (i.e. a space, a comma and a colon)<BR>
+&nbsp;&nbsp;the string:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<TT>one:red, two:green,three:blue</TT>"<BR>
+&nbsp;&nbsp;is converted into six words:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<TT>one</TT>', '<TT>red</TT>', '<TT>two</TT>', '<TT>green</TT>', '<TT>three</TT>', '<TT>blue</TT>'<BR>
+</P>
+
+<P>&nbsp;&nbsp;using the delimiters:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<TT> ,</TT>"   (i.e. just a space and a comma)<BR>
+&nbsp;&nbsp;the same string:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<TT>one:red, two:green,three:blue</TT>"<BR>
+&nbsp;&nbsp;is converted into three words:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<TT>one:red</TT>', '<TT>two:green</TT>', '<TT>three:blue</TT>'<BR>
+</P>
+
+<P>&nbsp;&nbsp;using the delimiters:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<TT>'-(),</TT>"   (a single quote, a dash, and open and close parentheses)<BR>
+&nbsp;&nbsp;the string:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<TT>sample-213 'test' marker at 5'end (ignore)</TT>"<BR>
+&nbsp;&nbsp;is converted into eight  words:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<TT>sample</TT>', '<TT>213</TT>','<TT>test</TT>', '<TT>marker</TT>', '<TT>at</TT>', '<TT>5</TT>','<TT>end</TT>', '<TT>ignore</TT>'<BR>
+</P>
+
+</BODY>
+</HTML>

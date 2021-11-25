@@ -1,0 +1,252 @@
+<HTML>
+<HEAD>
+<TITLE>Display: Colours</TITLE>
+</HEAD>
+<BODY>
+
+<H2>Display: Colours</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A><BR>
+&nbsp;&nbsp;&nbsp;<A HREF="#blender">Blender</A><BR>
+&nbsp;&nbsp;&nbsp;<A HREF="#ramped">Ramped</A><BR>
+&nbsp;&nbsp;&nbsp;<A HREF="#discrete">Discrete</A><BR>
+&nbsp;&nbsp;&nbsp;<A HREF="#equalising">Equalising</A><BR>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>Define and edit <I>Colourisers</I> using this panel. Colourisers
+are objects which convert a numerical value into a colour for
+display. Selection of which Colouriser to use for each Measurement is
+done using the <A
+HREF="../plugins/Viewer/MeasurementManager/MeasurementManager.html">Measurement
+Manager</A> plugin (or the Measurement name <A
+HREF="Popup.html#meas">popup menu</A> in the main display window).</P>
+
+<P>Colourisers operate on a <I>number range</I>, i.e. numbers from the
+smallest to the biggest number that this Colouriser is generating
+colours for. The number range depends on which Measurements are using
+it. Minimum and maximum values are updated whenever a Colouriser is
+assigned to a Measurement. There is no method for controlling this
+range manually.<BR></P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<CENTER><P><IMG SRC="images/ViewerColours.jpg"></P></CENTER>
+
+<P>The panel displays each of Colourisers that currently exist. The
+"Add new" button at the bottom of the panel allows the creation a new
+Colouriser.</P>
+
+<P>There are presently four types of Colouriser:<BR>
+<UL>
+<LI><A HREF="#blender"><B>Blender</B></A>, which generates colours by interpolating between a
+set of user defined colours representing different values.
+
+<LI><A HREF="#ramped"><B>Ramped</B></A>, which is similar, but allows control of the
+blending function.
+
+<LI><A HREF="#discrete"><B>Discrete</B></A>, which assigns a of a fixed set of colours to each
+number based on rules, such as "&gt;15".
+
+<LI><A HREF="#equalising"><B>Equalising</B></A>, which examines the
+distribution of the data and allocates a colours to equally partition
+the values.
+
+</UL>
+
+<P>To the left of each Colouriser are three buttons:
+
+<CENTER><P><IMG SRC="images/ViewerColours-controls.jpg"></P></CENTER>
+
+"<B>Delete</B>" removes this colouriser, "<B>Rename</B>" opens a
+dialog box enabling the name of this colouriser to be changed, and
+"<B>Clone</B>" creates a duplicate of this Colouriser.</P>
+ 
+<P>&nbsp;</P>
+<HR>
+<A NAME="blender"><P><B>Blender Colourisers</B></P></A>
+
+<P>The Blender colouriser consists of two or more colours positioned at
+fixed points along the number range. The colour for a number which
+lies between any two points is determined by linear interpolation.</P>
+
+<P>The simplest form of Blender has two colours, one representing the
+minimum of the the number range and the other representing the
+maximum:</P>
+
+<CENTER><P><IMG SRC="images/ViewerColours-blend1.jpg"></P></CENTER>
+
+<P>Colours for numbers are determined by a linear interpolation
+between the two colours. The colour of the midpoint of the number
+range will be halfway between the minimum and maximum colours.</P>
+
+<P>The colour at a fixed point can be changed by double clicking on
+it, which opens a colour chooser dialog box.</P>
+
+<P>A new fixed colour can be added by double clicking on a point
+somewhere along the colour blend. Alternatively, the "+" button adds a
+new fixed colour to the blender.</P>
+
+<CENTER><P><IMG SRC="images/ViewerColours-blend2.jpg"></P></CENTER>
+
+<P>Clicking on a colour point makes it 'selected'. The selected colour
+point is drawn with a shaded outline. The numerical value associated
+with the selected colour point is displayed beneath it.</P>
+
+<P>Fixed points, except for the minimum and maximum colours, can
+deleted by selecting them and then using the "-" button.</P>
+
+
+<P>The minimum and maximum colours cannot be moved. Other colour
+points can be moved by dragging them left and right along the colour
+blend. Colours can be dragged over their neighbours.</P>
+
+<CENTER><P><IMG SRC="images/ViewerColours-blend3.jpg"></P></CENTER>
+
+Any number of fixed point colours can be added to the colouriser to
+produce a wide variety of colour schemes.</P>
+
+<CENTER><P><IMG SRC="images/ViewerColours-blend4.jpg"></P></CENTER>
+
+<HR>
+<A NAME="ramped"><P><B>Ramped Colourisers</B></P></A>
+
+<P>Each Ramped Colouriser has two ramps, one for negative values and
+for positive values.</P>
+
+<P>Both of ramps generates a seqence of colours fading from a start
+colour to and end colour. The end colour of the negative ramp and the
+start colour of the positive ramp are shared. Click on the solid
+colour boxes are either end of a ramp to change the start or end
+colours.</P>
+
+<P>The following examples illustrate how ramps are made. In these
+examples the colours fade from white to red. The rate at which the
+fading takes place is determined by the positioning of <I>nodes</I>. </P>
+
+<P>Above each ramp are two buttons, <IMG
+SRC="images/ViewerColours-add.jpg">&nbsp;adds a node to the ramp,
+and&nbsp;<IMG SRC="images/ViewerColours-add.jpg">&nbsp;removes the
+current node from the ramp. The current node is the one represented as
+a hollow diamond shape, other nodes on the ramp are drawn as filled in
+diamonds. Click on any node to make it the current node.</P>
+
+
+<P>The simplest form of ramp is one with no nodes, shown below. The
+output ramp is a linear fade from white to red.</P>
+
+<CENTER><P><IMG SRC="images/ViewerColours-ramps1.jpg"></P></CENTER>
+
+<P>In the next example, a node has been added, and moved to the
+left-hand side of the ramp. This causes the fade to happen more
+quickly at the lower end of the number range.</P>
+
+<CENTER><P><IMG SRC="images/ViewerColours-ramps2.jpg"></P></CENTER>
+
+<P>To understand how the fade rate is computed, consider the following
+graph which plots position in the input ramp against that of the
+output ramp. The input ramp is always a linear ramp from one colour to
+another, but, as will seen, the output can be constructed piecewise
+from a set of linear sub-ramps, </P>
+
+<CENTER><P><IMG SRC="images/ViewerColours-graph2.jpg"></P></CENTER>
+
+<P>The graph how the output ramp is now composed of two linear
+sub-ramps. This gives rises to the change in fade rate that occurs at
+the node position. The input ramp is divided into two equally sized
+portions, and these portions are then scaled to fit the sub-ramps
+which form the output.</P>
+
+<P>If the node is moved to the right-hand side, the fade happens more
+quickly at the upper end of the number range, as seen in the next
+image.</P>
+
+<CENTER><P><IMG SRC="images/ViewerColours-ramps3.jpg"></P></CENTER>
+
+<P>Another graph of input ramp against output ramp shows how the
+two sub-ramps have been reconfigured.</P>
+
+<CENTER><P><IMG SRC="images/ViewerColours-graph3.jpg"></P></CENTER>
+
+<P>If a second node is added, the ramp becomes three linear
+sub-ramps.</P>
+
+<CENTER><P><IMG SRC="images/ViewerColours-ramps4.jpg"></P></CENTER>
+
+<P>The three ramps are arranged as follows:</P>
+ 
+<CENTER><P><IMG SRC="images/ViewerColours-graph4.jpg"></P></CENTER>
+
+<P>In general, when <TT>N</TT> nodes are present, the input ramp is
+divided into <TT>N+1</TT> equally sized chunks and the output ramp is
+formed by squashing or stretching these chunks according to the node
+positions.</P>
+
+
+<P>&nbsp;</P>
+<HR>
+<A NAME="discrete"><P><B>Discrete Colourisers</B></P></A>
+
+The Discrete Colouriser is a collection of colours linked to simple
+rules, such as "<TT>&lt -10</TT>". To generate a colour from an input
+number, the rules are tested in turn from left to right. The colour is
+chosen from the first rule which is true for this number.</p>
+
+<P>For example, a Discrete Colouriser with three rules would look like this:</P>
+
+<CENTER><P><IMG SRC="images/ViewerColours-disc1.jpg"></P></CENTER>
+
+<P>The rules, "<TT>&gt;10.0</TT>", "<TT>&gt;0.0</TT>" and
+"<TT>&lt;0.0</TT>", partition the input numbers into one of three
+groups. Each rule has a colour, displayed in a panel under the
+rule. Clicking on this panel opens a colour chooser dialog.</P>
+
+<P>Rules are tested from left-to-right. Once one rule is true, no
+futher rules are tried. It is therefore important that the rules are
+ordered correctly. If, for example, the order of the first two rules
+in the above example is swapped:
+
+<CENTER><P><IMG SRC="images/ViewerColours-disc2.jpg"></P></CENTER>
+
+then values which are <TT>&gt;10.0</TT> will now be coloured
+orange. This is because they fulfill the first rule
+"<TT>&gt;0.0</TT>". No values will be coloured red because the
+"<TT>&gt;0.0</TT>" rule will always be seen before the
+"<TT>&gt;10.0</TT>" rule.</P>
+
+<P>Each rule has two buttons underneath it. To insert a new rule, use
+the "+" button and to remove a rule, use the "-" button.</P>
+
+
+<P>&nbsp;</P>
+<HR>
+<A NAME="equalising"><P><B>Equalising Colourisers</B></P></A>
+
+<P>The Equalising Colouriser builds a histogram of the values that it
+is being used for. This infomation is used to partition the range into
+a fixed number of bands so that each band contains approximately the
+same number of values. A colour is then allocated to each band.</P>
+
+<P>The histogram data is displayed in the colourisers panel. Under it
+are bars which show how the bands have been positioned and
+coloured.</P>
+
+<P>The number of colours is selected by the "Level" control. The
+lowest level uses only two bands (and therefore two colours). Each
+higher level uses twice as many bands as the previous level.</P>
+
+<P>The colour for each band is determined by interpolating between the
+specified start and end colours, selected using the two buttons under
+the "Level" control.</P>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

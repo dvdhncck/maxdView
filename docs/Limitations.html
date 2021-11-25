@@ -1,0 +1,56 @@
+
+<HTML>
+<HEAD>
+<TITLE>maxdView</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+
+<H2>Currently known limitations and problems</H2>
+
+<P>Please report any problems, comments or suggestions direct to the
+developer, <A MAIL="david.hancock@cs.man.ac.uk">david.hancock@cs.man.ac.uk</A></P>
+
+<UL>
+<LI>
+<B>Clusters</B>: <P>clusters are not re-mapped to rows when a file is
+           loaded [FIXED, mostly, be careful with existing clusters
+           when merging data from different array types]</P>
+
+<LI>
+<B>Code Runner</B>: <P>there is no method of killing the code fragment
+if it doesn't terminate itself. [FIXED]</P>
+
+<P>The JIT compiler interface doesn't work (yet)</P>
+
+<P>the parsing of error messages to make the line numbeers correspond
+to the code fragment doesn't work properly and make the -------^
+indicators point to the wrong thing</P>
+	
+<LI> <B>Cluster Manager</B>: <P> the tree is completely rebuilt rather
+than updated ater file operations. This is annoying because all
+branches collapse. [FIXED]</P>
+
+<LI> <B>Drag and Drop</B>: On Linux there are problems with the Custom
+Menu interfering with Drag and Drop. If you use the left mouse button
+to selecte something from the Custom menu, no subsequent Drag and Drop
+operations will work. If you stick exclusively to the right mouse
+button for the custom menu then things are ok. This is not a problem
+on MS-Windows.</P>
+
+<LI>
+<B>Sort Clusters</B>: <P>the brute force algorithm (which kicks in if
+the special case algorithm has failed) can take a _very_ long time to
+complete (but it will complete) [FIXED, algorithm replaced with much
+better one]</P>
+
+<LI>
+<B>Rescan Plugins</B>: <P>sometimes there is a very long pause after
+the rescan, resizing the window makes everything work again straight
+away. Not sure about this, something to do with the way the menus are
+built?. [FIXED]</P>
+
+<LI>
+<B>Space Plot</B> popup menus get lost in the image canvas. It can
+also use vast amounts of memory.</P>
+
+</UL>

@@ -1,0 +1,148 @@
+<HTML>
+<HEAD>
+<TITLE>HyperCube Plot</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>HyperCube Plot</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A><BR>
+<BR>
+<LI><A HREF="#interface">User interface</A><BR>
+&nbsp;&nbsp;<A HREF="#sel">Selecting axes for the plot</A><BR>
+&nbsp;&nbsp;<A HREF="#rot">Rotating and adjusting the view</A><BR>
+&nbsp;&nbsp;<A HREF="#label">Identifying Spots</A><BR>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<CENTER><IMG SRC="HyperCubePlot.jpg"></CENTER>
+
+<P>This plugin is an extended scatter plot for inspecting the
+correlation between two or more Measurements.</P>
+
+<P>The <I>hyper-</I>cube is a generalisation of a cube to the
+<I>N</I>th dimension. The 2-cube is a flat square. The 3-cube is what
+we are used to as a cube. It can be thought of as an extrusion of the
+flat square into a new dimension. The 4-cube is an extrusion of a
+3-cube in exactly the same way.</P>
+
+<P>The plugin attempts to visualise hyper-cubes by projecting the
+N-dimensional data into 2-dimensional space and drawing dots for each
+data point. The data can be rotated about each of its primary axes
+before projection.</P>
+
+<P>When used for two Measurements, this plugin provides most of the
+functionality of the <A HREF="../ScatterPlot/ScatterPlot.html">Scatter
+Plot</A> plugin.</P>
+
+<P>When used with three Measurements, it provides similar
+functionality to the <A HREF="../SpacePlot/SpacePlot.html">Space
+Plot</A> plugin.</P>
+
+<P>When used with four or more Measurements the resulting
+visualisations can be very disconcerting!</P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P><A NAME="sel"><H3><B>Selecting axes for the plot</B></H3></A></P>
+
+<P>Select two or more Measurements from the list on the left-hand side
+of the window. You can use "Ctrl+click" to add and remove individual
+Measurements from the selection.</P>
+
+<P>Each selected Measurement will be allocated to one axis of a
+hyper-cube. If you choose 3 Measurements then the data space will be 3
+dimensional.</P>
+
+<P>&nbsp</P>
+
+<P><A NAME="rot"><H3><B>Rotating and adjusting the view</B></H3></a></P>
+
+<P>Each dimension will have a rotation knob in the top half of the
+panel on the right-hand side of the window. Press and hold the left
+mouse button on the edge of the knob and drag it to rotate the
+data. </P>
+
+<P>The data can also be rotated by holding the left mouse button and
+moving the pointer in the image panel. Normally the mouse axes will
+control the rotation in the first and second dimensions; hold the
+"Ctrl" key to map the mouse axes to the third and fourth
+dimensions.</P>
+
+<P>The rotation knobs have an `auto' feature. Click in the center of
+the knob to have it rotate slowly in one direction. Click it in the
+center again to stop the rotation. The next click causes it to start
+rotating in the opposite direction.</P>
+
+
+<P>The bottom half of the right-hand panel contains three viewer
+ controls:</p>
+
+<UL>
+<LI><b>Persp.</b><BR>
+&nbsp;&nbsp;adjusts the degree of perspective in the projections
+<LI><b>Scale</b><BR>
+&nbsp;&nbsp;is a global size control to fit the data to the window
+<LI><b>Eye Sep.</b><BR>
+&nbsp;&nbsp;sets the amount of eye separation in stereoscopic views
+</UL>
+
+<P>Additional controls in the bottom panel are:</P>
+
+<UL>
+<LI><b>Show clusters</b><BR>
+&nbsp;&nbsp;show cluster glyphs (for any visible clusters) in the display
+<LI><b>...and edges</b><BR>
+&nbsp;&nbsp;adds the edges between clusters to the display
+<LI><b>Show axes</b><BR>
+&nbsp;&nbsp;display the colour coded axes of the space
+<LI><b>Show limits</b><BR>
+&nbsp;&nbsp;display the full extent of the space
+<LI><b>Apply filter</b><BR>
+&nbsp;&nbsp;use the current <A HREF="../../../docs/Filters.html">filter(s)</A> to hide data
+<LI><b>Use wireframe</b><BR>
+&nbsp;&nbsp;use a quicker drawing method to make rotating smoother
+<LI><b>Uniform scale</b><BR>
+&nbsp;&nbsp;force each axis to use the same scaling factor
+<LI><b>Depth sort</b><BR>
+&nbsp;&nbsp;draw the data points in the correct depth order
+<LI><b>Stereo</b><BR>
+&nbsp;&nbsp;display the data from 2 viewpoints for low-tech stereo viewing
+<LI><b>Time</b><BR>
+&nbsp;&nbsp;show performance statistics
+</UL>
+
+<P>&nbsp</P>
+
+<P><A NAME="label"><H3><B>Identifying Spots</B></H3></A></P>
+
+<P>When the mouse pointer is rested over a dot for a moment, a
+tool-tip window appears containing an identification label. This label
+can be any of the <A HREF="../../../docs/Concepts.html#spot">Name or
+Name Attributes</A> in the current data. The choice of which Name or
+Name Attribute to show is made via the drop-down menu in the control
+bar along the top of the window.</P>
+
+<P>Click on a spot to add a name label to the plot. Click on the spot
+again to remove the label. The "<B>Clear all</B>" button removes all name
+labels that have been added to the plot.</P>
+
+<P><A HREF="../../../docs/Concepts.html#drag">Drag-and-drop</A> can be
+used to locate particular Spots in the plot. Drag one or more Spots
+from the main display and drop them into the <I>HyperCube Plot</I>
+window. This causes the name(s) to appear next to the dots on the
+plot. Dropping a Cluster onto the panel causes the names of all Spots
+in the cluster to be displayed.</P>
+
+<P>&nbsp</P>
+
+
+</BODY>
+</HTML>

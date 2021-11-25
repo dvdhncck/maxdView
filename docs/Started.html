@@ -1,0 +1,382 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView Getting Started Tutorial</TITLE>
+<META name="description" content="maxdView 0.6.x Getting Started Tutorial">
+<META name="keywords" content="maxd, maxdView, microarray, expression, data,
+analysis, visualsation, visualization ,viewing">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+<P><H1>Tutorial: Getting started with <B>maxdView</B></H1></P>
+
+<P>This is a quick tour of some of the main features of
+<B>maxdView</B>. The internal help system is the main source of
+documentation for <B>maxdView</B>. All dialogs and control panels have
+a "Help" button which opens the relevant page in the help browser.</P>
+
+<UL>
+<LI><A HREF="#load">Loading data....</A>
+<LI><A HREF="#main">The main display.....</A>
+<LI><A HREF="#popup">Popup menu...</A>
+<LI><A HREF="#disp">Display options...</A>
+<LI><A HREF="#filt">Filtering....</A>
+<LI><A HREF="#find">Finding....</A>
+<LI><A HREF="#clusters">Clusters...</A>
+<LI><A HREF="#attributes">Names and Name Attributes...</A>
+<LI><A HREF="#end">And Now...</A>
+</UL>
+
+<A NAME="load"><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Loading data....</B></P></A>
+
+<P>We will begin by loading a demonstration data file stored in native
+format. Start the "Read Native" plugin by selecting it from the "File"
+menu.</P>
+
+<P><FONT SIZE="-1"><I>If "Read Native" does not appear in your "File"
+menu, the plugin could not be found or be started for some reason. You
+need to download an extra software package to use "Load Native". See
+the installation document for more details.</I></FONT></P>
+
+<P>The "Read Native" panel is an extended file browser. Options on the
+right hand side let you control how files are loaded. For this
+demonstration we will ignore these controls. Unless you have
+previously changed them, the default settings are fine. If you have
+changed them, set them back so "Load how?" is "Replace", and all of
+the boxes under "Load what?" are selected.</P>
+
+<P>Find the "<TT>demo</TT>" directory which will be located wherever
+you installed <B>maxdView</B>. In this directory will be a file called
+"<TT>tutorial1.maxd.gz</TT>". This file contains some synthetic data
+encoded using <B>maxdView</B> native XML format and compressed using
+GZIP. Select this file and press "Open" (or double click on the
+file).</P>
+
+<P>Some data should appear in the main display, which will look
+something like this: (but without the big labels!)</P>
+
+<P><A NAME="main"><IMG SRC="images/roundarrow.jpg">&nbsp;<B>The main display....</B></P></A>
+
+<P><CENTER><IMG SRC="images/Started1.jpg"></CENTER></P>
+
+<P>This data has 19 <FONT COLOR="RED">Measurements</FONT> of 400 <FONT
+COLOR="RED">Spots</FONT>.</P>
+
+<P>Measurements (which correspond to different experiments, samples,
+conditions or timepoints) are laid out left to right. The <FONT
+COLOR="RED">Measurement Names</FONT> are shown along the top of the
+display.
+
+<P>The Spots are arranged down the display. Each row starts with one
+or more columns of <FONT COLOR="RED">Name and Name
+Attributes</FONT>. These columns will be explained <A
+HREF="#attributes">later</A>.</P>
+
+<P>The values associated with each Spot in each Measurement are
+represented by the coloured boxes which take up most of the
+display. Two colour schemes are in use, one for the first four
+Measurements and the other for the rest of the Measurements.</P>
+
+<P>The data also includes some <FONT COLOR="RED">Clusters</FONT>,
+ represented by coloured symbols (called glyphs) linked by a
+ hierarchical structure (the tree).</P>
+
+<P><FONT COLOR="RED">Spot Clusters</FONT> appear on the right hand
+ side of the display. Spots in the same Cluster can be identified as
+ they have the same coloured glyph. The tree shows how the clusters
+ are nested.</P>
+
+<P>Along the top of the display, above the Measurement names, are the
+<FONT COLOR="RED">Measurement Clusters</FONT>. These are shown with a
+tree and coloured glyphs in the same way as for Spot Clusters.</P>
+
+<P>We will play with the Clusters <A HREF="#clusters">later</A> in
+ this tutorial.</P>
+
+<P>As you move the mouse pointer around the display, a status line at
+the bottom of the window gives information about the thing under the
+pointer. This information will also appear in a <I>tooltip</I> window
+next to the mouse pointer.</P>
+
+<P>Unless you have a very big display, not all of the Spots and
+Measurements will fit onscreen, so the window will have
+scrollbars. Note that as you scroll around, only the Spots and
+Measurements move, the Names and Clusters stay onscreen.</P>
+
+<P>Pressing the right mouse button displays the <FONT
+COLOR="RED">Popup menu</FONT>.<BR><FONT SIZE="-1">(On systems with no right button, use
+<I>Ctrl + Alt + Left mouse</I> instead.)</FONT></P>
+
+<P>The popup menu is context sensitive, in other words a different
+menu is displayed for each of the different things in the display. For
+example, when you right-click on a Measurement name you get a menu
+specific to Measurements.</P>
+
+<P><A NAME="popup"><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Popup menu...</B></P></A>
+
+<P>The <A HREF="Popup.html">popup menu</a> usually contains shortcuts
+to functions or options available elsewhere. The menus also contain
+options specific to certain elements of the display:</P>
+
+<UL>
+<LI><P>The <FONT COLOR="RED">Name and Name Attributes</FONT> popup menu has
+options for adding and removing the name columns, and for changing
+what is displayed in the column. The concept of Names will be
+explained <A HREF="#attributes">below</A>.</P>
+
+<P>The "Sort this column" option re-orders the Spot rows so that the
+values in the column are in alphabetical order. Try sorting the
+different name columns.</P>
+
+<LI><P>The <FONT COLOR="RED">Cluster</FONT> popup menu contains options
+for showing and hiding parts of the cluster tree and a shortcut which
+opens the <A
+HREF="../plugins/Viewer/ClusterManager/ClusterManager.html">Cluster
+Manager</A>. </P>
+
+<LI><P>The <FONT COLOR="RED">Measurement Name</FONT> popup menu includes
+shortcuts to open the <A HREF="Measurements.html">Measurements</A>
+control panel and  to show and hide the Measurement.</P>
+
+<LI><P>The <FONT COLOR="RED">Spot</FONT> popup menu contains a summary of
+data associated with that Spot.</P>
+
+<P>The "Sort ascending" and "Sort descending" options order the Spot
+rows based on the column that was clicked on. Try sorting the data on
+different columns.</P> 
+
+<P>As the rows are rearranged, the cluster trees become all mixed
+up. This is because the Spots in each cluster are no longer
+adjacent. The <A
+HREF="../plugins/Transform/SortClusters/SortClusters.html">Sort
+Clusters</A> plugin can re-order the Spots using the cluster
+trees.</P>
+</UL>
+
+<P>All popup menus contain the <FONT COLOR="RED">Custom</FONT>
+sub-menu where you can collect frequently used commands for easy
+access. See the <A HREF="CustomMenu.html">Custom menu</A> help page
+for more information.</P>
+
+<P>The <FONT COLOR="RED">Selection</FONT> sub-menu also appears on all
+popup menus. This sub-menu contains options for manipulating the <A
+HREF="Concepts.html#sel">data selection</A>.</P>
+
+
+<P><A NAME="disp"><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Display
+options...</B></P></A>
+
+<P><B>1. Layout</B></P>
+
+<P>Now we will have a brief look at how the layout and colouring of data
+is controlled. Use the "Display -> Layout" menu entry to open the
+layout control panel.</P>
+
+<P>The controls in this panel are divided into four groups. The first
+tab contains sliders which alter the size of the spot boxes used in
+the main display. By reducing the "Column Width" and "Row Height" for
+example, you can fit more data into the window.</P>
+
+<P>Try adjusting the various layout parameters and seeing how they
+affect the display. Try selecting different text fonts using the
+"Text" tab.</P>
+ 
+<P>The "Name Columns" tab of this control panel can also be used to
+add and remove Name and Name Attribute columns. The "Clusters" tab
+controls how Clusters are displayed. See the <A
+HREF="ViewerLayout.html">help page</A> for information.</P>
+
+<P><B>2. Colours</B></P>
+
+<P>Use the "Display -> Colours" menu entry to open the colouriser
+control panel. Colours for the data used in this tutorial are
+generated by two things called `colourisers'. One, called "Raw
+values", appears as a bar of smoothly varying colours from green,
+through white, to red. The other, called "Error values", is
+represented as three sets of type-in fields, each with a colour button
+underneath them.</P>
+
+<P>You can click on the white 'box' in the "Raw values" bar and drag
+it left or right to adjust the rate at which the colurs are
+blended. The data colouring in the main display changes whenever you
+release the mouse button. By double clicking on the white box, you can
+open a colour chooser. You can also double-click on the red and green
+boxes at either end of the colour bar to change their colours.</P>
+
+<P>You can do a lot more with colourisers, see the <A
+HREF="ViewerColours.html">help page</a> for more details.
+
+<P><A NAME="filt"><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Filtering....</B></P></A>
+
+<P>The next thing we will try is using filters to select a subset of
+the spots for display.</P>
+
+<P>Launch the "<A
+HREF="../plugins/Filter/MathFilter/MathFilter.html">Math Filter</A>"
+plugin using the entry on the "Filter" menu. The window that appears
+is divided into four sections. In the top-left panel, you can write a
+mathematical formula, such "Ex4 &gt; 0.55", which will select only
+those Spots in which the value in Measurement "Ex4" is &gt; 0.55;</P>
+
+<P>You can experiment with different formulae, such as "Ex1 &gt; Ex2
+and Ex1 &lt; Ex3". The "Math Filter" understands "and" and "or" and
+lets you build simple arithmetic expressions such as "(Ex1 + Ex2) * 3
+&lt .0"</P>
+
+<P>Dismiss the "Math Filter" using it's "Close" button. Closing the
+window disables the filter and all Spots are shown once again.</P>
+
+<P>Open the "<A
+HREF="../plugins/Filter/ProfileFilter/ProfileFilter.html">Profile
+Filter</a>" using the entry on the "Filter" menu. This filter selects
+Spots based on their similarity to a chosen target Spot.</P>
+
+<P>In the left-hand panel use the "All" button to select all
+Measurements for consideration. Now pick a target spot from the list
+in the right hand panel. The drop-down box above this name allows you
+to search using the different names and Attributes of the Spots.</P>
+
+<P>When a target Spot picked, the filter removes all but that spot and the 10
+ most similar Spots. The main display will update to show just these
+ Spots.</P>
+
+<P>To remove the "Profile Filter", close the plugin's window.</P>
+
+
+<P><A NAME="find"><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Finding....</B></P></A>
+
+<P>Use the "Display -> Find" menu entry to open the finder. This panel
+has type-in fields for finding either Spots or Clusters. Type
+"25/E" into the top field and select "Probe name" in the drop-down
+list. Press return (or the "Go" button). The display scrolls so
+that the Spot containing the Probe "25/EBO0" is at the top.</P>
+
+<P>Press return (or "Go") again and the message "search finished, 1
+found" is displayed in the finder. This tells you that there is only
+one instance of "25/E" in the Probe names.</P>
+
+<P>If you try finding "25/" instead, you will discover that each
+press of return moves to another Probe with a name begining with
+"25/", for example "25/OBR5", "25/JDI1" and so on.</P>
+
+<P>You can also search for Gene and Spot names and their name Attributes,
+which are introduced <A HREF="#Attributes">below</A>.</P>
+
+<P><A NAME="clusters"><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Clusters...</B></P></A>
+
+<P>Clusters are controlled using a plugin called the <A
+HREF="../plugins/Viewer/ClusterManager/ClusterManager.html">Cluster
+Manager</A> which appears in the "Viewer" menu. You can also open this
+panel using the "Show Properties" option in the Cluster popup
+menu.</P>
+
+<P>With this control panel you can change the colour and glyph assigned
+to Clusters, make them temporarily invisible, load, save and delete
+them. </P>
+
+<P>More information about Clusters can be found in the <A
+HREF="ClusterTutorial.html">Working with Clusters</A> tutorial.</P>  
+
+<P><B>1. Hiding and Showing</B></P>
+
+<P>Start the <A
+HREF="../plugins/Viewer/ClusterManager/ClusterManager.html">Cluster
+Manager</A> plugin using the entry in the "Viewer" menu. The window
+which appears is divided into three panels. The top-right panel
+displays a tree in which the branches can be expanded and collapsed
+using the control to the left of each Cluster name.</P>
+
+<P>Clicking on a name in the tree panel selects the cluster. The
+name colour and glyph of the selected cluster can be changed using the
+controls in the top-left panel.</P>
+
+<P>Select the Cluster called "k=1". This is a child of
+"XCluster:k-means,k=5". You can select this Cluster by hand, or use
+the "Cluster -> Find" menu option to find and select it.</P>
+
+<P>Scroll the main display so that you can see the light blue Clusters
+in the "k=1" part of the tree. Press the first "Hide" button in the
+top-left panel. This button hides the selected Cluster and all of its
+children. Note how the light blue part of the tree vanishes in the
+main display. Turn the Clusters back on using the "Show" button in the
+"Selection" part of the top-left panel.</P>
+
+<P>Now hide all of the Spot clusters by pressing the second "Hide"
+button in the top-left panel. Then turn on the "k=1" Clusters using
+the "Show" button again. Now only the light blue Clusters are enabled
+in the main display.</P>
+
+<P><B>2. Drag and Drop</B></P>
+
+<P>
+<P>An easy way to select Clusters for editing is to use <FONT
+COLOR="RED"><I>drag-and-drop</I></FONT> to bring a Cluster from the
+main display to the plugin:</P>
+
+<UL>
+<LI><P>Position the mouse over a glyph or tree branch in the main
+display. You will know when the mouse is correctly positioned as the
+status line will show the name of the Cluster.</P>
+<LI><P>Press and <I>hold</I> the left mouse button.</P>
+<LI><P>Move the mouse to the top-right panel of the Cluster Manager
+window. The mouse cursor will be different to indicate the fact that
+drag and drop is enabled.</P>
+<LI><P>Release the left mouse button once the pointer in the top-right
+panel. The Cluster Manager will select the Cluster and display it in
+the tree.</P>
+</UL>
+
+
+<P><A NAME="attributes"><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Names and Name Attributes...</B></P></A>
+
+<CENTER>
+<TABLE WIDTH=90%><TR><TD> <P><I>maxdView terminology </I>: Each Spot
+corresponds to one well on a microarray slide. The labelled material
+placed in the Spot is called the Probe. This Probe is used to detect
+one or more Genes during the hybridisation process.</P>
+</TD></TR></TABLE>
+</CENTER>
+
+<P>In short: each line in the display corresponds to one Spot, which
+has a unique "Spot Name". Each "Spot Name" can have an associated
+"Probe Name". The "Probe Names" do not have to be unique, when
+microarray data contains replicate spots the replicates should have
+the same "Probe Name". Each "Probe Name" can be linked with one or
+more "Gene Name". The "Gene Name" can be in any format,
+<B>maxdView</B> does not support or require a particular naming
+scheme.</P>
+
+<P>Each type of name can have "Attributes". These are extra
+(key,value) pairs that can be linked to each name. For example "Spot
+Name" might have "Row" and "Column" attributes. Each Spot name can
+then be associated with its coordinates on the array.</P>
+
+<P>The <A HREF="NameTagEditor.html">Name Tag Editor</A> allows you to
+view and edit the names and attributes for a Spot. Point at a spot in the
+main display and use the right mouse button to activate the popup
+menu. Select the "Edit Names &amp; Attrs" option to open the editor.</P>
+
+<P>The name columns to the left of each line show one or more of these
+Names and Name Attributes. You can control the number of columns, what
+each one contains, how it is aligned and the maximum width for each
+column. These controls are found in the <A
+HREF="ViewerLayout.html">layout</A> control panel, acessed from the
+"Display" menu.</P>
+
+<P>The popup menu for name columns has the "Show in this column"
+sub-menu. Try using this to select different Names or Name Attributes
+for display.</P>
+
+<P>You can control these columns in more detail using the <A
+HREF="ViewerLayout.html">layout control panel</A>.</P>
+
+
+
+<P><A NAME="end"><IMG SRC="images/roundarrow.jpg">&nbsp;<B>And now...</B></A>
+
+<UL>
+<LI>The <A HREF="ClusterTutorial.html">Working with Clusters</A> tutorial
+<LI>How about <A HREF="PluginTutorial.html">Writing a Plugin</A> ?
+</UL>
+
+</BODY>
+</HTML>

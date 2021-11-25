@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE>Filter By Selection</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Filter By Selection</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#commands">Plugin Commands</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P><I>Filter by Selection</I> chooses spots based on whether they are
+in the current <A
+HREF="../../../docs/Concepts.html#sel"><I>selection</I></A>.</P>
+
+<P>At the bottom of the window the percentage of Spots which are
+trapped by the filter is shown in red and the percentage of Spots
+which are not trapped is shown in green. Note that the percentages
+only reflect the filtering that is done by this filter, and do not
+take into account any filtering being done by other filter plugins
+that are also active.</P>
+
+<P>As with all filter plugins, closing the plugin's window deactives
+the filter (but iconifying it does not).</P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P>The filter can be in one of three modes:</P>
+<DL>
+<P><DT>No filter</DT> 
+<DD><I><FONT SIZE="-1">displays all spots irrespective of whether they
+are selected</FONT></I></DD></P>
+
+<P><DT>Hide unselected </DT>
+<DD><I><FONT SIZE="-1">only displays spots that are selected</FONT></I></DD></P>
+
+<P><DT>Hide selected Spots</DT>
+<DD><I><FONT SIZE="-1">only displays spots that are not selected</FONT></I></DD></P>
+</DL>
+
+<P><HR></P>
+
+<A NAME="commands"><H3>Plugin Commands</H3></A>
+
+<UL>
+<P><LI><TT>start</TT>
+<FONT SIZE=-1>
+<P>&nbsp;&nbsp;<TT>string : filter-rule</TT></P><P> 'filter-rule' should
+be one of "<TT>no filter</TT>", "<TT>unselected</TT>" or
+ "<TT>selected</TT>".</P>
+
+</FONT></P>
+<P><LI><TT>stop</TT></P>
+</UL>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

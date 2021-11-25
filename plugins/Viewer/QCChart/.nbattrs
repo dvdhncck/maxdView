@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="ComboListModel.java">
+        <attr name="class_dependency_javax.swing.DefaultComboBoxModel" stringvalue="ComboListModel"/>
+        <attr name="class_dependency_javax.swing.event.ListDataListener" stringvalue="ComboListModel.listener"/>
+    </fileobject>
+    <fileobject name="QCResultsTableDisplay.java">
+        <attr name="class_dependency_javax.swing.table.DefaultTableModel" stringvalue="QCResultsTableDisplay.ResultsTableModel"/>
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="QCResultsTableDisplay"/>
+    </fileobject>
+    <fileobject name="QCQuicksetWindow.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="QCQuicksetWindow"/>
+    </fileobject>
+    <fileobject name="QCChart.java">
+        <attr name="class_dependency_Plugin" stringvalue="QCChart"/>
+        <attr name="class_dependency_javax.swing.DefaultListModel" stringvalue="QCChart.SelectedMeasModel;QCChart.MeasListModel;QCChart.GroupModel"/>
+        <attr name="class_dependency_ExprData.ExprDataObserver" stringvalue="QCChart"/>
+    </fileobject>
+</attributes>

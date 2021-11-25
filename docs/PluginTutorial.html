@@ -1,0 +1,447 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: 'Writing a Plugin' Tutorial</TITLE>
+<META name="description" content="maxdView 0.6.x Getting Started Tutorial">
+<META name="keywords" content="maxd, maxdView, microarray, expression, data,
+analysis, visualsation, visualization ,viewing">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><H1>Tutorial: Writing a Plugin</H1></P>
+
+<P>This document illustrates the process of writing a plugin class. A
+reasonable level of understanding of the Java language is assumed.</P>
+
+<P>This example plugin is called "Sort by Probe Name" and,
+unsurprisingly, will re-order the Spots so that the Probe names are in
+alphabetical order. To keep the example simple, the plugin has no user
+interface.</P>
+
+<UL>
+<LI><A HREF="#ctor">The constructor</A>
+<LI><A HREF="#plug">The <TT>Plugin</TT> interface</A>
+<LI><A HREF="#help">Providing Help documentation</A>
+<LI><A HREF="#dosort">The <TT>doSort()</TT> method</A>
+<LI><A HREF="#comp">Compiling the plugin</A>
+<LI><A HREF="#comm">Adding a plugin command</A>
+</UL>
+
+<P>&nbsp;</P>
+
+<P><A NAME="ctor"><IMG SRC="images/roundarrow.jpg">&nbsp;<B>The constructor</B></A></P>
+
+<P>The constructor for a plugin must take a single argument of type
+<TT>maxdView</TT> which gives it a link back to the main
+application. This argument should be saved in an instance
+variable.</P>
+
+<P>The constructor should only initialise the plugin, and should not
+do any other work. An instance of the plugin class will be created
+during the "rescan plugins" operation so the constructor should not
+display any user interface components. The plugin is not considered
+to be running until it's <TT>startPlugin()</TT> method is called. The
+example constructor looks like this:</P>
+
+<P><CENTER><TABLE WIDTH=80% CELLPADDING=5 BORDER=1><TR><TD ALIGN=LEFT>
+<PRE>
+    public SortByProbeName(maxdView mview_)
+    {
+        mview = mview_;
+        edata = mview.getExprData();
+    }
+</PRE>
+</TD></TD></TABLE></CENTER></P>
+
+<P>In addition to storing the <TT>maxdView</TT> reference, this
+constructor also gets and stores a reference to the current
+<TT>ExprData</TT> object. You do not have to do this, but it saves
+repeated calls to <TT>mview.getExprData()</TT> later on.</P>
+
+<P>&nbsp;</P>
+
+<A NAME="plug"><P><IMG SRC="images/roundarrow.jpg">&nbsp;<B>The <TT>Plugin</TT> interface</B></A></P>
+
+<P>A plugin class must implement the <TT>Plugin</TT>
+interface. This interface has 5 methods:</P>
+
+<PRE>
+    public void <B>startPlugin</B>()
+    public void <B>stopPlugin</B>()
+    public PluginInfo <B>getPluginInfo</B>()
+    public PluginCommand[] <B>getPluginCommands</B>()
+    public void <B>runCommand</B>(String name, String[] args, CommandSignal done) 
+</PRE>
+
+<P>These methods are implemented as follows:</P>
+
+<P>&nbsp;</P>
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B><TT>startPlugin()</TT></B></P>
+
+<P>The <TT>startPlugin()</TT> method is called by the plugin launcher
+once an instance of the plugin class has been successfully
+created. This is where the plugin should start doing things, such as
+building and displaying a user interface. In this case,
+<TT>startPlugin()</TT> calls another method which actually does the
+work. The <TT>doSort()</TT> method is described below.</P>
+
+<P><CENTER><TABLE WIDTH=80% CELLPADDING=5 BORDER=1><TR><TD ALIGN=LEFT>
+<PRE>
+    public void startPlugin()
+    {
+       doSort();
+    }
+</PRE>
+</TD></TD></TABLE></CENTER></P>
+
+
+<P>&nbsp;</P>
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B><TT>stopPlugin()</TT></B></P>
+
+<P>The <TT>stopPlugin()</TT> method may be called by the plugin
+launcher, or by other plugins if they want this plugin to stop. The
+method should release any resources held by the plugin, and shut down
+any user interface components.</P> 
+
+<P><CENTER><TABLE WIDTH=80% CELLPADDING=5 BORDER=1><TR><TD ALIGN=LEFT>
+<PRE>
+    public void stopPlugin()
+    {
+    }
+</PRE>
+</TD></TD></TABLE></CENTER></P>
+
+<P>In our example, the method doesn't need to do anything.</P>
+
+<P>&nbsp;</P>
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B><TT>getPluginInfo()</TT></B></P>
+
+<P>The <TT>getPluginInfo()</TT> method is used by the application to
+get details about ths plugin. These details are required to place the
+plugin in the menu hierarchy and to provide links in the help
+documentation.</P>
+
+<P><CENTER><TABLE WIDTH=80% CELLPADDING=5 BORDER=1><TR><TD ALIGN=LEFT>
+<PRE>
+    public PluginInfo getPluginInfo()
+    { 
+       return new PluginInfo("Sort by Probe name",
+                             "transform",  
+                             "Orders the Spots alphabetically by Probe names",
+                             "",
+                             1, 0, 0);
+    }
+</PRE>
+</TD></TD></TABLE></CENTER></P>
+
+<P>The <TT>PluginInfo</TT> class provides a single
+constructor, taking 7 arguments. The arguments are (in order):</BR>
+
+<UL>
+<P><LI><TT>String: name</TT><BR>
+The name of plugin as it will appear in the menus. This does not have
+to be the same as the class name.</P>
+
+<P><LI><TT>String: type</TT><BR>
+The type of the plugin determines which menu the plugin will be listed
+in. Legal options are "<TT>importer</TT>", "<TT>exporter</TT>", "<TT>transform</TT>", "<TT>filter</TT>"
+and "<TT>viewer</TT>".</P>
+
+<P><LI><TT>String: short_description</TT><BR>
+A text string that is used on the "<A
+HREF="Commands.html">Commands</A>" help page. Use this to provide a
+brief descrption of what the plugin is for.</P>
+
+<P><LI><TT>String: long_description</TT><BR>
+A text string that is used on the "<A HREF="About.html">About</A>"
+help page. Use this to present more information about the plugin,
+such as any licencing or copyright message. <BR>
+
+<P><LI><TT>int: major_version_number</TT>
+<LI><TT>int: minor_version_number</TT>
+<LI><TT>int: build_number</TT></P>
+
+<P>The version number of a plugin is represented as <TT>X.Y.Z</TT>, 
+where <TT>X</TT> is the major version number, <TT>Y</TT> is the minor
+version number and <TT>Z</TT> is the build number.</P>
+
+<P>At this time, version numbers are ignored, but later versions of
+<B>maxdView</B> might provide some form of version control and
+automatic updating for plugins.</P>
+</UL></P>
+
+
+<P>&nbsp;</P>
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B><TT>getPluginCommands()</TT></B></P>
+
+<P>Plugins can optionally register one or more commands with
+<B>maxdView</B>. These commands can be invoked by the user using the
+"<A HREF="CustomMenu.html">Custom menu</A>" or from code, e.g. in
+other plugins or via the <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code
+Runner</A>.</P>
+
+<P><CENTER><TABLE WIDTH=80% CELLPADDING=5 BORDER=1><TR><TD ALIGN=LEFT>
+<PRE>
+   public PluginCommand[] getPluginCommands()
+   {
+     return null;
+   }
+</PRE>
+</TD></TD></TABLE></CENTER></P>
+
+<P>This example returns <TT>null</TT> which means 'no commands to be
+registered'. Later examples in this tutorial will show how commands
+are defined.</P>
+
+<P>&nbsp;</P>
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B><TT>runCommand()</TT></B></P>
+
+<P>The final <TT>Plugin</TT> method is used to invoke any commands
+which this plugin has registered. Even if the plugin has no commands,
+as in this example, an empty method body must still be provided.</P>
+
+<P><CENTER><TABLE WIDTH=80% CELLPADDING=5 BORDER=1><TR><TD ALIGN=LEFT>
+<PRE>
+   public void runCommand(String name, String[] args, CommandSignal done) 
+   {
+   }
+</PRE>
+</TD></TD></TABLE></CENTER></P>
+
+<P>&nbsp;</P>
+
+<A NAME="help"><P><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Providing Help
+documentation</B></A></P>
+
+<P>Plugins should have a help page. This must be in the same directory
+as the plugin class, and must have the same name as the class, but
+with a <TT>.html</TT> extension. For our
+<TT>SortByProbeName.class</TT>, the help document would be called
+<TT>SortByProbeName.html</TT>. A link to this document will appear in
+the "<A HREF="Commands.html">Commands</A>" help page.</P>
+
+<P>&nbsp;</P>
+
+<A NAME="dosort"><P><IMG SRC="images/roundarrow.jpg">&nbsp;<B>The <TT>doSort()</TT> method</B></A></P>
+
+<P>The following code does the actual sorting. It uses several
+<TT>ExprData</TT> and <TT>maxdView</TT> methods to access the list of
+names. Java's <TT>Arrays</TT> class provides the actual sorting
+routine.</TT> 
+
+<P>&nbsp;</P>
+
+<P><CENTER><TABLE WIDTH=80% CELLPADDING=5 BORDER=1><TR><TD ALIGN=LEFT>
+<PRE>
+  public void doSort()
+  {
+    // get a mapping of Probe name to a Vector of spot indices
+
+    Hashtable pnht = edata.getProbeNameHashtable();
+    
+    // build an array of probe names...
+
+    String[] pnames = new String[pnht.size()];
+    
+    int p = 0;
+    for (Enumeration e = pnht.keys(); e.hasMoreElements() ;) 
+    {
+        String pname = (String) e.nextElement();
+        pnames[p++] = pname;
+    }
+    
+    // sort this array...
+    
+    Arrays.sort(pnames);
+    
+    // and now build the Spot order array using this sorted list of names
+    
+    int[] new_order = new int[edata.getNumSpots()];
+    
+    int so = 0;
+    
+    for (p=0; p < pnames.length; p++)
+    {
+        Vector sids = (Vector) pnht.get( pnames[p] );
+        
+        for(int s=0; s < sids.size(); s++)
+        {
+          int sid = ((Integer) sids.elementAt(s)).intValue();
+        
+          new_order[so++] = sid;
+        }
+    }
+    
+    // and install the new Spot order
+  
+    edata.setSpotOrder(new_order);
+  }
+</PRE>
+</TD></TD></TABLE></CENTER></P>
+
+<P>&nbsp;</P>
+
+<A NAME="comp"><P><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Compiling the plugin</B></A></P>
+
+<P>The complete code for this example can be found in <A
+HREF="SortByProbeName.java"><TT>SortByProbeName.java</TT></A>. You
+need to put this <TT>.java</TT> file somewhere in the
+<TT>plugins/</TT> subdirectory and compile it.</P>
+
+<P>The precise location of the file makes no difference, as long as it
+is somewhere inside the <TT>plugins</TT> directory hierarchy. By
+convention, existing plugins are given a directory each and are
+grouped into five sections based in their "type". You might choose to
+create a new directory <TT>plugins/Transform/SortByProbeName</TT> and
+put the <TT>.java</TT> file there.</P>
+
+<P>For sucessful compilation, the <TT>maxdView</TT> and
+<TT>ExprData</TT> class files must be found in the classpath you give
+to <TT>javac</TT>.</P>
+
+<P>If you have put the <TT>.java</TT> file in
+<TT>plugins/Transform/SortByProbeName</TT> and this is the current
+working directory, then a suitable comand would be:</P>
+
+<PRE>
+  javac -classpath ../../.. SortByProbeName.java
+</PRE>
+
+<P>(on MS-Windows systems use <TT>..\..\..</TT> instead)</P>
+
+<P>Once the class is compiled, use the "File -&gt; Rescan Plugins"
+command to detect the new plugin. A new entry should appear in the
+"Transform" menu, selecting this will run your code.</P>
+
+<P>&nbsp;</P>
+
+<P><A NAME="comm"><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Adding a plugin command</B></A></P>
+
+
+<P>Adding support for commands to a plugin commands has two
+benefits. Firstly, the functionality is available to other plugins and
+via the <A HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code
+Runner</A>. Additionally, the features of the plugin can be accessed
+via a custom menu entry or hotkey.</P>
+
+<P>Most existing plugins provide "<TT>start</TT>" and "<TT>stop</TT>"
+commands. These commands do not make sense for this plugin as it
+displays no user interface. Instead, a "<TT>sort</TT>" command would
+seem more appropriate.</P>
+
+<P>The commands that a plugin can understand are specified in the
+return value of the "<TT>getPluginCommands()</TT>" method. This method
+is queried by <B>maxdView</B> when plugins are <I>scanned</I>. The
+array of <TT>PluginCommand</TT> objects returned by this method
+defines the commands that will be associated with this plugin.</P>
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Register the command</TT></B></P>
+
+<P>The current implementation of this method is to return
+<TT>null</TT>. Modify the method to be as follows:</P>
+
+<P><CENTER><TABLE WIDTH=80% CELLPADDING=5 BORDER=1><TR><TD ALIGN=LEFT>
+<PRE>
+  public PluginCommand[] getPluginCommands()
+  {
+    PluginCommand[] com = new PluginCommand[1];
+   
+    String[] args = new String[] 
+    { 
+      // name       // type     //default   // flag   // comment
+      "ascending",  "boolean",  "true",     "",       "in which order to sort"
+    };	  
+
+    com[0] = new PluginCommand("sort", args);
+	
+    return com;
+  }
+</PRE>
+</TD></TD></TABLE></CENTER></P>
+
+<P>The method now returns an array containing a single
+<TT>PluginCommand</TT> object. This object defines the name of the
+commands and describes the argument that can be provided when the
+command is invoked. </P>
+
+<P>(Note that in this example this is only one <TT>PluginCommand</TT>
+object, but you can define as many commands as you want as long as
+they each have a unique name.)</P>
+
+<P>The constructor for the <TT>PluginCommand</TT> class takes two
+parameters, a <TT>String</TT> specifying the name of the command, and
+an array of <TT>String</TT>s defining the arguments of the
+command. Each of the arguments of the command is specified by five
+<TT>String</TT> parameters:</P>
+
+<UL>
+<LI><B>name</B>&nbsp;&nbsp;<I>the name of the argument</I>
+<LI><B>type</B>&nbsp;&nbsp;<I>integer,
+double, boolean, string, char or file</I>
+<LI><B>default</B>&nbsp;&nbsp;<I>the default value</I> 
+<LI><B>flag</B>&nbsp;&nbsp;<I>the character 'm' implies that the argument is mandatory</I>
+<LI><B>comment</B>&nbsp;&nbsp;<I>a short description of this argument</I>
+</UL>
+
+<P>As an example of a more complicated command which takes more than
+one argument, consider a plugin which draws a graph. It might provide
+a command such as:</P>
+
+<PRE>
+    String[] args = new String[] 
+    { 
+      // name         // type     //default   // flag   // comment
+      "width",        "integer",  "100",      "m",      "width in pixels",
+      "height",       "integer",  "100",      "m",      "height in pixels",
+
+      "error_level",  "double",   "0.00001",  "",       "minimum error threshold",
+
+      "apply_filter", "boolean",  "false",    "",       "remove filtered Spots?"
+    };	  
+
+    com[0] = new PluginCommand("plot", args);
+</PRE>
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Handle the command</TT></B></P>
+
+<P>The plugins <TT>runCommand()</TT> method will be called when a
+command is invoked, either via the custom menu (or a hotkey) or via
+the <B>maxdView</B> <TT>runCommand()</TT> method.</P>
+
+<P>The current implementation of this method does nothing. Modify the
+method to be as follows:</P>
+
+<P><CENTER><TABLE WIDTH=80% CELLPADDING=5 BORDER=1><TR><TD ALIGN=LEFT>
+<PRE>
+  public void runCommand(String name, String[] args, CommandSignal done) 
+  { 
+    if(name.equals("sort"))
+    {
+      boolean ascending = mview.getPluginBooleanArg("ascending", args, true);
+	    
+      doSort();
+    }
+    if(done != null)
+      done.signal();
+  } 
+</PRE>
+</TD></TD></TABLE></CENTER></P>
+
+<P>The three parameters to this method provide the name of the command
+to be executed, an array containing zero or more
+(<I>name</I>,<I>value</I>) pairs and a <TT>CommandSignal</TT>
+object.</P>
+
+<P>For more information about how the values of the arguments are passed
+see the "<A HREF="RunningCommands.html">Working with Plugin Commands</a>" tutorial.</P>
+
+<P>&nbsp;</P>
+
+</BODY>
+</HTML>

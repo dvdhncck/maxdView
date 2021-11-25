@@ -1,0 +1,221 @@
+<HTML>
+<HEAD>
+<TITLE>Code Runner</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Code Runner</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#library">Code Library</A>
+<LI><A HREF="#methods">Method Tree</A>
+<LI><A HREF="#options">Compiler Options</A>
+<LI><A HREF="#example">Example Code</A>
+</UL>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>This plugin lets you run arbitrary Java code fragments to
+manipulate data or run comands from plugins.</P>
+
+<HR> 
+
+<A NAME="interface"><H3>User Interface</H3></a>
+
+<P><CENTER><IMG SRC="CodeRunner.jpg"></CENTER></P>
+
+<P>The buttons on the top of the main window are:</P>
+
+&nbsp; &nbsp; <B>Run</B> the current code fragment,<BR> 
+&nbsp; &nbsp; <B>Load</B> a code fragment from a file,<BR> 
+&nbsp; &nbsp; <B>Save</B> the current code fragment to a file,<BR>
+&nbsp; &nbsp; open the compiler <B>Options</B> panel,<BR>
+&nbsp; &nbsp; display this <B>Help</B> information,<BR>
+&nbsp; &nbsp; <B>Close</B> the window.<BR></P>
+
+<HR>
+
+<A NAME="library"><H3>Code Library</H3></a>
+
+<P>You can store freqently used code fragments in the
+<I>library</I>.
+
+<P>Press the "Add" button in the bottom left corner and
+specify a name you want to use for the current code fragment. The
+library stores the code, and it's compiled counterpart. If the code
+currently in the edit window is not already compiled you will be asked
+whether you want it compiled.</P>
+
+<P>A dialog box appears asking for a name for the new library
+entry. This can be anything you want.</P>
+
+<P>Code stored in the library does not have to be recompiled and can be
+run directly by double-clicking on it's name in the list.</P>
+
+<P>You can cause code from the library to be executed using the
+"<TT>runFromLibrary</TT>" plugin command. This command takes a single
+argument which specifies the name of the library entry to run.</P>
+
+<P>Other buttons under the library list are:</P>
+&nbsp; &nbsp; <B>Raise</B> the selected entry up the list<BR>
+&nbsp; &nbsp; <B>Lower</B> the selected entry down the list<BR>
+&nbsp; &nbsp; <B>Update</B> (see below)<BR>
+&nbsp; &nbsp; <B>Remove</B> any selected entries<BR>
+&nbsp; &nbsp; <B>Rename</B> the selected entry<BR></P>
+
+<P>If you edit the code of a library entry, this change is not put
+into the library unless you press "Update". If you don't press
+"Update", the library entry will be unmodified, even if you compile
+and run the altered code.</P>
+
+<P>The location of the library is set using the "Options" panel. you
+can have many different libraries in different locations. Each library
+directory will contain a file called "<TT>CodeRunnerLibrary.dat</TT>"
+which the plugin uses to locate the code files. Code files stored in
+this directory are given automatically generated names and should not
+be renamed.</P>
+
+<HR>
+
+<A NAME="methods"><H3>Method Tree</H3></a>
+
+<P>The Method Tree displays the public methods of all the
+<B>maxdView</B> classes.</P>
+
+<P>The method tree is displayed by selecting using the "Methods"
+checkbox (near the top-left corner of the panel).<P>
+
+<P>The tree is arranged by the top-level class names. Within each
+class, the public methods are listed in alphabetical order.</P>
+
+<P>The "Find" feature can be used to locate methods using either their
+names, return types or arguments lists.</P>
+
+<P>Double-click on a method name in the tree to insert the text into
+the code fragment.</p>
+
+<P>Double-click on a class or interface name in the tree to expand or
+collapse that branch.</P>
+
+<HR>
+
+<A NAME="options"><H3>Compiler Options</H3></a>
+
+<P><CENTER><IMG SRC="CodeRunner-options.jpg"></CENTER></P>
+
+<P>Use this panel to control how your code is compiled, including
+specifying a customised classpath.</P>
+
+<P>"Compiler" should contain the full path to a Java compiler. This
+progam is usually called <TT>javac</TT> (or <TT>javac.exe</TT> on
+MS-Windows). If you cannot find the compiler in the same place as the
+other Java programs on your system then it is likely that you are
+using a run-time only version of Java. The 'Java Runtime Environment'
+(JRE) does not come with a compiler. If you have installed a JRE then
+you need to upgrade to a 'Java Development Kit' (JDK) in order to use
+this plugin.
+</P>
+
+<P>You can specify optional compiler "Flags", such as <TT>-O</TT> or
+<TT>-g</TT>.
+
+<P>The "Classpath" is by default set to the <TT>classpath</TT> used to
+start <B>maxdView</B>. This should suffice for most cases unless you
+want to reference some external class from within your code.</P>
+
+<HR>
+
+<A NAME="example"><H3>Example code</H3>
+
+<P><I>(this is not intended to be a complete description of all of
+things you can do through the APIs, for more details see the <A
+ HREF="../../../docs/ProgGuide.html" >Programmers's Guide</A>.)</I></P>
+
+<P>Clamp all values to +/- 3.0</P>
+
+<FONT COLOR="#444444" SIZE="-2"><TT>
+&nbsp;for(int s=0; s &lt; edata.getNumMeasurements(); s++) <BR>
+&nbsp;&nbsp;&nbsp;for(int g=0; g &lt; edata.getNumSpots(); g++) <BR>
+&nbsp;&nbsp;&nbsp;{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if((edata.eValue(s, g)) &gt; 3.0) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;edata.setEValue(s, g, 3.0); <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if((edata.eValue(s, g)) &lt; -3.0) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;edata.setEValue(s, g, -3.0); <BR>
+&nbsp;&nbsp;&nbsp;} <BR>
+</TT></FONT>
+
+<P>Create a Measurement which is the mean of 2 existing Measurements:</P>
+
+<FONT COLOR="#444444" SIZE="-2"><TT>
+&nbsp;double[] tmp = new double[edata.getNumSpots()];<BR>
+<BR>
+&nbsp;double[] d1 = edata.getMeasurementData("time_1");<BR>
+&nbsp;double[] d2 = edata.getMeasurementData("time_2");<BR>
+<BR>
+&nbsp;for(int s=0; s &lt; edata.getNumSpots(); s++)<BR>
+&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;    tmp[s] = (d1[s] + d2[s]) / 2.0;<BR>
+&nbsp;}<BR>
+&nbsp;edata.addOrderedMeasurement("Mean_1,2", tmp);<BR>
+</TT></FONT>
+
+
+<P>Make the values in all Measurement relative to those in the first Measurement:</P>
+
+<FONT COLOR="#444444" SIZE="-2"><TT>
+&nbsp;double[] master =  edata.getMeasurementData(0);<BR>
+<BR>
+&nbsp;for(int m=1; m &lt; edata.getNumMeasurements(); m++)<BR>
+&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;double[] data = edata.getMeasurementData(m);<BR>
+&nbsp;&nbsp;&nbsp;for(int s=0; s &lt; edata.getNumSpots(); s++)<BR>
+&nbsp;&nbsp;&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data[s] /= master[s];<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;edata.setMeasurementData(m, data);<BR>
+&nbsp;}<BR>
+</TT></FONT>
+
+<P>Find any duplicated gene names in the data:</P>
+
+<FONT COLOR="#444444" SIZE="-2"><TT>
+&nbsp;String dupls = "Duplicates:";<BR>
+&nbsp;for(int g=0; g &lt; edata.getNumSpots(); g++)<BR>
+&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;for(int g2=g+1; g2 &lt; edata.getNumSpots(); g2++)<BR>
+&nbsp;&nbsp;&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(edata.getGeneName(g2).equals(edata.getGeneName(g)))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dupls += edata.getGeneName(g2));<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;}<BR>
+&nbsp;
+ mview.infoMessage(dupls);<BR>
+</TT></FONT>
+
+<P>Display only clusters with at least 7 elements in them:</P>
+
+<FONT COLOR="#444444" SIZE="-2"><TT>
+&nbsp;ExprData.ClusterIterator clit = edata.new ClusterIterator();<BR>
+&nbsp;ExprData.Cluster clust = clit.getCurrent();<BR>
+&nbsp;while(clust != null)<BR>
+&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;clust.setShow( (clust.getSize() > 6) );<BR>
+&nbsp;&nbsp;&nbsp;clust = clit.getNext();<BR>
+&nbsp;}<BR>
+</TT></FONT>
+
+<P>&nbsp;</P>
+
+<HR>
+
+<P>See also:
+<UL>
+<LI><A HREF="../../../docs/ProgGuide.html">Programmers Guide</A>
+<LI><A HREF="../../../docs/MethodRef.html">Method Reference</A>
+</UL></P>
+
+</BODY>
+</HTML>

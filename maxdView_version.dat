@@ -1,0 +1,109 @@
+################################################################
+#
+#
+# this file is loaded (as a URL) by maxdView when it starts up
+#
+# and now also used by the maxdView installer application
+#
+#
+###############################################################
+
+#
+# the "latest: " line must appear before any alerts
+#
+
+latest: 1.0.0
+released: 12th May 2003
+size: 6417130
+
+
+#
+#previous versions:
+#
+
+#
+#latest: 0.9.6
+#released: 10th October 2002
+#size: 6052089
+#
+
+#
+#latest: 0.9.4
+#released: 11th July 2001
+#size: 4877757
+#
+
+#
+#latest: 0.9.3
+#released: 5th July 2001
+#size: 5029226
+#
+
+#
+#latest: 0.9.2
+#released: 14th June 2001
+#size: 4696694
+#
+
+#
+# there can be more than one 'flavour' of the latest version
+#
+# "urlbase:" specifies the root of the URL for all flavours
+#
+urlbase: http://www.bioinf.man.ac.uk/microarray/maxd/dist/
+#
+#
+# each flavour line starts "flavour:", followed by a filename,
+# then size, then a description (all on one line)
+#
+# "default:" is the flavour for people who don't care
+#
+#
+#
+default: maxdView_1_0_0.jar 6417130 compiled with Sun JDK 1.3.0
+
+
+# previous:
+#
+#default: maxdView_0_9_6.jar 6052089 compiled with Sun JDK 1.3.0
+#default: maxdView_0_9_3.jar 5029226 compiled with Sun JDK 1.2.2 
+#default: maxdView_0_9_2.jar 4696694 compiled with Sun JDK 1.2.2 
+
+#
+# there can be zero or more "description: " lines 
+#
+
+description: 
+description: Please visit 
+description:   http://www.bioinf.man.ac.uk/microarray/maxd/
+description: to download this new release.
+description: 
+
+
+#
+# alert format
+#
+# each line starts "alert: " followed by a version number
+# 
+# the first line for a version number is the ID of the alert
+#
+# subsequent lines with the same version number give the alert text
+#
+# only one ID is allowed per version number
+#
+
+
+
+# 
+# alert: 0.9.0 id0
+# alert: 0.9.0 You have a bug!
+# alert: 0.9.0 Do not use the Name Munger on Fish
+# alert: 0.9.0 (get the latest version to fix this)
+# 
+# alert: 0.8.9 id1
+# alert: 0.8.9 this is a test for 0.8.9
+# 
+# alert: 13.4.0 id2
+# alert: 13.4.0 help! you are in the future
+# 
+

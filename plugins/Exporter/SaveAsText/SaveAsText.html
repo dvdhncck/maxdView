@@ -1,0 +1,122 @@
+<HTML>
+<HEAD>
+<TITLE>Save As Text</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Save As Text</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<P><HR></P>
+
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>Export some or all of the data in a tabular ASCII file</P>
+
+<P><HR></P>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P>The interface is split into four tabs:</P>
+
+<TABLE WIDTH=90%>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><A HREF="#format"><NOBR>Formatting Options</NOBR></A>&nbsp;</TD><TD><I>basic layout options</I></TD></TR>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><A HREF="#cols">Column contents</A>&nbsp;</TD><TD><I>choose which Measurements &amp; Spot Attributes to include</I></TD></TR>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><A HREF="#rows">Row Contents</A>&nbsp;</TD><TD><I>choose which Names and Name Attrbiutes to use as labels<BR>and choose whuch Measurement Attribute data to include</I></TD></TR>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><A HREF="#preview">Preview</A>&nbsp;</TD><TD><I>see a preview of how the file will appear<BR>and optionally adjust the order of the columns</I></TD></TR>
+</TABLE>
+
+<P>The controls on the first three of these tabs are used to define
+which data will be included in the file. The fourth tab displays a
+preview of the file contents. Once a satisfactory layout has been
+selected, press the "<B>Save</B>" button and use the file chooser that
+is then displayed to specify the file location and name.</P>
+
+<P>The <B>Compress with GZIP</B> option employs a common compression
+technique to reduce the file size. The <I>Load Plain Text</I> plugin
+can load compressed files directly, so this is a convenient way to
+save disk space.</P>
+
+
+<P><HR WIDTH=33%></P>
+
+<H3><A NAME="format">1. Formatting Options</H3>
+
+<P>Use the "<B>Delimiter</B>" drop-down menu to select between tab,
+space or comma delimited files.</P>
+
+<P>The "<B>Significant Digits</B>" slider controls the number of decimal
+places that will be used for numerical data.</P>
+
+<P>The "<B>Missing value</B>" field allows a custom text string to be
+used to represent any missing numerical values.</P>
+
+<P><HR WIDTH=33%></P>
+
+<H3><A NAME="cols">2. Column contents</H3>
+
+<P>The main control on this tab is a list of all Measurements and
+optionally the Spot Attributes of these Measurements. Select one or
+more items from this list for inclusion in the output file.</P>
+
+<P>The "<B>Include column labels</B>" option determines whether the
+names of Measurements and Spot Attributes will be included at the head
+of each column.</P>
+
+<P>The "<B>Remove whitespace from labels</B>" option replaces any
+whitespace (i.e. space and TAB characters) in column labels with an
+underscore character. This is useful if the file is to be parsed by
+other software which expects no whitespaces in it's input.</P>
+
+
+<P><HR WIDTH=33%></P>
+
+<H3><A NAME="rows">3. Row Contents</H3>
+
+<P>The "<B>Apply filter</B>" option restricts the output to only the
+Spots not removed by any currently active <A
+HREF="../../../docs/Filters.html">Filters</A>.</P>
+
+
+<P>The "<B>Include row labels for Measurement Attributes</B>" controls
+whether Measurement Attributes are labelled in the output.</P>
+
+<P>The "<B>Remove white from labels</B>" option replaces any
+whitespace (i.e. space and TAB characters) in Measurement Attribute
+labels with an underscore character. This is useful if the file is to
+be parsed by other software which expects no whitespaces in it's
+input.</P>
+
+<P>Select any number of entries from the list of "<B>Spot Names and
+Name Attributes</B>" for inclusion in the file.</P>
+
+<P>If any Measurement Attributes exist then they will be displayed in
+the list of the right hand side of the tab. Select any number of these
+attributes for inclusion in the file. Selected attributes will occur
+at the top of the file (as can be seen by examining the preview tab)
+</P>
+
+<P><HR WIDTH=33%></P>
+
+<H3><A NAME="preview">4. Preview</H3>
+
+<P>The preview tab shows exactly how the output file will look
+(although only the first twenty rows are included in the preview)</P>
+
+<P>Columns in the table can be re-ordered by dragging the column
+heading left or right. The columns in the output file will be arranged
+in the same order.</P>
+
+
+<P><HR></P>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

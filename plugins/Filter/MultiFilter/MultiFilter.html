@@ -1,0 +1,187 @@
+<HTML>
+<HEAD>
+<TITLE>Multi-Filter</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Multi-Filter</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#conv">Type conversions</A>
+<LI><A HREF="#nans">Handling of NaN and Infinity values</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The <I>Multi-Filter</I> is a convenient way of filtering based on
+values in more than one Measurement at a time. </P>
+
+<P>Rules such as "at least 3 of M1, M2, M3 or M4 are greater
+than 0" can be constructed using this filter.</P>
+
+<P>Individual rules can be combined using the boolean operators 'and'
+and 'or'.</P>
+
+<P>As with all filter plugins, closing the plugin's window deactives
+the filter (but iconifying it does not).</P>
+
+<P><HR></P>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<CENTER><P><IMG SRC="MultiFilter.jpg"></P></CENTER>
+
+<P>Rules are combined using the boolean operators "AND" and "OR".
+
+<P>The currently selected rule is shown with a dark border. Click on
+any rule to select it.</P>
+
+<P>The percentage of Spots which are trapped by each rule is shown in
+red to the right of the rule. The percentage of Spots which pass
+through the rule is shown to the left of the rule. In the top level
+(i.e. outermost) rule, the percentage values are underlined. Note that
+the percentages only reflect the filtering that is done by this
+filter, and do not take into account any filtering being done by other
+filter plugins that are also active.</P>
+
+<P>Use the right mouse button to open a popup-menu which allows you to
+add and remove rules from the filter.</P>
+
+<CENTER><P><IMG SRC="MultiFilterMenu.jpg"></P></CENTER>
+
+<P><B>Expand forwards</B> adds a new rule after the selected rule, and
+<B>Expand backwards</B> add a new rule before the selected one.</P>
+
+<P>The boolean operators used to connect rules are shown in red
+boxes. Double click on the box to toggle between "AND" and "OR".</p>
+
+<P>Double-click on a rule box (or use the "Edit" menu item) to open
+the rule editor:</P>
+
+<CENTER><P><IMG SRC="MultiFilterNode.jpg"></P></CENTER>
+
+<P>The general form of a rule is</P>
+
+&nbsp;&nbsp;<FONT COLOR="#118811"><TT>One_Or_More_Things &nbsp;&nbsp;
+Operator &nbsp;&nbsp; Value</TT></FONT>
+
+<P>where</P>
+
+<P>&nbsp;&nbsp;<FONT COLOR="#229922"><TT>One_Or_More_Things</TT></FONT> is a collection of Measurements
+and/or SpotAttributes,<BR>
+&nbsp;&nbsp;<FONT COLOR="#229922"><TT>Operator</TT></FONT> is one of <TT>&gt;</TT>, <TT>&lt;</TT>,
+<TT>=</TT> or <TT>!=</TT><BR>
+&nbsp;&nbsp;<FONT COLOR="#229922"><TT>Value</TT></FONT> is a constant (such as 1.5 or 'Q'), a
+Measurement or a SpotAttribute.</BR>
+</P>
+
+
+<P>When <TT>One_Or_More_Things</TT> has more than one element, then
+the following options are available:
+
+<PRE>
+&nbsp;&nbsp;All
+&nbsp;&nbsp;None
+&nbsp;&nbsp;At least
+&nbsp;&nbsp;At most
+</PRE>
+
+<P>The "<TT>At least</TT>" and "<TT>At most</TT>" options require an
+additional numerical value, specified in the type-in field to the
+right of the options drop-down menu.</P>
+
+<P>Press the "<B>Apply</B>" button to update the rule.</P>
+
+<P>&nbsp;</P>
+
+<P><B>Example rules:</B></P>
+
+
+<P>&nbsp;&nbsp;<TT>T1 &lt; T0 </TT></P>
+
+<P>&nbsp;&nbsp;<TT>( T1 &lt; T0 ) AND ( T2 &lt; T1 )</TT></P>
+
+<P>&nbsp;&nbsp;<TT>All of ( T1, T2, T3, T4 ) &gt; T0</TT></P>
+
+<P>&nbsp;&nbsp;<TT>At most 2 of ( T2, T3, T7 ) &lt; -0.5</TT></P>
+
+
+<P><HR></P>
+
+
+<A NAME="conv"><H3>Type conversions</H3></A>
+
+<P>When required, type conversions are applied as follows:</P>
+
+<TABLE>
+<TR><TD></TD> <TD>&nbsp;&nbsp;to <B>Integer</B></TD><TD>&nbsp;&nbsp;to <B>Double</B></TD><TD>&nbsp;&nbsp;to <B>Char</B></TD><TD>&nbsp;&nbsp;to <B>Text</B></TD></TR>
+<TR><TD ALIGN=RIGHT>from <B>Integer</B></TD>
+<TD>&nbsp;&nbsp;-&nbsp;&nbsp;</TD>
+<TD>&nbsp;&nbsp;promote&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;convert or fail&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;convert&nbsp;&nbsp;</TD> </TR>
+<TR><TD ALIGN=RIGHT>from <B>Double</B></TD> <TD>&nbsp;&nbsp;coerce or fail&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;-&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;fail&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;convert&nbsp;&nbsp;</TD> </TR>
+<TR><TD ALIGN=RIGHT>from <B>Char</B></TD> <TD>&nbsp;&nbsp;promote or
+fail&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;promote or fail&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;-&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;convert&nbsp;&nbsp;</TD> </TR>
+<TR><TD ALIGN=RIGHT>from <B>Text</B></TD>
+<TD>&nbsp;&nbsp;convert or fail&nbsp;&nbsp;</TD>
+<TD>&nbsp;&nbsp;convert or fail&nbsp;&nbsp;</TD>
+<TD>&nbsp;&nbsp;convert or fail&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;-&nbsp;&nbsp;</TD> </TR>
+</TABLE>
+
+<P><DL>
+<DT><I>promote</I></DT><DD>change type with no loss of precision.</DD>
+<DT><I>coerce</I></DT><DD>change type with possible loss of precision.</DD>
+<DT><I>conver</I>t</DT><DD>convert type with possible loss of meaning.</DD>
+<DT><I>fail</I></DT><DD>causes a type mismatch error which happens whan a value in one type
+cannot be coverted sensibly to a value in some other type, for example
+converting the character 'q' to an integer.</DD>
+</DL></P>
+
+<P><HR></P>
+
+<A NAME="nans"><H3>Missing values (i.e. NaNs)</H3></A>
+
+<P><B>Note:</B> This behaviour is different to that of versions prior to 1.0.4</P>
+
+<P>The special value '<TT>NaN</TT>' (<I>not-a-number</I>) is used to represent
+a value which is unknown or missing.</P>
+
+<P>All comparisions in which a <TT>NaN</TT> value is tested against any non-<TT>NaN</TT> value
+will be false, for example "<TT>NaN &gt; 3</TT>",  "<TT>NaN &gt;=
+-2000</TT>", "<TT>400 &lt; NaN</TT>"
+and "<TT>NaN &gt; NaN</TT>" are all false.</P> 
+
+<P><TT>NaN</TT> values are equal to other <TT>NaN</TT> values, for example "<TT>NaN
+&gt;= NaN</TT>", "<TT>NaN &lt;= NaN</TT>" and "<TT>NaN = NaN</TT>" are
+all true.</P>
+
+<P><TT>NaN</TT> values are not equal to any other value, for example "<TT>NaN
+= 1.0</TT>" is false.</P>
+
+<P>The special values '<TT>Infinity</TT>' and '<TT>-Infinity</TT>' represent positive and
+negative infinity respectively.</P>
+
+<P>Infinity values behave like extreme versions of normal values, so
+<TT>Infinity</TT> is greater than any other number, and
+<TT>-Infinity</TT> is less than any other number.</P>
+
+<P>Magnitude comparisons of <TT>NaN</TT> values with <TT>Infinity</TT>
+values are always false, for example "<TT>Infinity &lt; NaN</TT>" and
+"<TT>NaN &gt;= -Infinity</TT>" are both false. However, equality tests
+between <TT>NaN</TT> values with <TT>Infinity</TT> values behave as
+normal, so "<TT>Infinity = NaN</TT>" is false and "<TT>-Infinity !=
+NaN</TT>" is true.</P>
+
+<P>A complete description of how comparisons with <TT>NaN</TT>,
+<TT>-Infinity</TT> and <TT>-Infinity</TT> values work can be found <A
+HREF="../../../docs/DoubleCompare.html">here</A>.</P>
+
+<P>&nbsp</P>
+
+
+</BODY>
+</HTML>

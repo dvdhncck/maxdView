@@ -1,0 +1,238 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: Commands and Hotkeys Tutorial</TITLE>
+<META name="description" content="maxdView 0.9.x Commands and Hotkeys Tutorial">
+<META name="keywords" content="maxd, maxdView, microarray, expression, data,
+analysis, visualisation, visualization ,viewing">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><A NAME="top"><H1>Tutorial: Commands and Hotkeys</H1></A></P>
+
+<P>Commands and hotkeys provide a quick way to access frequently used
+features of <B>maxdView</B>.</P>
+
+
+<P>Many plugins can be accessed via <I>Commands</I> as well as via
+their normal user interface. It is possible, for example, to start a
+filter plugin and set a particular filter mode without touching the
+mouse.</P>
+
+<P>A <A HREF="PluginCommandsList.html">complete list</A> of all plugin
+commands is generated whenever the plugins are <A
+HREF="Plugins.html">scanned</A>.
+
+<P>In this tutorial, we shall first define a hotkey for an existing
+command, and then use the <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code Runner</A>
+plugin to create a new command.</P>
+
+<UL>
+<LI><A HREF="#p1">Part 1: Calling an existing command</A>
+<LI><A HREF="#p2">Part 2: Defining a new command</A>
+</UL>
+
+<P>&nbsp;</P>
+<A NAME="p1"><H2><IMG SRC="images/roundarrow.jpg">&nbsp;Part 1: Calling an existing command</H2></A>
+
+
+<P>For this example, we shall use a command from the <I>Filter By
+Selection</I> plugin. This plugin is used for hiding (or displaying)
+spots which are currently filtered (or not).</P>
+
+<P>This plugin provides two commands, "<TT>start</TT>" and
+"<TT>stop</TT>". The "<TT>start</TT>" command is used to fire up the
+plugin and takes an argument which sets the initial state (see the
+plugin's <A
+HREF="../plugins/Filter/FilterBySelection/FilterBySelection.html">help
+page</A> for details).</P>
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Open the custom menu
+editor....</B></P>
+
+<P>We will use the Custom menu <A HREF="CustomMenu.html">editor</A> to
+install the new command. Open the editor by selecting the "Edit"
+option from the "Custom" menu. The "Custom" menu appears as a submenu
+on all <A HREF="Popup.html">Popup</A> menus.</P>
+
+<P>Press the "New Command" button to display the list of plugins and
+their commands.</P>
+
+<P><CENTER><IMG SRC="images/CustomMenuAdd.jpg"></CENTER></P>
+
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Add
+the command....</B></P>
+
+<P>Select the "<TT>Filter By Selection</TT>" plugin from the list in the
+left-hand panel. This causes the list of commands understood by this
+plugin to be displayed in the middle panel. Select the "<TT>start</TT>" command
+in this panel. The right-hand panel will now display the arguments
+accepted by the command. </P>
+
+<P>Press the "Add" button to add this command to the custom menu. The
+window will return to the list of custom commands with the new
+"<TT>Filter By Selection.start</TT>" command at the end of the list.</P>
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Set the
+arguments....</B></P>
+
+<P>The "<TT>start</TT>" command takes a single argument called
+"<TT>filter</TT>". This argument can be used to put the plugin into one of the
+three diferent filtering modes that it supports. The <A
+HREF="../plugins/Filter/FilterBySelection/FilterBySelection.html">help
+page</A> states that the value of this argument should be one of
+"<TT>no filter</TT>", "<TT>unselected</TT>" or "<TT>selected</TT>".
+For this example, we shall use "unselected". Type this into the
+"<TT>filter</TT>" type-in field in the "Arguments" section.</P>
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Name the command....</B></P>
+
+<P>Commands are given a default name, in this case "<TT>Filter By
+Selection.start</TT>".</P>
+
+<P>You can change this name as required by typing
+a new name into the "<TT>Name</TT>" type-in field. The name is only used when
+listing the command in the menu, changing the name does not affect the
+command itself.</P>
+
+<A NAME="hotkey"><P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Define a hotkey....</B></P></A>
+
+<P>Of more interest than the name is the "Hotkey" that will be used to
+activate the command. There are three forms of hotkey specification,
+one based on a "Ctrl-C" prefix, one based on an "Escape" prefix and
+one for the 'function' keys F1...F16</P>
+
+<P>The first hotkey format allows you to specify a single key for the
+command. For this example, we might choose "F" (for
+<B>F</B>ilter). Type "F" into the "Hotkey" field and close the Custom
+menu editor. In the main display, press "Ctrl-C" ("C" for
+<B>C</B>ustom) then "F". This will call the command and start the
+plugin.</P>
+
+<P>When the plugin starts, it will be in "unselected" mode. Try
+changing the mode by setting a different value in the "Arguments"
+section of the custom menu editor.</P>
+
+<P>The second hotkey format is based on the "Escape" prefix. In this
+format, sequences of keys can be used to launch the command. This can
+make it easier to remember which hotkey will launch which command.</P>
+
+<P>Open the custom menu editor and select the "<TT>Filter By
+Selection.start</TT>" command that you have just added. Change the
+hotkey specification to be <NOBR>"<TT>esc fil</TT>"</NOBR>. Close the
+custom menu editor and then, in the main display window, press the
+"Escape" key then then keys "<TT>f</TT>","<TT>i</TT>" and "<TT>l</TT>"
+in sequence. This will start the plugin as before.</P>
+ 
+<P>You can have as many characters as you wish in a hotkey specified
+using the "<TT>esc</TT>" format.</P>
+
+
+
+<P>&nbsp;</P>
+<A NAME="p2"><H2><IMG SRC="images/roundarrow.jpg">&nbsp;Part 2: Defining a new command</H2></A>
+
+
+<P>Using the library feature of the <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code Runner</A>
+plugin, it is possible to access your own code from the custom menu or
+via a hotkey.</P>
+
+<P>In this section of the tutorial, we shall create a 'hello world'
+command. Whilst not very useful in itself, this example shows how any
+code you want can be accessed via the plugin command mechanism.</P>
+
+<P>The <A HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code
+Runner</A> will be used to define the command to be executed, and then
+the Custom menu <A HREF="CustomMenu.html">editor</A> will be used to
+access this command.</P>
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Write the code</B></H2>
+
+<P>Start the <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code Runner</A>
+plugin. Paste the following code into the editing panel:</P>
+
+<PRE>
+public void doIt() 
+{
+  <FONT COLOR="RED">mview.infoMessage("Hello world");</FONT>
+}
+</PRE>
+
+<P>note: an empty "<TT>doIT()</TT>" method body will already be in the
+editor, you only need to add the single line in red. Make sure to
+include the semi-colon at the end of the line.</p>
+
+<P><CENTER><TABLE WIDTH=80% CELLPADDING=5 BORDER=1><TR><TD>
+<P><B><I>Compiler options....</I></B></P>
+<P>If you have not previously configured the options of the  <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code Runner</A>
+plugin, press the "Options" button to display the following panel:</P>
+
+<CENTER><IMG SRC="../plugins/Transform/CodeRunner/CodeRunner-options.jpg"></CENTER>
+
+<P>The "Compiler" field must contain the path to a Java compiler
+(called '<TT>javac</TT>' or '<TT>javac.exe</TT>') - see the <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code Runner</A>
+help page for more information.</P>
+
+<P>Press the "Apply" button to close the options dialog box.</p>
+
+</TD></TD></TABLE></CENTER></P>
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Add it the library</B></H2>
+
+<P>Press the "Add" button (in the bottom left-hand corner). You will
+be asked to confirm whether you want to compile the code and add it to
+the library. If the compilation succeeds, you will be asked to give
+the new entry a name, call it "hello".</P>
+
+<P>If the compile fails you will be informed of the reason. If the
+compiler cannot be found, check the "options" as detailed above. If
+compiler error messages are displayed, make sure that the code in the
+editor exactly matches that shown above.</P>
+
+<P>Once the new entry is in the library you can test it by
+double-clicking on the entry in the library list. If it works, the
+message will be displayed. Having verified the new library entry, you
+can close the <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code Runner</A>
+plugin.
+
+<P><IMG SRC="images/smallroundarrow.jpg">&nbsp;<B>Create a new command</B></H2>
+
+<P>Any entry in the <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code Runner</A>
+library can be invoked by sending the plugin a "<TT>runFromLibrary</TT>"
+command.<P>
+
+<P>The "<TT>runFromLibrary</TT>" command is accessed in the same way as
+was done in the first part of this tutorial. Firstly, open the custom
+menu editor by selecting the "Edit" option from the "Custom" menu. The
+"Custom" menu appears as a submenu on all <A
+HREF="Popup.html">Popup</A> menus.</P>
+
+<P>Press the "New Command" button to display the list of plugins and their
+commands. Choose the "<TT>Code Runner</TT>" plugin and then the
+"<TT>runFromLibrary</TT>" command. Press "Add" to add the new command
+to the custom menu hierarchy.</P>
+
+<P>The command takes a single argument which tells the plugin which
+library entry to execute. Enter the name of the new library entry
+(i.e. "hello") into the "<TT>name</TT>" field in the "Arguments"
+section of the editor. The command is now ready for use.</P>
+
+<P>You can define a hotkey for the command as outlined <A
+HREF="#hotkey">above</A>.</P>
+
+<P>For more information about what you can do with plugin commands,
+see the <A HREF="RunningCommands.html">Working with Plugin Commands
+Tutorial</A>.</P>
+
+<P>&nbsp;</P>
+
+</BODY>
+</HTML>

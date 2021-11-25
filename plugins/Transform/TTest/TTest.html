@@ -1,0 +1,163 @@
+<HTML>
+<HEAD>
+<TITLE>Student T Test
+</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+<H2>Student T Test</H2>
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">Interface</A>
+<LI><A HREF="#formula">Formulae and explanation</A>
+</UL>
+
+<P>&nbsp;</P>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+This plugin carries out a standard Student T Test.
+The T Test is often used to assess the significance of a result, especially when sample sizes are small.
+The T Test is used to address the following question:
+Given two sets of measurements, are the means of the sets significantly different?
+Does the difference in the means of the data reflect a real difference in the means
+of the underlying distribution, or is the result likely to occur just by chance?
+<BR>
+Maxd offers two versions of the TTest. The first is the standard t test, for use when both of the sets
+considered are assumed to be from normal distributions, and with the added assumption that the
+two distributions have the same variance.
+<BR>The second version is for use when the distributions are assumed normal, but the variances
+are not assumed to be the same. 
+
+<P>&nbsp;</P>
+
+<HR>
+
+<A NAME="interface"><H3>Interface</H3></A>
+
+<P>&nbsp;</P>
+To perform the t-test:
+<UL>
+<LI>Pick <B>TTest</B> from the <B> transform</B> menu.
+<LI>Choose the measurements for set A and for set B from the two columns.
+Hold down the <B>CTRL</B> key to help
+select the measurements you require.
+<LI>press next.
+<LI>On the options tab, select the options you require as follows
+<LI> Select the type of T Test you require. The standard t test is for use if you 
+assume that the variances are the same, while the <b>vars differ</b> version is for use
+when you suspect that the variances may differ for some reason. For microarray 
+experiments, the small number of replicates usually mean that it is expedient to assume
+that the variances are equal.
+<LI>select the action that you wish the program to take when some but not all of the 
+measurements for a particular spot are NaN (not a number). This is a case which could occur if there
+has been a problem on one or two of the replicates for that spot. It could also occur if 
+the user has purposefully set to NaN those measurements which have been flagged as not working.
+The first option here is "set to NaN", in which case the t test is not carried out for that spot,
+and the t and p values in the result column will be set to NaN. The second option is
+"calculate using remaining values." In this case, the program will ignore the NaN values, and 
+will carry out a t test only on the remaining values for that spot. 
+<LI>Check boxes in order to select which columns you wish to create.
+<LI>Change the names of the columns if you wish.
+<LI>Press "press t test".
+</UL>
+On completing the T Test the program will display an info message confirming which measurements were 
+used in the calculation.
+<BR>
+Note: If the "calculate using remaining values" option is chosen,
+the user is recommended not to rely only on the t value column when interpreting the results. 
+For spots where the t value has been calculated using different numbers of results, 
+the number of degrees of freedom will differ, so the t values will not be directly comparable.
+The p values are calculated taking into consideration the number of degrees of freedom, so the p 
+values will be directly comparable. The user is thus reccomended to include the p value column and/or
+the degrees of freedom column in this case
+<BR>
+Note: When analysing microarray data, one is usually interested in the 2 tailed p-value.
+This is the probablility that a difference in means greater than that reported might occur by chance.
+This includes both cases, meanA>meanB and meanB>meanA.
+The one tailed p value is used only in the case where our a priori belief is that meanA>meanB. 
+
+
+<HR>
+
+<A NAME="formula"><H3>Formulae and Explanation</H3></A>
+The assumptions which are made in order to carry out a t test are:
+<UL>
+<LI>That the distributions of values follow a normal (gaussian) distribution
+<LI>That the true variances of the two distributions are the same
+</UL>
+
+
+The formula for the T Test is as follows:
+<PRE>
+	t = differenceOfMeans / sterrOfDifferences
+</PRE>
+where
+<PRE>
+	differenceOfMeans = mean(A) - mean(B)
+</PRE>
+and 
+<PRE>
+	sterrOfDiffences = sqrt(alpha * beta)
+	
+	alpha = (1/n(A)) + 1/n(B))
+
+ 	beta = (var(A)*(n(A)-1) + var(B)*(n(B)-1)) / (n(A) + n(B) -2)
+</PRE>
+recall that:
+<PRE>
+	mean(x) = Sum(x)/n(x)
+
+	var(x) = Sum((x-mean(x))^2) / (n(x)-1)
+</PRE>
+Note that if both of the samples have the same number of elements, say n, then the formula for
+the value of t is reduced to:
+<PRE>
+	(mean(A) - mean(B)) / sqrt ((var(A) + var(B))/n )
+</PRE>
+In order to interpret the t value, need to look on a statistical table to determine the 
+p-value cutoff which corresponds to the number of degrees of freedom and the required
+statistical significance. 
+
+<BR>
+
+Note that the number of degrees of freedom is:
+
+<PRE>
+	n(A) + n(B) - 2
+
+</PRE>
+
+The above explanation and the t test in maxd are for the case where the variances of the two distributions
+are assumed to be the same.
+<BR>
+
+One can still apply a significance test if the variances are assumed to be different.
+In that case, the value calculated is given by:
+
+<PRE>
+	d = mean(A) - mean(B) / sqrt(var(A)/n(A) + var(B)/n(B))
+</PRE>
+
+the effective number of degrees of freedom in this case is given by 
+
+<PRE>
+	degFreedom = (u^2/(n(A)-1) + (1-u)^2/(n(B)-1))^(-1)
+</PRE>
+
+where 
+
+<PRE>
+	u = var(A)/n(A) / (var(A)/n(A) + var(B)/n(B))
+</PRE>
+
+the significance cutoff can be obtained from relavant tables by considering the nearest integer values
+to the effective degrees of freedom.
+<BR>
+Maxd will calculate the P value for the given t statistic and number of degrees of freedom.
+A low P value indicates a result which was unlikey to occur just by chance, and can be interpreted 
+as a high probability that means of the underlying distributions differ to the extent reported.
+
+</BODY>
+</HTML>

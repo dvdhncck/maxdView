@@ -1,0 +1,325 @@
+<HTML>
+<HEAD>
+<TITLE>Cluster Manager</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Cluster Manager</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#menus">Menu Commands</A>
+<LI><A HREF="#comms">Plugin Commands</A>
+<LI><A HREF="#colsel">The Colour Selector</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The Cluster Manager shows the current cluster hierarchy and
+provides controls for loading, saving, and manipulating clusters.</P>
+
+<P><A HREF="../../../docs/Concepts.html#drag">Drag-and-drop</A> can be
+used to find clusters in the hierarchy (by dropping a Cluster onto the
+tree) or to cause clusters to be displayed in viewers (by dragging a
+Cluster from the tree).</P>
+
+<P><HR></P>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<CENTER><P><IMG SRC="ClusterManager.jpg"></P></CENTER>
+
+<P>The Cluster Manager is divided into three panels which can be
+resized using the thick inner dividing bars.</P>
+
+<P><B><A HREF="#tree">The Cluster Tree</A></B> appears in the top right panel</P>
+
+<P><B><A HREF="#controls">Cluster Controls</A></B> for the selected cluster are in the top
+left panel.</P>
+
+<P><B><A HREF="#info">Cluster Infomation</A></B> for the selected cluster is displayed in
+the bottom panel.</P>
+
+<P>&nbsp</P>
+
+
+<A NAME="tree"><H3>The Cluster Tree</H3></A>
+
+<P>The top right panel displays the clusters in a tree in which
+individual branches are expanded or collapsed by clicking on the small
+switches next to them.</P>
+
+<P>Single clicking on a cluster makes it the <I>selected</I> cluster.  The
+selected cluster is name indicated by a box around its name in the
+tree display.</P>
+
+<P>Double clicking on a cluster with no children toggles the visibilty
+of the cluster. If the cluster is currently visible, it is hidden and
+<I>vice versa</I>.</P>
+
+<P>Double clicking on a cluster that has children causes the branch to
+be expanded if it is not already so, otherwise it is collapsed.</P>
+
+<P>You can use <A
+HREF="../../../docs/Concepts.html#drag">Drag-and-drop</A> to take a
+cluster from this panel to another plugin. If a cluster is dropped on
+the tree, the tree branches will be exanded as required to reveal the
+cluster.</P>
+
+<A NAME="controls"><H3>Cluster Controls</H3></A>
+
+<P>In the top left panel are controls for manipulating the selected
+cluster.</P>
+
+<UL>
+<LI><P>A type-in text field allows to to change the name of the
+cluster. (You must press RETURN to commit the name change.)</P>
+
+<LI><P>The "<B>Show</B>" checkbox controls whether the cluster is
+visible or not. If the cluster has children, their visibilty is also
+controlled by this switch.</P>
+
+<LI><P>The "<B>Colour</B>" and "<B>Glyph</B>" controls are used to alter the
+display attributes of the cluster and its children.</P>
+
+<P>When the selected cluster has no children, pressing the
+"<B>Colour</B>" button displays a conventional colour picking dialog
+box. When the cluster has got children, the <A
+HREF="ColourSelect.html">Colour Selector</A> dialog is used instead.</P>
+
+<P>The "<B>Glyph</B>" dropdown menu selects which of the glyph shapes
+will be used for the selected cluster. If the cluster has children,
+then the same glyph will be assigned to all of the children.</P>
+
+<P>When the selected cluster has children, an extra option is
+available in the "<B>Glyph</B>" menu. Cycle mode (shown as rotating
+arrows) causes the parent to allocate different glyphs to each of its
+children.</P>
+
+<LI><P>The "<B>Selection</B>" area shows the name of the currently
+selected node and contains buttons which "<B>Hide</B>" or
+"<B>Show</B>" this cluster.</P>
+
+<LI><P>The "<B>All Clusters</B>" area contains buttons which
+"<B>Hide</B>" or "<B>Show</B>" all clusters except the selected
+cluster.</P>
+</UL>
+
+<A NAME="info"><H3>Cluster Information</H3></A>
+
+<P>The bottom panel displays the names of the elements in the
+currently selected cluster. This panel also shows how the cluster was
+defined, whether by <A HREF="../../../docs/Concepts.html#spot">Spot
+names</A>, in which case the cluster is specific to this array type,
+or by Probe or Gene names, in which case the cluster can be applied to
+data from other sources.</P>
+
+<P><HR></P>
+
+<A NAME="menus"><H3>Menu Commands</H3></A>
+
+<P>Manager menu:</P>
+
+<TABLE WIDTH=80%>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Load</B><TD> reads clusters from a
+file. The new clusters are added either as children of the <I>Root</I>
+cluster or as children of the selected cluster depending on the
+"<B>Insert Where?</B>" setting.
+
+<P>Files may be in one of three formats:</P>
+
+<UL>
+
+<LI><P><B>Native</B> files are in a human readable XML format (see <A
+HREF="../../../docs/FileFormats.html">File Formats</a>).</P>
+
+<LI><P><B>Stanford</B> files are the <TT>.gtr</TT> files used by software
+from Stanford University.</P>
+
+<LI><P><B>List of Names</B> files contain a single cluster, specified
+with one element name per line. You can specify any name or name
+attribute to match with. If one or more of the elements in the file
+match existing data then a cluster will be created.</P>
+
+</UL>
+</TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Save</B><TD> writes clusters to a
+text file.
+
+<P>The "<B>Which Clusters?</B>" lets you select between saving all
+clusters, just those that are visible or just the currently selected
+cluster.</P>
+
+<P>When "<B>Include Children?</B>" is enabled the children of clusters
+are output, otherwise they are not included.</P>
+
+<P>The clusters can be saved as either the "<B>Native</B>" XML format
+(see <A HREF="../../../docs/FileFormats.html">File Formats</a>) or as
+"<B>List of Names</B>".</P>
+
+</TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Close</B><TD> shuts the Cluster
+Manager window (the clusters are not removed)
+
+</TABLE>
+
+<P>Cluster menu:</P>
+
+<TABLE WIDTH=80%>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Find</B><TD> searches for a cluster
+by name
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Create</B><TD> constructs a new
+cluster as one of:
+<UL>
+<LI>a empty cluster (which can then be used to group other clusters)
+<LI>the spots visible under the current <A HREF="../../../docs/Filters.html">Filter</A>.
+<LI>the spots in the current <A HREF="../../../docs/Concepts.html#sel">Selection</A>.
+<LI>the measurements in the current <A HREF="../../../docs/Concepts.html#sel">Selection</A>.
+<LI>the union of the elements in currently visible clusters
+<LI>the intersection of the elements in currently visible clusters
+</UL>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Delete</B><TD> removes the currently
+selected cluster (and all of its children)
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Re-parent</B><TD> displays a dialog
+box allowing you to pick a new parent for the currently
+selected cluster. The cluster will be detatched from its current
+parent and added as a child of the chosen new parent.
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Collapse</B><TD> moves all elements
+from the children of the selected cluster into the selected cluster
+itself. The (now empty) children of the selected cluster are then
+removed.
+
+</TABLE>
+
+<P>Tree menu:</P>
+
+<TABLE WIDTH=80%>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Expand fully</B><TD> opens all of
+the branches in the tree.
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Collapse</B><TD> close all of
+the branches in the tree.
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Background</B><TD> allows you to
+change the colour used by the tree panel to make the cluster colours
+more easily visible
+</TABLE>
+
+<P>Cycle menu:</P>
+
+<TABLE WIDTH=80%>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Enable</B><TD> the automatic cycling of
+cluster visibility using this checkbox.
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Descend</B><TD> determines whether
+the to descend the entire tree or just travel through the children of
+the selected cluster.
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Speed</B><TD> can be set to slow, medium
+or fast.
+</TABLE>
+
+<P>The 'cycle' feature is useful when you have lots of clusters on a
+plot and cannot see the scope of individual features. When enabled,
+cycle mode toggles each cluster on and off in turn, travelling either
+sequentially through the children or down the tree from the current
+position to the bottom. Once all clusters have been displayed, the
+process begins again at the top of the tree, or first child, and
+continues until you disable the cycle feature.</P>
+
+<P>&nbsp</P>
+<HR>
+
+<A NAME="colsel"><H3>The Colour Selector</H3></A>
+
+<P>The <I>Colour Selector</I>&nbsp; allows you to apply colour ramps
+to the children of a cluster. This can make it easier to work out
+which clusters belong together when viewing cluster overlays. </P>
+
+<P>There are two modes of operation; fixed and blend. In fixed mode
+the cluster and all of its children are set to the same colour. In
+blend mode, two colours are chosen and a range of colours is blended
+from them. This colour range is then distributed to the children of
+the cluster.</P>
+
+<P>In fixed mode a single colour button is displayed, whereas in blend
+mode a `from' colour and a `to' colour are displayed. These are the
+colours that will be used to make the blend colours. Click on a colour
+button to display a colour picker.</P>
+
+<P>The full range of options are only available when "<B>Apply to
+children</B>" is selected. When "<B>Apply to children</B>" is not
+selected, only the "<B>Fixed</B>" mode is available.</P>
+
+<P>Blend mode is available in two flavours:</P>
+
+<UL>
+<LI><P>"<B>Blend HSB</B>" generates a range of colours by
+interpolating the "hue" spectrum. This is the rainbow-like spectrum of
+colours often seen in computer graphics applications. The HSB colour
+space can be explored using the "HSB" panel on the standard Java
+colour picker that appears when you select either blend colour.</P>
+
+<LI><P>"<B>Blend RGB</B>" generates a range of colours by
+interpolating red, green and blue values directly.</P>
+</UL>
+
+<P>The blended colour range is assigned to the children of a cluster in
+one of two ways:</P>
+
+<UL>
+<LI><P>"<B>Colour by depth</B>" assigns colours to the children based on
+how deep they are in the tree. All clusters at the same depth will be
+coloured the same.</P>
+
+<CENTER><P><IMG SRC="ColourSelectorDepth.jpg"></P></CENTER>
+
+<P>In this example the cluster tree has a depth of 4. Colours are
+blended at 4 equidistant points in the colour range and assigned to the
+children in depth order. Cluster `1' is at the top and will be
+coloured blue. Clusters `2' and `3' are at depth 1 so they are
+coloured pink. Clusters `4', `5' and `6' are coloured orange because
+they are at a depth of 3. Finally, clusters `7' and `8' are the
+deepest and will be coloured green.</P>
+
+
+<LI><P>"<B>Colour by breadth</B>" recursively splits the range into
+pieces for each child such that all the of leaf nodes get a unique
+colour.</P>
+
+<CENTER><P><IMG SRC="ColourSelectorBreadth.jpg"></P></CENTER>
+
+<P>This example uses the same cluster tree and colour range. The
+colours are assigned to clusters based on where they lie when the
+cluter tree is laid out along the colour range. Cluster `1' is in the
+center and will get a colour from the middle of the range. Cluster '4'
+is at the far left and is coloured blue and cluster '6' at the far
+right is coloured green. Other clusters are coloured based on their
+position in the colour range as indicated. Note that some branch nodes
+can be coloured that same (e.g. clusters '1' and '5') , but that no
+leaf nodes can share the same colour.</P>
+
+</UL>
+
+<P>&nbsp</P>
+<HR>
+
+
+<P>See also:
+<UL>
+<LI><A HREF="../../../docs/ClusterTutorial.html">Tutorial: Working with Clusters</a>
+<LI><A HREF="../../../docs/FileFormats.html#cluster">File Formats</a>
+</UL></P>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+<TITLE>QTLMapper</TITLE>
+</HEAD>
+<BODY>
+<H2>QTLMapper</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#external">External JAR files</A>
+<LI><A HREF="#ui">User interface</A>
+<LI><A HREF="#ensembl">Connecting to EnsEMBL</A>
+<LI><A HREF="#describe">Describing the QTL</A>
+<LI><A HREF="#selectdb">Selecting an EnsEMBL database</A>
+<LI><A HREF="#unmapped">Handling unmapped markers</A>
+<LI><A HREF="#output">Output</A>
+</UL>
+
+<P><HR></P>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>For use with Affymetrix data.</P>
+<P>The QTLMapper plugin flags Affymetrix data to indicate which probes represent genes within a user-defined QTL region</P>
+<P>This plugin was designed to flag probes within a QTL, but could be used to flag probes within any user-defined region. Marker positions (where used) and the gene for each probe are determined using EnsEMBL</P>
+<BR>
+
+<P><HR></P>
+
+<A NAME="external"><H3>External JAR files</H3></A>
+
+<P>Two external JAR files are required, and (unless already installed) these need to be downloaded on first using the plugin</P>
+<P>If a JAR file isn't in the directory maxd expects, you'll see a dialog like this on starting the plugin:<BR><BR>
+<IMG SRC="nojar.jpg"><BR><BR>
+Click "Find" to browse for the JAR file on your local system. If the JAR file isn't already installed, you will need to download and install it first</P>
+<P><B>MySQL connector for Java</B><BR>Download the latest stable version of the driver from the <A HREF="http://www.mysql.com/products/connector/j/">MySQL connector for Java website</A>. For help on installing this JAR, please see the <A HREF="http://dev.mysql.com/doc/connector/j/en/index.html">MySQL connector for Java manual page</A></P>
+<P><B>EnsEMBL Java module</B><BR>Download the latest stable version of the EnsEMBL Java module from the <A HREF="http://www.ensembl.org/info/software/java/index.html">Ensj website</A>. Help information on installing the JAR can also be found on this site.</P>
+<BR>
+
+<P><HR></P>
+
+<A NAME="ui"><H3>User interface</H3></A>
+
+<P>The user interface is divided into 3 panels which are accessed in sequence. These panels share the same set of control buttons, allowing you to return to the previous panel, continue to the next panel, empty all the fields in the panel, reset all the fields in the panel to their initial values, exit the plugin, or show this help information.</P>
+<P>If you need more information about what a button does or about any of the fields on the panel, hold the mouse pointer over it and some information will be displayed</P>
+
+<P><HR></P>
+
+<A NAME="ensembl"><H3>Connecting to EnsEMBL</H3></A>
+
+<P>The first QTLMapper panel is for parameters to connect to EnsEMBL, so that the list of available species and databases can be retrieved. The default parameters for connecting to EnsEMBL are shown in this screenshot<BR><BR>
+<IMG SRC="ensembl.jpg"><BR></P>
+<BR>
+
+<P><HR></P>
+
+<A NAME="describe"><H3>Describing the QTL</H3></A>
+
+<P>The second QTLMapper panel is for describing the QTL region. The values shown in this screen shot are just an example<BR><BR>
+<IMG SRC="describe.jpg"><BR><BR>
+<B>QTL name</B> is required for labelling the column of data that will be added to the maxdView table<BR>
+<B>Species</B>, <B>Chromosome</B>, <B>Start</B> and <B>End</B> are required to specify the location of the QTL and which species it applies to<BR>
+Start and End can be given either as marker names or as the position on the chromosome in base pairs. Select the appropriate type from the drop-down list. For positions in base pairs, the position should be given in full not as an abbreviation (e.g. 32500000 rather than 32.5M)<BR>
+
+<P><HR></P>
+
+<A NAME="selectdb"><H3>Selecting an EnsEMBL database</H3></A>
+
+<P>The third QTLMapper panel is for selecting the EnsEMBL database that will be used for checking which genes, and thus which probes, lie within the QTL. If you have never used the QTLMapper before, the most recent database for the species of interest will be selected as a default<BR><BR>
+<IMG SRC="selectdb.jpg"></P>
+<BR>
+
+<P><HR></P>
+
+<A NAME="unmapped"><H3>Handling unmapped markers</H3></A>
+
+<P>After you have finished entering data, QTLMapper will try to retrieve a list of genes within the QTL region and a list of Affymetrix probes that represent these genes.<BR>
+If you gave the start or end position as a marker name, QTLMapper will check whether the marker is mapped to a position in the database you chose. If not, you will be prompted to enter a base pair position for the marker<BR><BR>
+<IMG SRC="unmapped.jpg"></P>
+<BR>
+
+<P><HR></P>
+
+
+<A NAME="output"><H3>Output</H3></A>
+
+<P>It may take several minutes for QTLMapper to check all of the probes in your data set against the QTL. When QTLMapper has finished, a dialog will be displayed to let you know<BR><BR>
+<IMG SRC="finished.jpg"></P><BR>
+
+<P>The output of the QTLMapper is a column added to the maxdView table. The column name is the name of the QTL, and it contains "1.0" for each probe that represents a gene within the QTL and "0.0" for each probe that doesn't (so it is easy to colour the cells with a discrete colouriser to give a clear visual indication of which probes are from within the QTL)</P>
+<BR>
+
+<P><HR></P>
+
+</BODY>
+</HTML>

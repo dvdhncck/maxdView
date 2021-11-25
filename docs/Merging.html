@@ -1,0 +1,109 @@
+<HTML>
+<HEAD>
+<TITLE>Merging Data </TITLE>
+</HEAD>
+<BODY>
+
+<H1><A NAME="intro">Merging Data</A></H1>
+
+<P>All plugins which import data offer the choice of "Replace" the
+current data, or "Merge" with the current data. When "Merge" is used,
+the <I>Merge control panel</I>&nbsp; is
+displayed once the data is loaded:</P>
+
+<CENTER><P><IMG SRC="images/MergeData.jpg"></P></CENTER>
+
+<P>This panel shows how the names in the new data match with the names
+in the current data. Each of the three types of name (Spot, Probe and
+Gene) are matched separately.</P>
+
+<P>The <I>Merge control panel</I>&nbsp; shows how many of names match
+for each of the types. One of the three type must be selected. </P>
+
+<P>If some of the names in the new data do not match existing names, the
+choice between "generate new spots" or "ignore unmatched spots" is
+offered. One of these options must be chosen before the merge can
+proceed.</P>
+
+<P>(Note: The <A HREF=../plugins/Transform/NameMunger/NameMunger.html>Name
+Munger</A> is useful for altering names so that merging can be
+performed.)</P>
+
+<P><B>How merging works...</B></P>
+
+<P>If the current data has five spots, named like this:</P>
+
+&nbsp;&nbsp;<TT>spot1</TT><BR>
+&nbsp;&nbsp;<TT>spot2</TT><BR>
+&nbsp;&nbsp;<TT>spot3</TT><BR>
+&nbsp;&nbsp;<TT>spot4</TT><BR>
+&nbsp;&nbsp;<TT>spot5</TT><BR>
+
+<P>and the new data contains three spots, named like this:</P>
+
+&nbsp;&nbsp;<TT>spot1</TT><BR>
+&nbsp;&nbsp;<TT>spot3</TT><BR>
+&nbsp;&nbsp;<TT>spot5</TT><BR>
+
+<P>then the merge is simple because all spots are recognised. No new
+spots will be created, and Spots "<TT>spot2</TT>" and "<TT>spot4</TT>"
+in the new Measurements will be given the value "NaN" (Not-A-Number).
+
+<P>If the new data instead contained the four spots:</P>
+
+&nbsp;&nbsp;<TT>spot1</TT><BR>
+&nbsp;&nbsp;<TT>spot3</TT><BR>
+&nbsp;&nbsp;<TT>spot5</TT><BR>
+&nbsp;&nbsp;<TT>spot7</TT><BR>
+
+<P>then the merge more complex because "<TT>spot7</TT>" is not
+recognised. If the "ignore" option has been selected, "<TT>spot7</TT>"
+will be discarded, otherwise a new Spot called "<TT>spot7</TT>" will
+be created. In the existing Measurments, "<TT>spot7</TT>" will be given
+the value "NaN".  As before, the value for "<TT>spot2</TT>" and
+"<TT>spot4</TT>" will be set to "NaN" in the new Measurements.
+
+<P>This rule is applied to Spot, Probe and Gene name matching. When
+matching using Probe or Gene names, an additional rule is used to
+handle repeated occurences of names.</P>
+
+<P>If the current data has five spots, with Probe names like this:</P>
+
+&nbsp;&nbsp;<TT>probeA</TT><BR>
+&nbsp;&nbsp;<TT>probeB</TT><BR>
+&nbsp;&nbsp;<TT>probeC</TT><BR>
+&nbsp;&nbsp;<TT>probeA</TT><BR>
+&nbsp;&nbsp;<TT>probeB</TT><BR>
+
+<P>(note that "<TT>probeA</TT>" occurs twice)<BR>and the new data contains four spots,
+with the Probe names:</P>
+
+&nbsp;&nbsp;<TT>probeA</TT><BR>
+&nbsp;&nbsp;<TT>probeA</TT><BR>
+&nbsp;&nbsp;<TT>probeA</TT><BR>
+&nbsp;&nbsp;<TT>probeD</TT><BR>
+
+<P>then the first occurence of "<TT>probeA</TT>" in the new data will
+be matched with the first occurence of "<TT>probeA</TT>" in the
+existing data. Similarly, the second occurence of "<TT>probeA</TT>" in
+the new data is matched with the second occurence of "<TT>probeA</TT>"
+in the existing data. The third occurence of "<TT>probeA</TT>" does
+not match however, as there are no more "<TT>probeA</TT>"s in the
+existing data. This "<TT>probeA</TT>" will either be added as a new
+spot, or ignored depending on which merge option was selected (see
+above). Likewise, "<TT>probeD</TT>" does not match any existing name,
+it too will either become a new spot, or be ignored.</P>
+
+<HR>
+
+<P>See Also:
+<UL>
+<LI><A HREF=../plugins/Transform/NameMunger/NameMunger.html>Name Munger</A>
+<LI><A HREF=../plugins/Importer/ReadNative/ReadNative.html>Read Native</A>
+<LI><A HREF=../plugins/Importer/LoadPlainText/LoadPlainText.html>Load Plain Text</A>
+<LI><A HREF=../plugins/Importer/DatabaseLoader/DatabaseLoader.html>Database
+Loader</A>
+</UL></P>
+
+</BODY>
+</HTML>

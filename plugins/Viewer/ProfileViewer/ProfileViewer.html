@@ -1,0 +1,171 @@
+<HTML>
+<HEAD>
+<TITLE>Profile Viewer</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Profile Viewer</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A><BR>
+&nbsp;&nbsp;<A HREF="#spots">Identifying Spot Profiles</A><BR>
+&nbsp;&nbsp;<A HREF="#drill">Cluster Drill Down</A><BR>
+&nbsp;&nbsp;<A HREF="#example">Example</A><BR>
+</UL>
+
+<P>&nbsp</P>
+
+<P><HR></P>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>This plugin displays one or more groups of 'expression
+profiles'. An expression profiles is a line which represents how the
+expression value for a Spot changes across Measurements. A single
+group of hand picked Spots can be displayed, or groups can be
+generated from a cluster hierarchy. </P>
+
+<P>The expression profiles are essentially the same visualisation as
+that given by the <A HREF="../WebPlot/WebPlot.html">Web Plot</A>. The
+difference with this plugin is that the grouping of Spots into
+Clusters can also be displayed.</P>
+
+
+<P>In "Cluster" mode you can select one or more Clusters from a tree
+or use <A
+HREF="../../../docs/Concepts.html#drag"><I>drag-and-drop</I></a> to
+move Clusters from other parts of <B>maxdView</B>.
+
+<P>You can '<A HREF="#drill">drill down</A>' into a Cluster by clicking on the glyph drawn
+on the top-right on each graph.</P>
+
+<P>In "Spot" mode you can select one or more Spots from an
+alphabetically spoted list of <A
+HREF="../../../docs/Concepts.html#spots">Names or Name
+Attributes</A>. Again, <A
+HREF="../../../docs/Concepts.html#drag"><I>drag-and-drop</I></a> can
+be used to select Spots in the list. Dropping a Cluster onto the list
+will select all Spots in that Cluster (and it's descendants). </P>
+
+<P><HR></P>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<CENTER><P><IMG SRC="ProfileViewer.jpg"></P></CENTER>
+
+<P>The plugin is split into three areas:<P>
+
+<OL>
+<LI><P>The Measurement selection area with which you select two or
+more Measurements to include in the profile.</P>
+
+<LI><P>The Cluster selection area with which you select one or more
+Clusters to draw profiles for.</P>
+
+<LI><P>The visualisation panel in which the profiles appear. There
+will be one graph for each selected Cluster. The name of the Cluster
+and the number of Spot profiles is shown above each graph.</P>
+ 
+</OL>
+
+<P>When the <B>Include children</B> option is selected, each graph
+will include the Spots from the Cluster and all of it's children,
+otherwise just the Spots in the Cluster itself are displayed.</P>
+
+<P>The <B>Show mean</B> option toggles between showing profiles for
+each Spot in the Cluster or calculating a mean profile for all Spots
+in the Cluster. When the mean profiles are displayed, error bars are
+included show the minimum and maximum values along the profile</P>
+
+<P>The <B>Apply filter</B> option selects between showing all of the
+Spots in selected Clusters, or only showing the Spots which pass
+through the current <A HREF="../../../docs/Filters.html">filter(s)</A>.</P>
+
+<P>The <B>Uniform scale</B> option determines whether all graphs are
+drawn to the same scale or whether each graph is allowed to optimise
+it's scale to the range of the data it is displaying.</P>
+
+<P>The Cluster selection panel has a shortcut feature. Select a
+Cluster, then press a number key '1',..,'9' to expand the tree to the
+specified depth. Press '0' to collapse the branches of the selected
+Cluster.</P>
+
+<P>You can use <A
+HREF="../../../docs/Concepts.html#drag"><I>drag-and-drop</I></A> to move Clusters to the Cluster
+selection panel and Measurement Names to the Measurement selection
+panel.</P>
+
+<P>&nbsp;</P>
+<A NAME="spots"><H3>Identifying Spot Profiles:</H3></A>
+
+<P>When the mouse pointer is rested over a profile for a moment, a
+tool-tip window appears containing an identification label. This label
+can be any of the <A HREF="../../../docs/Concepts.html#spot">Name or
+Name Attributes</A> in the current data. The choice of which Name or
+Name Attribute to show is made via the drop-down menu in the control
+bar along the top of the window.</P>
+
+<P>Click on a profile to add a name label to the plot. Click on the
+profile again to remove the label. The "<B>Clear all</B>" button
+removes all name labels that have been added to the plot. The
+"<B>Label all</B>" button adds labels to all Spot profiles which are
+currently displayed.</P>
+
+<P>The size of the label font can be adjusted using the "<B>a+</B>"
+and "<B>a-</B>" buttons.</P>
+
+<P><A HREF="../../../docs/Concepts.html#drag">Drag-and-drop</A> can be
+used to locate particular Spots in the plot. Drag one or more Spots
+from the main display and drop them into the <I>HyperCube Plot</I>
+window. This causes the name(s) to appear next to the dots on the
+plot. Dropping a Cluster onto the panel causes the names of all Spots
+in the cluster to be displayed.</P>
+
+<P>The "<B>AutoSpace</B>" option attempts to improve the readability
+of the graphs by reducing the quantity of displayed labels. When this
+mode is enabled, labels will only be drawn if there is enough space
+for them. Note that when there is not a lot of space, or a lot of
+labels, this mode can lead to some Spots becoming unlabelled.</P>
+ 
+<P>Spots which have been selected for labelling can also be displayed
+in colour to make them more visible. The "<B>Colour</B>" checkbox controls
+this feature.</P>
+
+
+<P>&nbsp;</P>
+<A NAME="drill"><H3>Cluster Drill Down:</H3></A>
+
+<P>You can 'drill down' into a Cluster by clicking on the glyph drawn
+in the top-right on each graph. (This glyph is the coloured shape that
+is associated with the Cluster via the <A
+HREF="../../Viewer/ClusterManager/ClusterManager.html">Cluster
+Manager</A>).  Profiles for the Cluster and up to eight of it's
+children will be displayed. The Cluster that was drilled onto will be
+in the top-left corner.</P>
+
+
+<P>&nbsp;</P>
+<A NAME="example"><H3>Example:</H3></A>
+
+<UL>
+<P><LI>Load the tutorial file "tutorial1.maxd.gz" from the "demo"
+directory (use the <A
+HREF="../../Importer/ReadNative/ReadNative.html"><I>Read
+Native</I></A> plugin</P>
+<P><LI>Select two or more Measurements
+in the top-left panel</P>
+<P><LI>Select one or more Clusters in the
+bottom-left panel.</P>
+<P><LI>A graph will appear for for each selected
+Cluster. This graph shows the expression profiles for the Spots in
+that Cluster.</P>
+<P><LI>Add and reomve Measurements from the selection using "Ctrl" +
+left mouse clicks.
+<P><LI>Add and remove Clusters from the selection using "Ctrl" +
+left mouse clicks. 
+</UL>
+
+</BODY>
+</HTML>

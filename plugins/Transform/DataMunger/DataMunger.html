@@ -1,0 +1,104 @@
+<HTML>
+<HEAD>
+<TITLE>Data Munger</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Data Munger</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The <I>Data Munger</I> plugin creates new Measurements or Spot
+Attributes based on an existing data. The values from the existing
+data are copied to to the Measurement or Spot
+Attribute for all Spots except those which have been filtered. The
+values for the filtered Spots are set to a user-specified value.</P>
+
+<P>The purpose of this plugin is to assist in 'tidying up' data, for
+example, setting the expression value to '0' in all cases where it is
+'less than 100'.</P>
+
+<P><I>Data Munger</I> must be used in conjuction with <A
+HREF="../../../docs/Filters.html">filters</A> to determine which
+subset of the Spots should have their values altered.</P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P>The user interface is divided into three sections: </P>
+
+<P><UL>
+<LI><P><B>Select the source 'Measurement' or 'Spot Attribute'</B></P>
+
+<P>
+Use the drop-down list to pick either a Measurement or a
+SpotAttribute. The SpotAttributes are listed after the Measurement to
+which they belong.
+</P>
+
+<LI><P><B>Choose which Spots to affect</B></P>
+
+<P>
+Select either to alter the values for Spots which are filtered, or for
+those which are not filtered.
+</P>
+
+<LI><P><B>Specify how the values are to be changed</B></P>
+
+<P>
+The values that will be changed can either be set to 'NaN' (the special
+<I>Not-a-Number</I> value which indicates a missing number) or to some 
+numerical value.
+</P>
+
+</UL></P>
+
+<HR>
+
+<H3>Examples:</H3>
+
+
+<TABLE WIDTH="90%" ALIGN="CENTER"><TR><TD>
+
+<P>Create a new Measurement which is the same as Measurement
+'A' except that all values which are greater than 1000 will be clamped
+to 1000</P>
+
+<TABLE WIDTH="90%" ALIGN="CENTER"><TR><TD>
+
+<UL>
+<P><LI>Set up a <A
+HREF="../../../docs/Filters.html">filter</A> that selects Spots in
+which the value in Measurement 'A' are greater than 1000. (The
+<I>MathFilter</I> is ideal for this task).</P>
+
+<P><LI>Start the <I>Data Munger</I> plugin and select 'A' as the source
+Measurement.</P>
+
+<P><LI>Select 'Change the value in all unfiltered Spots'. This ensures
+that the hidden Spots (i.e. those in which the values are 1000 or
+less) which not be affected.</P>
+
+<P><LI>Select the  'Change values to' button and enter the value '1000'
+into the type-in box.</P>
+
+<P><LI>Press "<B>Execute</B>" and provide a  name for the new Measurement.</P>
+</UL>
+
+</TD></TR></TABLE>
+</TD></TR></TABLE>
+
+<P>&nbsp;</P>
+
+
+</BODY>
+</HTML>

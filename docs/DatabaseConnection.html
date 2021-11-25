@@ -1,0 +1,220 @@
+<HTML>
+<HEAD>
+<TITLE>Database Connection</TITLE>
+</HEAD>
+<BODY>
+
+<H1>Database Connection</H1>
+
+<P>This panel is displayed when a database connection is being made to
+a <B>maxdSQL</B> database.</P>
+
+<P><B>maxdView</B> uses a language called JDBC when talking to a
+relational database hosting the <B>maxdSQL</B> database.
+
+<P>Each database provider supplies a <I>JDBC driver</I> for their
+database which provides the interface between the application
+(i.e. <B>maxdView</B>) and the underlying database engine. A specific
+driver is needed for each different database that <B>maxdView</B>
+wishes to connect to. JDBC drivers are often supplied with the
+database, but sometimes they have to be downloaded separately from the
+manufacturer's website.</P>
+
+
+<UL>
+<LI><A HREF="#connect">Connection</A><BR>
+&nbsp;&nbsp;<A HREF="#host">Host</A><BR>
+&nbsp;&nbsp;<A HREF="#driverfile">Driver File</A><BR>
+&nbsp;&nbsp;<A HREF="#drivername">Driver Name</A><BR>
+&nbsp;&nbsp;<A HREF="#acct">Account</A><BR>
+&nbsp;&nbsp;<A HREF="#acct">Password</A><BR>
+<LI><A HREF="#prob">Connection problems?</A><BR>
+<LI><A HREF="#save">Saving connection details</A><BR>
+</UL>
+
+<P><HR></P>
+
+<H2><A NAME="connect">Connection</A></H2>
+
+<P>The five fields on the right hand side on the panel must be
+completed to establish the connection.</P>
+
+<P>Once the details have been correctly defined, they can be <A
+HREF="#save">saved</A> for future connections.</P>
+
+<P><CENTER><IMG SRC="images/DatabaseConnection.jpg"></CENTER></P>
+
+<P><A NAME="host"><B><I>Host....</I></B></A></P> 
+
+<CENTER><TABLE WIDTH="90%"><TR><TD>
+
+<P>The format for the host name depends on what RDBMS system is being
+used, consult the database's JDBC documentation for full details.</P>
+
+<P>Some common formats are:</P>
+
+
+<CENTER><TABLE WIDTH=80%>
+
+<TR><TD><I>Server</I></TD><TD><I>Using the standard port</I></TD><TD><I>Using a non-standard port</I></TD></TR>
+
+<TR><TD>PostgreSQL&nbsp;</TD><TD><TT>jdbc:postgresql://<FONT COLOR="#cc2222">HOST</FONT>/<FONT COLOR="#cc2222">DATABASE</FONT></TT></TD><TD><TT>jdbc:postgresql://<FONT COLOR="#cc2222">HOST</FONT>:<FONT COLOR="#cc2222">PORT</FONT>/<FONT COLOR="#cc2222">DATABASE</FONT></TT></TD></TR>
+
+<TR><TD>Oracle&nbsp;</TD><TD><TT>jdbc:oracle:thin:@<FONT COLOR="#cc2222">HOST</FONT>:<FONT COLOR="#cc2222">DATABASE</FONT></TT></TD><TD><TT>jdbc:oracle:thin:@<FONT COLOR="#cc2222">HOST</FONT>:<FONT COLOR="#cc2222">PORT</FONT>:<FONT COLOR="#cc2222">DATABASE</FONT></TT></TD></TR>
+
+<TR><TD>MySQL&nbsp;</TD><TD><TT>jdbc:mysql://<FONT COLOR="#cc2222">HOST</FONT>/<FONT COLOR="#cc2222">DATABASE</FONT></TT></TD><TD><TT>jdbc:mysql://<FONT COLOR="#cc2222">HOST</FONT>:<FONT COLOR="#cc2222">PORT</FONT>/<FONT COLOR="#cc2222">DATABASE</FONT></TT></TD></TR>
+</TABLE></CENTER>
+
+
+<P>where <FONT COLOR="#cc2222"><TT>HOST</TT></FONT> is the fully qualified domain name of the machine
+running the database (e.g. myhost.man.ac.uk), <FONT COLOR="#cc2222"><TT>PORT</TT></FONT> is the TCP/IP
+port the database server is listening to, and <FONT COLOR="#cc2222"><TT>DATABASE</TT></FONT> is the
+actual name of the database holding the <B>maxdSQL</B> tables.</P>
+
+<P>If the database is running on the same machine as <B>maxdView</B>,
+the <FONT COLOR="#cc2222"><TT>HOST</TT></FONT> part of the name does
+not have to be supplied.</P>
+
+<P>Normally, the <FONT COLOR="#cc2222"><TT>PORT</TT></FONT> part of the
+name can be omitted unless the database is listening on a non-standard
+port for some reason.</P>
+
+</TD></TR></TABLE></CENTER>
+
+<P><A NAME="driverfile"><B><I>Driver File....</I></B></A></P>
+
+<CENTER><TABLE WIDTH="90%"><TR><TD>
+
+<P>The "Driver File" field is specifies the location of the JDBC driver.</P>
+
+<P>This driver is supplied by the database vendor, and does not come
+as part of the <B>maxd</B> software. Consult the database
+administrator, or the appropriate vendor's documentation (or more
+usefully, their web-sites) for information about specific JDBC
+drivers. </P>
+
+<P>The driver usually comes either as a single JAR file, or in the
+form of a <I>package</I>, which looks like a set of nested
+directories. In either case, the location of the driver should be
+specified in the "Driver File" field.</P>
+
+<P><UL>
+<LI><B>If the driver is in a JAR file</B>: specify the full path and file name
+of this JAR file, for example;<BR>
+<TT><NOBR>&nbsp;&nbsp;C:\Oracle\drivers\JDBC_Driver_12.jar</NOBR></TT><BR>
+
+<LI><B>If the driver is a package</B>: specify the top-level directory of the
+package, for example;</BR>
+<TT><NOBR>&nbsp;&nbsp;/opt/mysql/jdbc/</NOBR></TT>
+</UL></P>
+
+</TD></TR></TABLE></CENTER>
+
+<P><A NAME="drivername"><B><I>Driver Name....</I></B></A></P>
+
+<CENTER><TABLE WIDTH="90%"><TR><TD>
+
+<P>The "Driver Name" field is where you specify the name of the
+<B>class</B> that will provide the JDBC functionality.</P>
+
+<P>Some common driver names:</P>
+
+<CENTER><TABLE WIDTH=80%>
+
+<TR><TD><I>Server</I></TD><TD><I>Driver Name</I></TD></TR>
+
+<TR><TD>PostgreSQL&nbsp;</TD><TD><TT>org.postgresql.Driver</TT></TD></TR>
+
+<TR><TD>Oracle&nbsp;</TD><TD><TT>oracle.jdbc.driver.OracleDriver</TT></TD></TR>
+
+<TR><TD>MySQL&nbsp;</TD><TD><TT>org.gjt.mm.mysql.Driver</TT></TD></TR>
+
+</TABLE></CENTER>
+
+
+</TD></TR></TABLE></CENTER>
+
+<P><A NAME="acct"><B><I>Account &amp; Password....</I></B></A></P>
+
+<CENTER><TABLE WIDTH="90%"><TR><TD>
+
+<P>Some databases will require a valid account name and password,
+others will allow anonymous login. This will depend on how the
+database administrator has configured the system. Note that the
+database account name and password are not necessarily the same as
+those used to login to the operating system.</P>
+
+<P>If there is some problem with the connection attempt, i.e. the host
+name is not found, or account/password pair are illegal, an error
+message will be displayed. As this message is generated by the JDBC
+driver, The format of this message depends on the system, but should
+indicate what caused the connection to fail.</P>
+
+</TD></TR></TABLE></CENTER>
+
+<P><HR></P>
+
+<H2><A NAME="prob">Connection problems?</A></H2>
+
+<P>In the event of connection problems, try the following steps to identify the cause:</P>
+
+<UL>
+<LI><I>Can't find the driver?</I>
+<P>If a dialog box appears containing the message "No suitable
+driver" every time you press "Connect", then double-check each of
+these things:</P>
+
+<OL>
+<LI><P>The driver's JAR file or directory path must be correctly
+listed in the <TT>-classpath</TT> part of the command used to run the
+application.</P>
+
+<LI><P>The protocol name of the database (the word(s) after
+<TT>jdbc:</TT>, and before the hostname) must match exactly the format
+expected by the driver.</P>
+
+<LI><P>The "Driver" field must exactly match the full package name of
+the driver class.</P>
+</OL>
+
+<P><LI><I>Can't find the database?</I></P>
+<P>Make sure the HOSTNAME part of the "Host" field is correct. Check
+whether the <B>maxdSQL</B> database can be accessed using any other
+tools.</P>
+
+<P><LI><I>Unable to log in?</I></P>
+<P>Double-check the account/password details. Try to log into the
+database server using a different tool (such as the SQL console or a
+database administration tool).</P>
+ 
+</UL>
+
+<P><HR></P>
+
+<H2><A NAME="save">Saving details</A></H2>
+
+<P>Connection details can be saved in a list. This list is displayed on
+the left-hand side of the panel.</P>
+
+<P>To create a new entry in the list, press the "<B>New entry</B>"
+button and provide a descriptive name for the entry. The current
+details (i.e. the "Host", "Driver File" and other fields) will be
+stored in the new entry.</P>
+
+<P>When an entry is selected in the list, the details ( can be edited,
+and the updated details will permanently replace the existing
+details.</P>
+
+<P>The "<B>Rename</B>" button allows the descriptive name of the
+currently selected entry to be changed.</P>
+
+<P>The "<B>Delete</B>" buttons removes the currently selected entry
+from the list.</P>
+
+<P>Note that passwords are never saved in the connection details
+list, and must be provided whenever required by the database.</P>
+
+<P>&nbsp;</P>
+
+</BODY>
+</HTML>

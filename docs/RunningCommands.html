@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: Working with Plugin Commands tutorial</TITLE>
+<META name="description" content="maxdView 0.9.x  Working with Plugin Commands tutorial">
+<META name="keywords" content="maxd, maxdView, microarray, expression, data,
+analysis, visualisation, visualization ,viewing">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><A NAME="top"><H1>Tutorial: Working with Plugin Commands</H1></A></P>
+
+<P>The <TT>loadPlugin()</TT> and <TT>runCommand()</TT> methods
+provided by the <TT>maxdView</TT> class allow you to invoke plugin
+commands from within your own code. This both facilitates writing
+macros and enables intra-plugin communication.</P>
+
+<P>This document describes how 'macro' functions can be built by
+glueing together existing commands.</P>
+
+<P>Several larger examples are provided in the
+"<TT>code-fragments</TT>" subdirectory:</P>
+<P><TT>&nbsp;&nbsp;<A HREF="../code-fragments/load-edit-save-example.java">load-edit-save-example.java</A></TT><BR> 
+<TT>&nbsp;&nbsp;script-demo.java</TT><BR> 
+<TT>&nbsp;&nbsp;name-munger-demo.java</TT><BR>
+<TT>&nbsp;&nbsp;super-grouper-demo.java</TT></P>
+
+<P>&nbsp;</P> <H2><IMG SRC="images/roundarrow.jpg">&nbsp;Using <TT>runCommand()</TT>....</H2>
+
+<P>Any plugin command can be accessed by calling the
+<TT>runCommand()</TT> method of a <TT>maxdView</TT> object:
+
+<PRE>
+  void runCommand( String plugin_name, String command_name,  String[] args)
+</PRE>
+
+<P>The first two parameters give the name of the plugin (as it appears
+in the menus) and the name of the command. The third parameter is an
+array of strings in which the arguments for the command are
+specified. Arguments are listed as <I>(name, value)</I> pairs of
+strings within the array, for example:</P>
+
+<PRE>
+  String[] args = new String[] 
+  {
+    "file",            "example.dat",
+    "start_line",      "1",
+    "end_line",        "1024",
+    "comment_prefix",  "#"
+  };
+</PRE>
+
+<P>All argument values are specified as strings irrespective of their
+real type. For instance, the integer value 7 is represented as "7" and
+the boolean value true is represented as "true".</P>
+
+<P><B>Example:</B> To call the <A HREF="../plugins/Transform/SortByNameOrValue/SortByNameOrValue.html"><I>Sort by Name or Value</I></A> plugin and
+sort the Spots based on Spot name:
+
+<PRE>
+  String[] args = new String[] 
+  {
+    "name",      "Spot name",
+    "order",     "descending"
+  };
+
+  mview.runCommand( "Sort by Name or Value", "sort", args );
+</PRE>
+
+
+<P><H2><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Running more than one command....</B></H2></P>
+
+<P>Many plugin commands such as "<TT>sort</TT>" are 'one-shot' in the
+sense that when they are called the plugin is started, does its job
+and then goes away. Other commands are 'persistant' in that the plugin
+remains running after the command has finished. An example is the
+"<TT>start</TT>" command supported by most filter plugins. When a
+filter plugin is started, it remains alive until it is sent a
+"<TT>stop</TT>" command or the user closes it's window.</P>
+
+<P>To be able to send more than one command to the same instance of a
+plugin, a handle to the plugin object is required. This is obtained
+using the <TT>loadPlugin()</TT> method which returns a <TT>Plugin</TT>
+object. This object can then be used in calls to
+<TT>runCommand()</TT>.</P>
+
+<P><B>Example:</B> To start a filter, use it to define a new Spot
+selection and then remove it:
+
+<PRE>
+  <FONT COLOR="BLUE">// first clear the current selection</FONT>
+  edata.clearSpotSelection();
+
+  <FONT COLOR="BLUE">// load the filter plugin and save the reference to it</FONT>
+  Plugin my_filter = mview.loadPlugin( "Math Filter" );
+
+  <FONT COLOR="BLUE">// build an arguments array for the filtering rule</FONT>
+  String[] args = new String[] { "filter", "Time1 > Time0 and Time2 > Time1" };
+
+  <FONT COLOR="BLUE">// start the filter plugin with the specified filtering rule</FONT>
+  mview.runCommand( my_filter, "start", args );
+
+  <FONT COLOR="BLUE">// add filtered Spots to the current selection</FONT> 
+  edata.addFilteredSpots();
+
+  <FONT COLOR="BLUE">// and then stop the filter plugin</FONT> 
+  mview.runCommand( my_filter, "stop" );
+</PRE>
+
+</BODY>
+</HTML>

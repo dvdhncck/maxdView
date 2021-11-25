@@ -1,0 +1,194 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: Just-o-Clust Plugin</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Just-o-Clust</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#example">Example</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The <I>Just-O-Clust</I> plugin attempts to `justify' clusters of
+Spots by finding repeated words in the text linked to them.</P>
+
+<P>Words can be extracted from the Gene or Probe <A
+HREF="../../../docs/Concepts.html#spot">names</A> and <A
+HREF="../../../docs/Concepts.html#spot">name attributes</A>, or from
+the <A HREF="../../../docs/AnnotationLoader.html">annotation</A>
+linked to the names.</P>
+
+<P>The plugin then generates a display showing how words are repeated
+in the contents of each cluster.</P>
+
+<CENTER><IMG SRC="JustOClustViewResults.jpg"></CENTER>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P>The interface is divided into three panels which are accessed in
+sequence:</P>
+
+<UL>
+<LI><A HREF="#pick">Pick cluster</A>
+<LI><A HREF="#set">Set options</A>
+<LI><A HREF="#view">View results</A>
+</UL>
+
+<A NAME="pick"><H3>Pick cluster</H3></A>
+
+<P>Select a cluster for justification. You can pick any cluster from the
+tree or use <A
+HREF="../../../docs/Concepts.html#drag">drag-and-drop</A> to transfer
+a cluster from another viewer.</P>
+
+<P>Use the "<B>Next</B>" button to advance to the next panel.</P>
+
+<A NAME="set"><H3>Set options</H3></A>
+
+<UL>
+<LI><P><B>Word source</B>: this menu allows to you to select one of
+the names or name attributes to use as a source of words. The menu
+also has an "Annotation" option which specifies that text from the
+annotation cache should be used instead.</P>
+
+<LI><P><B>Delimiters</B>: specify characters used to split text
+strings into individua l words. </P>
+
+<P>The text from source specified in "<B>Word source</B>" is converted
+into words using the "<B>Delimiters</B>". These characters are used to
+identify the start of a new word in a text string. The
+"<B>Delimiters</B>" string usually includes characters such as " "
+(space) and "," comma. You can customise the "<B>Delimiters</B>" to
+suit the text you have.</P>
+
+<P>For example: using the delimiters "<TT> ,:</TT>" (i.e. a space, a
+comma and a colon) the string "<TT>one:red, two:green,
+three:blue</TT>" is converted into six words ('<TT>one</TT>',
+<TT>red</TT>', '<TT>two</TT>', etc.) If the delimiters string does not
+contain a "<TT>:</TT>" then the example string will be converted into
+three words ('<TT>one:red</TT>' etc.).</P>
+
+<P>You can use RETURN and TAB as delimiters by refering to them as
+'\n' and '\t' respectively.</P>
+
+<LI><P><B>Min word length</B>: Words shorter than this length will be ignored </P>
+
+<LI><P><B>Detect words as substrings</B>: When enabled, words which
+occur as substrings in other words will be counted identically,
+otherwise they will be treated as different words. </P>
+
+<P>For example, with this mode enabled, "nonhuman" and "subhuman" will
+both match as "human". With this mode disabled these three words will
+be treated differently.</P>
+
+<LI><P><B>Case sensitive</B>: When enabled, the case of the text is
+considered during matching, otherwise upper- and lower-case characters
+are identical.</P>
+
+<LI><P><B>Stop words</B>: A list of words which should be
+ignored. This button opens an editor for the list of stop words. Words
+in the "<B>Word source</B>" which have been identified as stop words
+will not be counted or displayed in the results.</P>
+
+<LI><P><B>Translations</B>: A translation table recording pairs of
+words that are synonyms. This opens an editor for the list of
+translations. Each translation is two words (called 'from' and 'to').
+Words in the "<B>Word source</B>" which match a 'from' word are
+translated to the corresponding 'to' word.</P>
+
+<P>The translation table is useful when the text sources use several
+different terms or abbreviations for the same thing.</P>
+
+</UL>
+
+<P>Use the "<B>Next</B>" button to advance to the next panel and the
+"<B>Back</B>" button to return to the "Pick Cluster" panel.</P>
+
+<P><A NAME="view"><H3>View results</H3></A></P>
+
+<P>The results of the word matching are displayed in a scrollable
+panel. The selected cluster and it's children are laid out left to
+right. </P>
+
+<P>The panel on the left hand side can display either a tree of
+clusters or a list of all of the repeated words.</P>
+
+<P>When the cluster tree is displayed clicking on a cluster in the
+tree scolls the right hand panel to display that cluster.</P>
+
+<P>When the list of words is displayed clicking on a word selects
+that word causing a line to be drawn following the occurrences of the
+word in the cluster hierarchy.</P>
+
+<P>One box like that seen below is displayed for the cluster that you
+<A HREF="#pick">picked</A> and one for each of its descendants. Each
+box contains one line for each words that is repeated in text linked
+to spots in that cluster. Next to the word is displayed the percentage
+of spots in the cluster which contain that word. If for example all
+spots in a cluster have the word "protein" in their text then this
+word will appear at the top of the list with "100%" beside it. </P>
+
+<P>Note that the percentage results for parent clusters are inclusive
+of the results of their children (and grandchildren and so on).</P>
+
+<P><CENTER><IMG
+SRC="JustOClustClusterBox.jpg"></CENTER></P>
+
+<P>The above example shows the repeated words in a cluster called
+"k=4". The total number of spots in the cluster and all of its
+descendants is shown in brackets beside the name. </P>
+
+<P>This cluster contains 80 spots. From the word source for those
+spots 15 words have been found to occur in more than one Spot. The
+repeated words are shown, ranked by the percentage of spots containing
+the word.</P>
+
+<P>In this example the word "pathway" has been found in 17.5% of the
+spots and "complex" in 15% of the Spots.  On each line, beside the
+percentage, is a small button which opens window containing more
+detailed results. </P>
+
+<P><CENTER><IMG
+SRC="JustOClustViewDetails.jpg"></CENTER></P>
+
+<P>This popup window shows which of the spots contained
+the word, and shows the chunk of text in which word occurred.</P>
+
+<P>&nbsp</P>
+
+<A NAME="example"><H3>Example</H3></A>
+
+<P><CENTER><IMG SRC="JustOClustExample.jpg"></CENTER></P>
+
+<P>The above picture shows a simple cluster hierarchy containing eight
+spots. Cluster names are shown in blue. Text information about each
+spot is stored the "Gene.Description" name attribute.</P>
+
+<P>If the <I>Just-o-Clust</I> is let loose on this example then the
+output would be:</P>
+
+<UL>
+<LI><P>"A": zinc 36.7%, protein 50%<BR>
+&nbsp;&nbsp;&nbsp;<NOBR><FONT SIZE="-1">(because 'zinc' occurs in 3 of
+the 8 spots and 'protein' in 4 of 8)</FONT></NOBR></P>
+<LI><P>"B": zinc 66.6%<BR>
+&nbsp;&nbsp;&nbsp;<NOBR><FONT SIZE="-1">('zinc' occurs in 2 of the 3 spots)</FONT></NOBR></P>
+<LI><P>"C": protein 60%<BR>
+&nbsp;&nbsp;&nbsp;<NOBR><FONT SIZE="-1">('protein' in 3 of the 5 spots)</FONT></NOBR></P>
+<LI><P>"D": no repeats</P>
+<LI><P>"E": protein 66.6%<BR>
+&nbsp;&nbsp;&nbsp;<NOBR><FONT SIZE="-1">('protein' in 2 of the 3 spots)</FONT></NOBR></P>
+
+
+</BODY>
+</HTML>

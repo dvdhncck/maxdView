@@ -1,0 +1,127 @@
+<HTML>
+<HEAD>
+<TITLE>Display: Layout</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK --> 
+
+<H2>Display: Layout</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The panel contains controls for the size and layout of spots,
+clusters and labels in the main viewer.</P>
+
+<P>It is accessed using the "Layout" option in the "Display" menu on
+the main window.</P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P>The layout controls are divided between four panels:</P>
+
+<UL>
+<LI><A HREF="#spot">Geometry</A>
+<LI><A HREF="#clust">Clusters</A>
+<LI><A HREF="#name">Name Columns</A>
+<LI><A HREF="#text">Fonts</A>
+</UL>
+
+<P><HR ALIGN=LEFT WIDTH=50%></P>
+
+<A NAME="spot"><P><B>Geometry</B></P></A>
+
+<P><CENTER><IMG SRC="images/ViewerLayoutSpots.jpg"></CENTER></P>
+
+<P>The "<B>Border</B>" slider adjusts the amount of blank space left around the
+border of the display.</P>
+
+<P>The "<B>Column width</B>" and "<B>Row height</B>" sliders control
+ the size of Measurements (columns) and Spots (rows) in the main
+ display.</P>
+
+<P>The "<B>Column gap</B>" and "<B>Row gap</B>" sliders adjust the
+ amount of space between columns (Measurements) and rows (Spots).</P>
+
+<P><HR ALIGN=LEFT WIDTH=50%></P>
+
+<A NAME="clust"><P><B>Clusters</B></P>
+
+<P><CENTER><IMG SRC="images/ViewerLayoutClusters.jpg"></CENTER></P>
+
+<P>This panel controls how <A
+HREF="Concepts.html#clust">Clusters</A> are displayed in the main
+window. </P>
+
+<P>Duplicate sets of controls are provided; one for Spot clusters and one
+for Measurement clusters.</P>
+
+<UL>
+<LI><P><B>Show tree</B> toggles display of cluster branches</P>
+<LI><P><B>Show glyphs</B> toggles display of cluster glyphs</P> 
+<LI><P><B>Align glyphs</B> switches between placing the glyphs at the
+clusters true depth, or aligned at the deepest depth</P>
+<LI><P><B>Overlay Root children</B> causes the Clusters which are
+immediate children of the Root cluster to be drawn <I>on top</I> of one
+another. When this option is not selected, the children of Root are
+drawn one <I>after</I> another.</P>
+</UL>
+
+<P>The "<B>Depth</B>" slider adjusts the overal depth scale of the cluster
+tree.</P>
+
+<P><HR ALIGN=LEFT WIDTH=50%></P>
+
+
+<A NAME="text"><P><B>Text Font</B></P>
+
+<P><CENTER><IMG SRC="images/ViewerLayoutText.jpg"></CENTER></P>
+
+<P>The fonts specified in this panel is used to display labels for
+Spots and Measurements in the main viewer.</P>
+
+<P>Some viewer plugins use the "Spot label" font in their
+displays.</P>
+
+<P>The first three font families in the list, "Helvetica", "Courier"
+and "Times", are 'standard' and can be expected to exist on all
+platforms. All other fonts in the list are system dependant. If you
+write a maxd native file on one system and the read it an a different
+system, system fonts may change.</P>
+
+<P><HR ALIGN=LEFT WIDTH=50%></P>
+
+
+<A NAME="name"><P><B>Name Columns</B></P>
+
+<P><CENTER><IMG SRC="images/ViewerLayoutNames.jpg"></CENTER></P>
+
+<P>This panel contains controls for the labels used for the Spot
+rows. Each column has a "Source", "Align" and "Trim" control.</P>
+
+<P>Columns are removed from the list (and hence the display) using
+their "X" button. New columns are added using the "Add another column"
+button.</P>
+
+<P>The "Source" selects which of the <A
+HREF="Concepts.html#spot"><B>Name</B></A>s or <A
+HREF="Concepts.html#spot"><B>Name Attributes</B></A> is displayed in
+the column. The "Trim" option can be used to automatically shorten
+labels longer than a specified length. Trimming is only enabled when
+the tick-box to the right of the trim length is ticked.</P>
+
+<P>The "Column Gap" slider controls the amount of blank space left
+between name columns in the main display.</P>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

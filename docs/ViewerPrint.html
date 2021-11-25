@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<TITLE>Display Print</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK --> 
+
+<H2>Display: Print</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>Prints some or all of the spots as seen in the main display.</P>
+
+<P>The current <A HREF="ViewerLayout.html">layout</A> settings
+(i.e. Row Height, Column Gap, etc) are used when printing. The only
+difference between the screen version and the printed version of data
+will be due to differences between size of the window and page.</P>
+ 
+<P><B>NOTE:</B> printing is not currently fully implemented. Some
+features do not work properly yet.</P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P><B>Print format</B> selects the destination for the print job:</P>
+
+<UL>
+<LI><P>The <B>Printer</B> option will cause a platform dependant printer
+selection dialog box to appear to enable you to select a printer and
+the set page size etc. </P>
+
+<LI><P>The <B>Image file</B> options save the data as either an ASCII or
+binary <TT>.ppm</TT> image. The binary version of the format produces
+considerably more compact files than the corresponding ASCII
+version. The <TT>ppm</TT> format is used because it is very easy to
+generate. Although the format is not supported by many applications,
+it can be converted to something more portable using any decent
+'paint' program.</P>
+</UL>
+
+
+<P><B>Print what</B> selects which Spots will be included: </P>
+
+<UL>
+<LI><P><B>All spots</B> selects all of the data elements</P>
+
+<LI><P><B>All spots, apply filter</B> selects all of the data elements
+that pass the current <A HREF="Filters.html">filter(s)</A>.</P>
+
+<LI><P><B>Currently visible spots</B> <I>doesn't work properly!</I></P>
+</UL>
+
+
+<P><B>Print how</B> controls some printer specific options: </P>
+
+<UL>
+<LI><P><B>Single Page</B> fits all of the data onto a single page</P>
+<LI><P><B>Multiple Pages</B> uses as many pages as neccesary to draw
+the data</P>
+<LI><P><B>White background</B> overrides the selected background colour </P>
+<LI><P><B>Black test</B> overrides the selected text colour</P>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

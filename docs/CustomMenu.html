@@ -1,0 +1,257 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: The Custom Menu </TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK --> 
+<H2><A NAME="intro">The Custom Menu</A></H2>
+<FONT FACE="sans-serif">
+
+<P>The <I>Custom Menu</I> allows quick access to frequently used
+commands. You can define submenus within the <I>Custom Menu</I> to
+group related commands together.</P>
+
+<UL>
+<LI><B><A HREF="#editor">The Custom Menu Editor</A></B>
+<LI><B><A HREF="#add">Adding a command</A></B>
+<LI><B><A HREF="#set">Setting the name, arguments and hotkey</A></B>
+<LI><B><A HREF="#edit">Editing the menu hierarchy</A></B>
+<LI><B><A HREF="#builtin">Built-in Commands</A></B>
+</UL>
+
+<P>The custom menu can be found on the <A HREF="Popup.html">popup
+ menu</A> available in the main display window.</P>
+
+<P>Custom menu commands can also be activated using a keyboard
+shortcut or <I>hotkey</I>. The key sequence used to execute the
+command is assigned using the <A HREF="#set">editor</A>.</P>
+
+<P>Note that the custom menu and the hotkey functions are only
+available in the main display window and not in windows created by
+plugins.</P>
+
+<P><HR></P>
+
+<A NAME="editor"><P><H3><B>The Custom Menu Editor</B></H3></P></A>
+
+<P>To open the <I>Custom Menu
+Editor</I>&nbsp; choose "Custom->Edit" from the popup menu in the main
+display. The popup menu is triggered using the <I>right</I> mouse
+button (or <TT>Ctrl</TT>,<TT>Alt</TT> and the left mouse button).</P>
+
+<P>The <I>Custom Menu
+Editor</I> is divided into three sections:</P>
+
+<CENTER><P><IMG SRC="images/CustomMenuEmptyEditor.jpg"></P></CENTER>
+
+<P>
+<OL>
+<LI>the menu hierarchy; double click on a menu to expand or collapse it
+<LI>control buttons for manipulating commands and menus in the hierarchy
+<LI>type-in fields for defining the hotkey and arguments of the selected command
+</OL>
+</P>
+
+<P>&nbsp;</P>
+
+<P><HR></P>
+
+<A NAME="add"><P><H3><B>Adding a command</B></H3></P></A>
+
+<P>Use the "New Command" button to add a new entry to the currently
+selected Menu. The <I>Add Command</I> panel is displayed:</P>
+
+<CENTER><P><IMG SRC="images/CustomMenuAdd.jpg"></P></CENTER>
+
+<P>The <I>Add Command</I> panel is composed of three lists, "Plugins",
+"Commands" and "Arguments". When one of the "Plugins" is selected, the
+commands offered by that plugin are displayed. When one of the
+"Commands" is selected, the arguments (parameters) understood by that
+command are displayed.</P>
+
+
+<P>Full details about each plugins commands and their arguments are
+given on the help page of the relevant plugin.</P>
+
+<P><A HREF="#builtin"><B>Built-in</B></A> commands are can also be accessed via this
+panel.</P>
+
+<P>Select a plugin and a command then use the "Add" button to add this
+new command.</P>
+
+<P><HR></P>
+
+<H3><A NAME="set"><P><B>Setting the name, arguments and hotkey</B></P></A></H3>
+
+<P>Select one of the Menus or Commands in the tree to display it's
+details in the fields on the right hand side of the panel.</P>
+
+<CENTER><P><IMG SRC="images/CustomMenuEditor.jpg"></P></CENTER>
+
+<P>Commands and Menus can be given a descriptive "<B>Name</B>" which
+defines the text that will used in the popup <I>Custom Menu</I>. By
+default, new commands are named "Plugin.command".</P>
+
+
+<P>Most Commands understand one or more "<B>Arguments</B>". The <I>Custom Menu
+Editor</I> displays a list of the arguments of the selected
+command. The values for these arguments can be edited via the type-in
+fields.</P>
+
+<P>Full details about the commands offered by each plugin are given on
+the help page of the repective plugin.</P>
+
+<P>Commands can optionally have a "<B>Hotkey</B>". There are three
+methods for specifying the hotkey(s) that will run the command without
+you having to open the custom menu.</P>
+
+<UL>
+<P><LI><B>ALT-C mode</B></P> 
+
+<P>The prefix <TT>Alt-C</TT> followed by a <TT>Alt</TT> plus a unique
+character can be used as a hotkey. The required single character
+should be typed into the "Hotkey" field. For example, setting a command's
+"Hotkey" value to:</P>
+
+<P><TT>
+  X
+</TT></P>
+
+<P>will cause the command to be executed when "Alt-C" then "Alt-X" are
+pressed.</P>
+
+</P>
+
+<P><LI><B>Escape mode</B></P>
+
+<P>The 'escape' key followed by any sequence of letters or digits can
+be used to trigger a command. The format for specifying the sequences
+is as follows:</P>
+
+<P><TT>
+  esc F A 1
+</TT></P>
+
+<P>This hotkey specification causes the command to be run when the
+user presses 'escape' then types 'F' followed by 'A' followed by
+'1'. The sequence must begin with the string '<TT>esc</TT>' and
+contain one or more letters or digits. Whitespace in the hotkey
+specification is ignored.</P>
+
+<P>When using the 'escape' hotkey mode, the first hotkey specification
+to match the sequence of keys pressed will be executed. If you specify
+one commands hotkey as "<TT>esc B</TT>" then specifications such as
+"<TT>esc B 2</TT>" will not be accessible. The "<TT>esc B</TT>"
+command will always be chosen before the "<TT>esc B 2</TT>"
+specification can be seen.</P>
+
+<P><LI><B>Function key mode</B></P>
+
+<P>The function keys can be used to trigger commands. The format to
+specify a function key hotkey is the string "<TT>fn</TT>" followed by
+a number in the range 1 to 16. For example, setting a command's
+"Hotkey" value to:</P>
+
+<P><TT>
+  fn 12
+</TT></P>
+
+<P>will cause the command to be executed when "F12" is pressed.</P>
+
+</UL>
+
+<P><HR></P>
+
+<A NAME="edit"><P><H3><B>Editing the menu hierarchy</B></H3></P></A>
+
+<CENTER><P><IMG SRC="images/CustomMenuEditorButtons.jpg"></P></CENTER>
+
+<P><UL>
+<LI>New Command<BR>
+<I>Add a new Command to the currently selected Menu (see <A
+HREF="#add">above</A>)</I><BR>
+<BR>
+<LI>New Menu<BR>
+<I>Add a new Menu as a child of the currently selected Menu</I><BR>
+<I>You can <A HREF="#set">change the name</A> of the Menu in the same way as for
+Commands</I><BR>
+<BR>
+<BR>
+<LI>Cut<BR>
+<I>Remove the currently selected Menu or Command to the clipboard</I><BR>
+<BR>
+<LI>Copy<BR>
+<I>Copy the currently selected Menu or Command to the clipboard</I><BR>
+<BR>
+<LI>Paste<BR>
+<I>Insert the clipboard contents into the currently selected Menu</I><BR>
+<BR>
+<BR>
+<LI>Raise<BR>
+<I>Move the currently selected item up the tree</I><BR>
+<BR>
+<LI>Lower<BR>
+<I>Move the currently selected item down the tree</I><BR>
+<BR>
+<BR>
+<LI>Delete<BR>
+<I>Remove the currently selected item from the tree</I><BR>
+</UL></P>
+
+<P><HR></P>
+
+<!-- PAGE BREAK --> 
+<A NAME="builtin"><P><H3><B>Built-in Commands</B></H3></P></A>
+
+<PRE>
+&nbsp;<B>[ExprData]</B>
+
+&nbsp;&nbsp;Select all Spots
+&nbsp;&nbsp;Unselect all Spots
+&nbsp;&nbsp;Invert Spot selection
+&nbsp;&nbsp;Select all Measurements
+&nbsp;&nbsp;Unselect all Measurements
+&nbsp;&nbsp;Invert Measurement selection
+</PRE>
+
+<PRE>
+&nbsp;<B>[DataPlot]</B>
+
+&nbsp;&nbsp;Set zoom scale
+&nbsp;&nbsp;Zoom in
+&nbsp;&nbsp;Zoom out
+
+&nbsp;&nbsp;Open Measurements Dialog
+&nbsp;&nbsp;Open Find Dialog
+&nbsp;&nbsp;Open Layout Dialog
+&nbsp;&nbsp;Open Colouriser Dialog
+&nbsp;&nbsp;Open Annotation Loader Options Dialog
+&nbsp;&nbsp;Open Custom Menu Editor Dialog
+
+&nbsp;&nbsp;New View
+&nbsp;&nbsp;Open Print Dialog
+&nbsp;&nbsp;Apply Filter
+&nbsp;&nbsp;Do Not Apply Filter
+</PRE>
+
+<PRE>
+&nbsp;<B>[maxdView]</B>
+
+&nbsp;&nbsp;Rescan plugins
+&nbsp;&nbsp;Exit
+</PRE>
+
+
+<HR>
+</FONT>
+
+See Also:
+<UL>
+<LI>
+<A HREF="Commands.html">Commands</A>
+<LI>
+<A HREF="Plugins.html">Plugins</A>
+</UL>
+
+</BODY>
+</HTML>

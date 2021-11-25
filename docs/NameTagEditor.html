@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<TITLE>Name and Attributes</TITLE>
+</HEAD>
+<BODY>
+
+<H1>Name and Attributes</H1>
+
+<P>Every <B>Spot</B> in the data has a <B>Spot name</B> an optional
+<B>Probe name</B> and zero or more <B>Gene names</B>.</P>
+
+<P>Each of these three types of name can have zero or more <B>Name
+attributes</B> which are extra fields in which you store data
+associated with the names.</P>
+
+<P>An example might be "<TT>ROW</TT>" and "<TT>COLUMN</TT>" attributes
+for <B>Spot name</B>. Every spot can have a value for each of these
+attributes and these values can be used in searching and filtering
+operations. The <A
+HREF="../plugins/Transform/NameMunger/NameMunger.html">Name Munger</A>
+plugin can be used to copy, translate, load and save both names and
+their attributes. The <A HREF="#editor">editor</a> can be used to
+alter Name Attributes by hand.</P>
+
+<P>Name attributes are useful for storing alternate names or
+identifiers for <B>Gene</B> and <B>Probe</B> names. You might store
+"<TT>EMBL_ID</TT>" and "<TT>ACCESSION No.</TT>" for
+example. Attributes can also be used to store descriptive information
+such comments, functional categories, homologue families and so on.</P>
+
+<P></P>
+
+<A NAME="editor"><H2>The Name and Attribute Editor</H2></A> 
+
+<CENTER><P><IMG SRC="images/NameTagEditor.jpg"></P></CENTER>
+
+<P><B>Genes</B></P>
+
+<P>When the Probe is linked to more than more Gene, use the left and
+right arrows to select between Genes.</P>
+
+<TABLE WIDTH=90%>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Change Gene</I>&nbsp;</TD><TD WIDTH=60%>alter the current gene, enter a new name, or pick from existing names</TD></TR>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Add Gene</I>&nbsp;</TD><TD WIDTH=60%>enter a new name, or pick from existing names</TD></TR>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Remove Gene</I>&nbsp;</TD><TD WIDTH=60%>removes the current gene</TD></TR>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Add attribute</I>&nbsp;</TD><TD WIDTH=60%>adds a new Name Attribute (to all Gene Names)</TD></TR>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Remove attribute</I>&nbsp;</TD><TD WIDTH=60%>removes a Name Attribute (from all Gene Names)</TD></TR>
+</TABLE>
+
+<P>&nbsp;</P>
+
+<P><B>Probe</B></P>
+
+<TABLE WIDTH=90%>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Change Probe</I></TD><TD WIDTH=60%>&nbsp;enter a new name, or pick from existing names</TD></TR>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Add attribute</I></TD><TD WIDTH=60%>&nbsp;adds a new Name Attribute (to all Probe Names)</TD></TR>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Remove attribute</I></TD><TD WIDTH=60%>&nbsp;removes a Name Attribute (from all Probe Names)</TD></TR>
+</TABLE>
+
+<P>&nbsp;</P>
+
+<P><B>Spot</B></P>
+
+<TABLE WIDTH=90%>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Add attribute</I></TD><TD WIDTH=60%>&nbsp;adds a new Name Attribute (to all Spot Names)</TD></TR>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Remove attribute</I></TD><TD WIDTH=60%>&nbsp;removes a Name Attribute (from all Spot Names)</TD></TR>
+</TABLE>
+
+<P>&nbsp;</P>
+
+</BODY>
+</HTML>

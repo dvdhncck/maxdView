@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE>Filter By Clusters</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Filter By Clusters</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#commands">Plugin Commands</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P><I>Filter by Clusters</I> chooses spots based on how many clusters they are
+contained in.</P>
+
+<P>A Cluster is only considered if it is currently visible. Visible
+means that the clusters "Show" box is ticked in the <A
+HREF="../../Viewer/ClusterManager/ClusterManager.html">Cluster
+Manager</A>, not that the cluster can be currently seen in the
+display.</P>
+
+
+<P>At the bottom of the window the percentage of Spots which are
+trapped by the filter is shown in red and the percentage of Spots
+which are not trapped is shown in green. Note that the percentages
+only reflect the filtering that is done by this filter, and do not
+take into account any filtering being done by other filter plugins
+that are also active.</P>
+
+
+<P>As with all filter plugins, closing the plugin's window deactives
+the filter (but iconifying it does not).</P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P>There are five modes that the filter can be in:</P>
+
+<DL>
+
+<P><DT>No filter</DT> 
+<DD><I><FONT SIZE="-1">displays all spots irrespective of whether they
+are in any clusters</FONT></I></DD></P>
+
+<P><DT>Hide spots not in any cluster</DT>
+<DD><I><FONT SIZE="-1">displays only the spots which are in a least one cluster</FONT></I></DD></P>
+
+<P><DT>Hide spots in one or more clusters</DT>
+<DD><I><FONT SIZE="-1">displays only the spots which are in a no clusters</FONT></I></DD></P>
+
+<P><DT>Hide spots in more than one cluster</DT>
+<DD><I><FONT SIZE="-1">displays only the spots which are in either one or no clusters</FONT></I></DD></P>
+
+<P><DT>Hide spots in less than two clusters</DT>
+<DD><I><FONT SIZE="-1">displays only the spots which are in two or more clusters</FONT></I></DD></P>
+
+<P><HR></P>
+
+<A NAME="commands"><H3>Plugin Commands</H3></A>
+
+<UL>
+<P><LI><TT>start</TT>
+<FONT SIZE=-1>
+<P>&nbsp;&nbsp;<TT>string : filter-rule</TT><BR>
+</FONT></P>
+<P><LI><TT>stop</TT></P>
+</UL>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

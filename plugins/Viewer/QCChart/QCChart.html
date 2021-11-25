@@ -1,0 +1,279 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: QC Chart Plugin</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>QC Chart</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI>
+</UL>
+
+<HR>
+
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The QC Chart Plugin is based on a methods explained by Y. Fang et al [1].
+These methods produce a <b>Control Chart</b> of the data which can be used to assess the quality of cDNA microarray slides.
+
+<P>The QC Chart Plugin is used to examine a set of normalised slide measurements, 
+to assess whether each one falls close to the mean of its group (replicate set). 
+The idea is to identify slides which are non-typical within each group.</P>
+
+<P>The QC Chart plugin is used on data which has already been normalised and put into log ratio form</P>
+
+<P>The user first specifies which normalised log ratio measurements are to be used in the calculation. 
+These may be either from one group (all slides measure the same pair of conditions) or from several groups.
+The user can use the default list of replicate groups, or specify more meaningful group names reflcting the
+conditions in his experiment.
+The user assigns each slide to a group.
+The user also specifies which slides are straight repeats (forward) and which are dye flips (reverse).
+Finally, the user specifies the significance cutoffs to be used, or accepts the default values.
+</P>
+
+<P>When the user has supplied this information, the QC Chart calculates the mean in a spotwise manner
+for each group. Then, for each slide, the spotwise difference between the slide values and the 
+mean values are calculated. Finally, for each slide, the variance of this difference from the mean is 
+calculated. This variance is an indicator of how far the slide is from the average.</P>
+
+<P>The values are reported in a table, and also on a Control Chart graph.
+The graph shows the log (base 2) values of the variance.
+We would expect these to follow a normal distribution.
+</P>
+<P>
+The <B>Upper Control Line</B>, <B>Lower Control Line</B> and <B>Centre Line</B> are all displayed on the graph  and in the table.
+One point per slide is plotted on the graph, giving its quality control value.
+If the number of slides is small, then the user may be interested in the confidence bars around the control lines, as well as the
+control lines themselves.
+</P>
+
+<P>The user may infer that slides which fall above the upper lines are varying a lot from the 
+average, and may consider excluding such slides from the study.
+The user may note slides which fall very low down - this corresponds to low variance, and
+may be an indicator that a superior technique was used to obtain that data. 
+This could have implications for improving data collection techniques in the experiment.</P>
+
+
+
+<A NAME="interface"><H3>User Interface</H3></A>
+<P>To Start the Quality Control Chart Plugin, select <B>QCChart</B> from the <B>View</B> menu.</P>
+<CENTER><IMG SRC="pic1menu.jpg"></CENTER>
+<P>The Quality Control Chart user interface will appear,
+with the <b>Measurements</b> tab selected.
+From the list of measurements, select the measurements 
+which you are interested in. These should be log ratio values, (or normalised log ratio values) from two-colour cDNA microarrays.</P>
+You can use CTRL-mouseclick to multiple-select the measurements you require.
+</P>
+<CENTER><IMG SRC="pic2meas.jpg"></CENTER>
+<P>Then click on the <B>Next</B> button. The group options tab will then appear.
+This window contains the names of the replicate groups to which you will assign each of your chosen measurements.
+The default group name list consists of the letters 'A' though 'J':
+</P>
+<CENTER><IMG SRC="pic3groups.jpg"></CENTER>
+<P>
+You can use the 'Add', 'Delete' and 'Rename' buttons to change the group names to something more meaningful to your experiment:
+</P>
+<CENTER><IMG SRC="pic4groupschange.jpg"></CENTER>
+<P>
+You can also import a list of group names from a file. This will replace the existing group names with those specified in the file.
+The format of a group names file is one group name per line, e.g:
+<PRE>
+timepoint_0hrs
+timepoint_8hrs
+timepoint_24hrs
+</PRE>
+You can save the group names to a file of this format using the 'Save' button.
+</P>
+<CENTER><IMG SRC="pic5groupsave.jpg"></CENTER>
+<P>
+
+Now click on the 'Next' button to reach the tab where you assign measurements to groups.
+Note that you can use the 'Back' button if you want to return to previous tabs to 
+change your selection of measurements or to edit the names of the groups.
+
+</P>
+
+<P>
+You are now looking at the 'Measurements to Groups' tab. This contains a list of all the measurements you have selected.
+For each measurement, there is a drop down box where you can select the group to which that measurement belongs.
+</P>
+<CENTER><IMG SRC="pic6meastogroup.jpg"></CENTER>
+<P>There is also a radio button where you can choose 'forward' or 'reverse' for each measurement.
+The purpose of this is for use when dye flips have been carried out, and where the 
+calculated log ratios have not yet been reversed. For example, consider the following case:
+<PRE>
+slide 1      condition A = Red      condition B = Green     meas1 = normalise(log(R/G))
+slide 2      condition A = Green    condition B = Red       meas2 = normalise(log(R/G))
+</PRE>
+Here, slide 2 is a dye flip repeat of slide 1, and meas2 should be comparable to -meas1.
+So it is appropriate in this case to choose 'forward' for measurement 1 and 'reverse' for measurement 2.
+
+If you already carried out this calculation in the preliminary steps, with e.g:
+<PRE>
+slide 1      condition A = Red      condition B = Green     meas1 = normalise(log(R/G))
+slide 2      condition A = Green    condition B = Red       meas2 = -normalise(log(R/G))
+</PRE>
+then it is appropriate to choose 'forward' for both meas1 and for meas2.
+</P>
+<P>
+In this way, you are specifying whether the calculator should use the data
+values as they stand (forward hyb) or whether the calculator should take the negative of the values (reverse, dye flip case, where this adjustment has not already been made)
+</P>
+<P>
+For an experiment with many measurements to consider, it may be inconvenient to choose each
+group or each orientation individually. For this reason there is a <B>Quickset</B> option.
+Clicking on the 'Quickset' button brings up a Quickset pane where the user can multiple-select several measurements
+at once. Choose the appropriate group and/or orientation for those measurements, and click on 'Set' to confirm the selection.
+Repeat this until all measurements are assigned as required.
+</P>
+<CENTER><IMG SRC="pic7quickset.jpg"></CENTER>
+
+
+
+<P>Click on 'Next' to get to the significance level window, where you can set
+various options for how the calculation will be carried out.
+<CENTER><IMG SRC="pic8siglevel.jpg"></CENTER>
+
+Specify a numerical value for each significance level as required. 
+
+Suitable values are e.g. 0.01, 0.2, 0.2.
+See the <A HREF="#math">Maths</A> section for explanation of these values.
+A small value for the main significance level will result in a strict application of the control chart,
+with the UCL and LCL being placed close to the center line, and more slides failing the test.
+A small value for the two confidence significance levels will result in a 
+stirct application of the confidence bars, the width of the confidence bars becoming very wide.
+</P>
+
+<P>Decide whether you want the <B>Median</B> or the <B>Mean</B> to be used in the spot-wise average step of the calculation.
+See the <A HREF="#math">Maths</A> section of this help page for where this is used. 
+Usually the <b>Median</b> is chosen, because it is considered to be more robust for small numbers of replicates.
+</P>
+
+
+<P>Use the <B>Apply Filter</B> checkbox to choose whether or not to apply the filter.
+If the checkbox is ticked, then any spots which have been filtered out
+of the main window of maxdview will be excluded from the calculation.
+ </P>
+
+<P>If your data included NaN or Inf values, these will be excluded from the calculation.
+The number of such exclusions will be reported in a dialog box.</P>
+
+<P>When all selections have been set as required, hit the <B>Go!</B> button </P>
+
+<P>The results of the calculation are displayed in a table and a graph. 
+Resize the graph so that your results are displayed nicely.
+The table reports the variance of the difference from the (group) average for each slide, and the log (base 2) of this value.</P>
+
+<P>We consider slides whose value falls below the Upper Control Line (UCL) to be normal, or exceptionally good if they
+also fall below the Lower Control Line (LCL). 
+See the <A HREF="#math">Maths</A> section for details of how these values are calculated.
+Those values which fall above the UCL have abnormal variance from the mean, and so are considered to be bad.
+The table reports 'Normal' 'Excellent' and 'Bad' accordingly.
+</P>
+<P>Furthermore, a confidence interval is calculated for each control line.
+Slides which fall within the confidence interval of the UCL or LCL are labelled 'Borderline Excellent' or 'Borderline bad' accordingly.
+</P>
+
+
+
+<CENTER><IMG SRC="pic9table.jpg"></CENTER>
+<P>The graph reports the log 2 of the variance of the diff from the group mean. The graph is divided by vertical lines which 
+seperate one group from another. The distribution of these values would be expected to be a normal distribution.
+The estimated centre (mean) of this distribution is indicated in white. The LCL, UCL and confidence intervals are also marked. Spots which fall above the upper control lines may give cause 
+for concern. Spots which fall below the lower control lines indicate a very strong resemblance to the mean value.
+<CENTER><IMG SRC="pic10graph.jpg"></CENTER>
+</P>
+
+<A NAME="math"><H3>Maths</H3></A>
+<P>Here is an explanation of what values are calculated and reported.</P>
+
+
+<P>
+We write <I>V</I> for the microarray process quality characteristic.
+The characteristic <I>V_k</I> of the <I>k</I> th slide <I>A_k</I> is calculated as follows:
+</P>
+
+<P>
+Look at the replicate group to which slide <I>k</I> belongs.
+We are interested in knowing how different the slide <I>k</I> is from the true values for that condition (spot by spot), and
+the variance of that difference.
+We do not have access to the real values of the expression, so we estimate the true expression by averaging the
+expression of the slides in the group. That is, we calculate the average expression for each spot. 
+Usually we use the <b>median</b>
+for this calculation because this is considered to be more robust than the mean when small numbers of replicates are used.
+One could alternatively use the mean - an option to do this is included in the plugin.
+Write <I>M</I> for this virtual array, which is the average of all arrays in the group.
+</P> 
+<P><I>M = </I>spotwise average of the arrays in the group.
+</P>
+<P>We then calculate the variance of the difference for each slide, and report this as the quality statistic for that slide:</P>
+<P><I>V_k = </I>mean sqared error of <I>k</I>th slide, as measured wrt spotwise groupwise median (or mean).</P>
+<P><I>V_k = 1/</I>(number Spots <I>-1</I>) * Sum over all spots <I>s ((M[s] - A[s])^2) )</I>
+
+<P>These <I>V_k</I> are the values which will be reported in the table at the end of the calculation. 
+For 2-colour microarray experiments, the <I>V_k</I> are well approximated by a log normal distribution [1].
+We also report the <I>log_2</I> values of each of the <I>V_k</I> and use these to calculate the control lines
+as follows.
+
+</P>
+
+
+<P>Write <I>mu</I> for the mean of the logged <I>V_k</I> s and <I>sigma</I> for the estimated stdev.</P>
+<P>
+<I>mu = mean over all k (log_2 (V_k)) </I>
+</P>
+<P>
+<I>sigma = stdev over all k (log_2 (V_k)) </I>
+</P>
+<P>
+The Centre Line,  Upper control line and lower control line are given by:</P>
+
+<P>
+<I>CL = mu</I>
+</P>
+
+<P>
+<I>UCL = mu + Phi^(-1) (1-alpha/2) * sigma</I>
+</P>
+
+<P>
+<I>UCL = mu i Phi^(-1) (1-alpha/2) * sigma</I>
+</P>
+
+<P>Where <I>Phi</I> is the normal distribution function and <i>alpha</i> is the chosen significance level.
+</P>
+
+<P>
+If the overall number of slides is small (less than 10) then the user may wish to take into account not only the 
+control lines, but to be aware of the confidence interval around each control line.
+</P>
+
+<P>The confidence intervals are calculated as follows: Let <i>alpha</I> be the overall significance level, as before, <i>alpha_mu</i> be the significance level of the estimate of the mean,
+and <i>alpha_sigma</I> be the significance level chosen for the estimate of the standard deviation.
+Then the confidence interval of the CL is given by:</P>
+<P>
+<I>( mu - Phi^(-1) (1-alpha_mu /2) sigma / sqrt(n),  mu + Phi^(-1) (1-alpha_mu /2) sigma / sqrt(n))</I></P>
+
+<P>
+while the confidence intervals for the UCL and the LCL are given by
+</P>
+
+<P><I>( mu + Phi^(-1) (1-alpha /2) K_1(n, alpha_sigma) sigma,  mu + Phi^(-1) (1-alpha /2) K_2(n, alpha_sigma) sigma)</I></P>
+
+<P><I>( mu - Phi^(-1) (1-alpha /2) K_2(n, alpha_sigma) sigma,  mu - Phi^(-1) (1-alpha /2) K_1(n, alpha_sigma) sigma)</I></P>
+<P>respectively. Here, K_1 and K_2 are given by:</P>
+<P><I> K_1(n, x) = sqrt((n-1)/ ChiSquared(n-1, 1-x/2))</I></P>
+<P><I> K_2(n, x) = sqrt((n-1)/ ChiSquared(n-1, x/2))</I></P>
+<P><I>ChiSquared(n,x)</I> being the inverse of the cumulative distribution function with <I>n</I> degrees of freedom.
+
+
+<P><I>"A New method for statistical control of microarray process quality"</I>, <I>Yongxiang Fang et al</I>, preprint available from abrass@cs.man.ac.uk</P>
+
+
+</BODY>
+</HTML>

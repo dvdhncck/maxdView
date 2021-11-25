@@ -1,0 +1,907 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: Method Reference</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<H1>Method Reference</H1>
+
+The methods are grouped based on the class they are implemented in:
+<UL>
+<P><LI><A HREF="#exprdata">ExprData</a><BR>
+<FONT SIZE="-1">
+&nbsp;&nbsp;<A HREF="#exprdata_access">Data Access</A><BR>
+&nbsp;&nbsp;<A HREF="#exprdata_spots">Spots and Indexing</A><BR>
+&nbsp;&nbsp;<A HREF="#exprdata_iters">SpotIterators and MeasurementIterators</A><BR>
+&nbsp;&nbsp;<A HREF="#exprdata_sort">Sorting</A><BR>
+&nbsp;&nbsp;<A HREF="#exprdata_sel">Selection</A><BR>
+&nbsp;&nbsp;<A HREF="#exprdata_tags">Names Tags and their Attributes</A><BR>
+&nbsp;&nbsp;<A HREF="#exprdata_meas">Measurements</A><BR>
+&nbsp;&nbsp;<A HREF="#exprdata_clust">Clusters</A><BR>
+&nbsp;&nbsp;<A HREF="#exprdata_filt">Filter (general)</A><BR>
+&nbsp;&nbsp;<A HREF="#exprdata_filtint">Filter (interface)</A><BR>
+&nbsp;&nbsp;<A HREF="#exprdata_events">Receiving and generating Events</A><BR>
+</FONT></P>
+
+<P><LI><A HREF="#measurement">Measurement</A><BR>
+<FONT SIZE="-1">
+&nbsp;&nbsp;<A HREF="#meas_constr">Constructors</A><BR>
+&nbsp;&nbsp;<A HREF="#meas_access">Accessors</A><BR>
+&nbsp;&nbsp;<A HREF="#meas_attrib">Attributes</A><BR>
+&nbsp;&nbsp;<A HREF="#meas_sa">Spot Attributes</A><BR>
+</FONT></P>
+
+<P><LI><A HREF="#cluster">Cluster</A><BR>
+<FONT SIZE="-1">
+&nbsp;&nbsp;<A HREF="#clust_constr">Constructors</A><BR>
+&nbsp;&nbsp;<A HREF="#clust_methods">Cluster Methods</A><BR>
+&nbsp;&nbsp;<A HREF="#clust_iter_methods">Cluster Iterator Methods</A><BR>
+</FONT></P>
+
+<LI><A HREF="#maxdView">maxdView</a><BR>
+<FONT SIZE="-1">
+&nbsp;&nbsp;<A HREF="#mview_output">Displaying Information</A><BR>
+&nbsp;&nbsp;<A HREF="#mview_input">User input</A><BR>
+&nbsp;&nbsp;<A HREF="#mview_appprops">Application Properties</A><BR>
+</FONT></P>
+
+<LI><A HREF="#datatags">DataTags</A>
+<LI><A HREF="#tagattrs">TagAttrs</A>
+<LI><A HREF="#dataplot">DataPlot</a>
+<LI><A HREF="#annlo">AnnotationLoader</a>
+<LI><A HREF="#event">Event</A>
+<LI><A HREF="#plugin">Plugin</A>
+<LI><A HREF="#filter">Filter</A>
+
+</UL>
+
+<P><HR></P>
+
+<H2><IMG SRC="images/roundarrow.jpg">&nbsp;<A NAME="exprdata">class ExprData</H2></a>
+
+<A NAME="exprdata_access"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Data Access</B></A>
+
+<PRE>
+  int getNumMeasurements()
+  int getNumSpots()
+  int getNumClusters()
+  <FONT SIZE="-1" COLOR="BLUE"> // how many of each of main data elements?</FONT>
+   
+  double  eValue(int measurement, int spot)
+  double  eValueAtIndex(int measurement, int index)
+  boolean setEValue(int measurement, int spot, double v)  
+  <FONT SIZE="-1" COLOR="BLUE"> // access the expression data</FONT>
+
+  double  getMinEValue()
+  double  getMaxEValue()
+  <FONT SIZE="-1" COLOR="BLUE"> // min/max across all <B>Measurement</B>s</FONT>
+
+  double  getMinErrorValue()
+  double  getMaxErrorValue()
+  <FONT SIZE="-1" COLOR="BLUE"> // min/max across all <B>Measurement</B>s with a <TT>DataType</TT> of <TT>ErrorDataType</TT></FONT>
+
+  double  getMeasurementMinEValue(int)
+  double  getMeasurementMaxEValue(int)
+  <FONT SIZE="-1" COLOR="BLUE"> // specific min/max one of <B>Measurement</B></FONT>
+
+</PRE>
+
+<A NAME="exprdata_spot"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Spots and Indexing</B></A>
+
+<P>&nbsp;&nbsp;&nbsp;(see the note on indexing in the <A HREF="ProgGuide.html">Programmer's Guide</A>)</P>
+
+<PRE>
+  int  getIndexOf( int ) 
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the actual index of a spot</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // (i.e. the position in the source file or database)</FONT>
+  int getSpotAtIndex( int )
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the actual spot at a particular index</FONT>
+
+  
+  int[] addSpots(int count)
+  int[] addSpots(int count, String name_prefix)
+  <FONT SIZE="-1" COLOR="BLUE"> // create 'count' new Spots.
+   // NaN values are assigned in each Measurement. 
+   // Probe and Gene names are left blank (i.e. null) in the new Spots.
+   // The new Spots are added after the existing Spots.
+   // The real indices of the new Spots are returned in an array</FONT>
+
+  int  getIndexOfMeasurement( int ) 
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the actual index of a Measurement</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // (i.e. the position in the source file or database)</FONT>
+  int getMeasurementAtIndex( int )
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the actual Measurement at a particular index</FONT>
+
+  int[] getRowOrder()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns an array giving the current traversal order</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // (used, for example, to implement sorting)</FONT>
+    
+  boolean setRowOrder(int[] new_order)
+  <FONT SIZE="-1" COLOR="BLUE"> // sets a new traversal order</FONT>
+
+  int[] getMeasurementOrder()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns an array giving the current traversal order for <B>Measurement</B>s</FONT>
+    
+  boolean setMeasurementOrder( int[] )
+  <FONT SIZE="-1" COLOR="BLUE"> // sets a new traversal order for <B>Measurement</B>s</FONT>
+
+
+  int  getIndexBySpotName( String )
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the actual index of a spot given the name</FONT>
+ 
+  String  getSpotNameAtIndex( int )
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the name of the spot at the given index in the current order</FONT>
+   
+</PRE>
+
+<A NAME="exprdata_iters"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;SpotIterators and MeasurementIterators</B></A>
+
+<P>Methods for creating a <TT>SpotIterator</TT></P>
+
+<PRE>
+    SpotIterator getSpotIterator(  )
+    SpotIterator getSpotIterator( int flags )
+    SpotIterator getSpotIterator( int flags, int meas_id )
+    SpotIterator getSpotIterator( int flags, String meas_name )
+    SpotIterator getSpotIterator( String meas_name )
+</PRE>
+ 
+<P>Methods for creating a <TT>MeasurementIterator</TT></P>
+
+<PRE>
+    MeasurementIterator getMeasurementIterator( )
+    MeasurementIterator getMeasurementIterator( int flags )
+    MeasurementIterator getMeasurementIterator( int flags, int spot_id )
+    MeasurementIterator getMeasurementIterator( int flags, String spot_name )
+    MeasurementIterator getMeasurementIterator( String spot_name )
+</PRE>    
+
+<PRE>
+  <FONT SIZE="-1" COLOR="BLUE"> // use these constants for <B>flags</B></FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   ApplyFilter,         (by default the filters are not applied)</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   AllMeasurements,     (by default ignore 'hidden' Measurements)</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   SelectedDataOnly,    (only consider the currently selected data)</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   TraversalOrder       (otherwise use natural ordering)</FONT>
+</PRE>    
+
+<A NAME="exprdata_sort"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Sorting</B></A>
+
+<PRE>
+  int[] getTraversal(int measurement, int order)
+  <FONT SIZE="-1" COLOR="BLUE"> // generates a traversal list which sorts</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // the specified measurement into ascending (order=0)</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // or descending (order=1) order.</FONT>
+</PRE>
+
+<A NAME="exprdata_sel"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Spot Selection</B></A>
+
+<P>&nbsp;&nbsp;&nbsp;(see the <A HREF="WrappingTutorial.html">"Wrapping maxdView</A>" tutorial for more information about the selection)</P>
+
+<PRE>
+    void    setSpotSelected(int spot_id, boolean is_selected)
+
+    void    setSpotSelection(int[] sel)
+
+    boolean isSpotSelected(int spot_id)
+    int[]   getSpotSelection()
+
+    void    clearSpotSelection()
+    void    invertSpotSelection()
+</PRE>
+
+<A NAME="exprdata_tags"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Names Tags and their Attributes</B></A>
+
+<P>&nbsp;&nbsp;&nbsp;(see the note on Data Tags in the <A HREF="ProgGuide.html">Programmer's Guide</A>)</P>
+
+<PRE>
+  DataTags getMasterDataTags() // see <B>class DataTags</B> <A HREF="#datatags">below</A>)
+
+  String  getGeneName( int)  
+  String  getProbeName( int )
+  String  getSpotName( int )
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the value at the actual index</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // (i.e. the position in the source file or database)</FONT>
+
+  String[]  getGeneNamesAtIndex( int )         
+  String    getGeneNameAtIndex( int )         
+  String    getProbeNameAtIndex( int )         
+  String    getSpotNameAtIndex( int )         
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the value at the index using the current traversal order</FONT>
+
+  void  setSpotName(String[])
+  void  setProbeName(String[])
+  void  setGeneNames(String[][])
+  <FONT SIZE="-1" COLOR="BLUE"> // replaces all of the values (ordered by actual index)</FONT>
+  
+  void  setSpotName(int, String)
+  void  setProbeName(int, String)
+  void  setGeneNames(int, String[])
+  void  setGeneName(int, int, String[])
+  <FONT SIZE="-1" COLOR="BLUE"> // replaces the value for one spot</FONT>
+  
+  int  getLongestNameLength()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the length in chars of the longest gene, probe or spot name</FONT>  
+  int  getLongestName()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the actual spot index of the spot with the longest gene, probe or spot name</FONT>  
+  int  getLongestProbeName()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the actual spot index of the spot with the longest probe name</FONT>  
+  int  getLongestGeneName()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the actual spot index of the spot with the longest gene name</FONT>  
+  int  getLongestSpotName()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the actual spot index of the spot with the longest spot name</FONT>  
+
+  TagAttrs getProbeTagAttrs()
+  TagAttrs getGeneTagAttrs()
+  TagAttrs getSpotTagAttrs()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the <A HREF="#tagattrs"><B>TagAttrs</B></a> for each of the name types</FONT>
+
+</PRE>
+
+<A NAME="exprdata_meas"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Measurements</B></A>
+
+<P>&nbsp;&nbsp;&nbsp;(see also the <A HREF="#measurement">Measurement</A> class below)</P>
+
+<PRE>
+  Measurement getMeasurement( int ) 
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the Measurement object itself</FONT>
+
+  int  getMeasurementFromName(String name)
+  <FONT SIZE="-1" COLOR="BLUE"> // convert name to index</FONT>
+  
+  void    setMeasurementName(int m, String name)
+  String  getMeasurementName(int m)
+  <FONT SIZE="-1" COLOR="BLUE"> // access the name</FONT>
+  
+  void  setMeasurementDataType(int m, int dtype)    
+  int   getMeasurementDataType(int m)
+  <FONT SIZE="-1" COLOR="BLUE"> // access the data type</FONT>
+  
+  double[]  getMeasurementData(String name)
+  boolean   setMeasurementData(String name, double[] data)
+  <FONT SIZE="-1" COLOR="BLUE"> // access the array containing the data</FONT>
+  
+  double[] getFilteredMeasurementData(int m)
+  <FONT SIZE="-1" COLOR="BLUE"> // returns a copy of the data values of <B>Measurement</B> 'm'</FONT><BR>
+  <FONT SIZE="-1" COLOR="BLUE"> // that have been passed through the current filter(s)</FONT>
+
+  boolean  setMeasurementOrder (int[] new_order)
+  <FONT SIZE="-1" COLOR="BLUE"> // set the order in which <B>Measurement</B>s are sorted</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // (if there are, for example, 9 measurements, the array</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //  should contain the each of numbers 0..8 exactly once)</FONT>
+  
+  boolean  addMeasurement(Measurement)
+  <FONT SIZE="-1" COLOR="BLUE"> // spots in the new Measurement will be merged with existing spots</FONT>
+
+  boolean  addOrderedMeasurement(Measurement)
+  <FONT SIZE="-1" COLOR="BLUE"> // an ordered <B>Measurement</B> contains exactly the same</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // number of spots as in each of current Measurements</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // and in exactly the same order.</FONT>
+
+  boolean  removeMeasurement(String name)
+  <FONT SIZE="-1" COLOR="BLUE"> // delete given a name</FONT>
+  boolean  removeMeasurement(int)
+  boolean  removeAllMeasurements()
+</PRE>
+
+<A NAME="exprdata_clust"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Clusters</B></A>
+<P><TABLE CELLPADDING=5 WIDTH="95%" BGCOLOR="#eeeeee"><TR><TD>See also <TT>class <A HREF="#cluster">Cluster</A></TT> below</TD></TR></TABLE></P>
+<PRE>
+  void  addCluster(String name, int elem_name_mode, Vector elems)
+  <FONT SIZE="-1" COLOR="BLUE"> // use these constants for <B>elem_name_mode</B></FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>SpotName</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>SpotIndex</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>ProbeName</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>GeneName</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>MeasurementName</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>MeasurementIndex</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // and provide a collection of names in <B>elems</B></FONT>
+
+  Cluster getRootCluster() 
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the top-level <B>Cluster</B> in the hierarchy</FONT>
+
+  void  setClusterName( Cluster, String  )    
+  void  setClusterElements( Cluster, int elem_name_mode, Vector elems )
+  void  setClusterGlyph( Cluster, int )
+  void  setClusterColour( Cluster, Color  ) 
+  void  toggleClusterShow( Cluster )
+  void  setClusterShow( Cluster, boolean )
+
+  int inVisibleClusters( int spot_index )
+  <FONT SIZE="-1" COLOR="BLUE"> // returns how many <B>Cluster</B>s the spot index is in</FONT>
+
+  void  addCluster(Cluster cl)
+  <FONT SIZE="-1" COLOR="BLUE"> // inserts a cluster that has already been constructed</FONT>
+
+  void  addChildToCluster(Cluster cl, Cluster ch)
+
+  void  deleteCluster(Cluster)
+
+  void  removeAllClusters()
+
+</PRE>
+
+<A NAME="exprdata_filt"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Filter (general)</B></A>
+<PRE>
+  boolean filterIsOn() 
+  <FONT SIZE="-1" COLOR="BLUE"> // returns <B>true</B> if any filters are enabled</FONT>
+
+  boolean filter(int spot)
+  <FONT SIZE="-1" COLOR="BLUE"> // returns <B>true</B> if this spot passes through the filter(s)</FONT>
+</PRE>
+  
+<A NAME="exprdata_filtint"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Filter (interface)</B></A>
+<PRE>
+  public interface Filter
+  { <FONT SIZE="-1" COLOR="BLUE"> // any object which implements this interface can be registered as a <B>Filter</B></FONT>
+  
+     public boolean filter(int spot); <FONT SIZE="-1" COLOR="BLUE">// the custom filtering code</FONT>
+     public boolean enabled();        <FONT SIZE="-1" COLOR="BLUE">// is it currently enabled?</FONT>
+     public String  getName();        <FONT SIZE="-1" COLOR="BLUE">// descriptive name of this filter</FONT>
+  }
+   
+  boolean addFilter(Filter f)
+  boolean removeFilter(Filter f)
+  <FONT SIZE="-1" COLOR="BLUE"> // for adding and removing custom filtering functions</FONT>
+ 
+  boolean notifyFilterChanged(Filter f) 
+  <FONT SIZE="-1" COLOR="BLUE"> // should be called by a <B>Filter</B> when it has changed</FONT>
+</PRE>
+
+<A NAME="exprdata_events"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Receiving and generating Events</B></a>
+<P><TABLE CELLPADDING=5 WIDTH="95%" BGCOLOR="#eeeeee"><TR><TD>See also <TT>class <A HREF="#event">Event</A></TT> below</TD></TR></TABLE></P>
+<PRE>
+  <FONT SIZE="-1" COLOR="BLUE"> // use the following constants to identify the <B>event</B></FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //  SizeChanged, </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //  ColourChanged, </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //  VisibilityChanged, </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //  OrderChanged, </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //  ElementsAdded, </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //  ElementsRemoved, </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //  NameChanged, </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //  ValuesChanged, </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //  RangeChanged </FONT>
+
+  void addObserver(ExprDataObserver edo)
+  void removeObserver(ExprDataObserver edo)
+
+  public interface ExprDataObserver
+  {
+    public void dataUpdate        (DataUpdateEvent due);
+    public void clusterUpdate     (ClusterUpdateEvent cue);
+    public void measurementUpdate (MeasurementUpdateEvent mue);
+    public void environmentUpdate (EnvironmentUpdateEvent eue);
+  }
+
+  void generateDataUpdate(int event)
+  void generateDataUpdate(int event, int spot, int measurement, double old_value)
+
+  void generateClusterUpdate(int event)
+  void generateClusterUpdate(int event, Cluster cl)
+
+  void generateMeasurementUpdate(int event)
+  void generateMeasurementUpdate(int event, int m)
+
+  void generateEnvironmentUpdate(int event)
+
+</PRE>
+
+<P><HR></P>
+
+<H2><IMG SRC="images/roundarrow.jpg">&nbsp;<A NAME="measurement">class Measurement</H2></a>
+
+<A NAME="meas_constr"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Constructors</B></A>
+<PRE>
+  Measurement(String name, int datatype, double[] data)
+  <FONT SIZE="-1" COLOR="BLUE"> // (see data type constants below)</FONT>
+  Measurement cloneMeasurement()
+  <FONT SIZE="-1" COLOR="BLUE"> // makes an exact copy of an existing Measurement</FONT>
+
+</PRE>
+
+<A NAME="meas_access"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Accessors</B></A>
+
+<P><TABLE CELLPADDING=5 WIDTH="95%" BGCOLOR="#eeeeee"><TR><TD>
+<I>Note: </I>changing values via these methods will not
+generate update events. To cause events to be generated, use the
+corresponding methods in <A HREF="#expedata">ExprData</A> class
+instead.  </TD></TR></TABLE></P>
+
+<PRE>
+  String   getName()
+  void     setName(String)
+  
+  int      getNumSpots() 
+  String   getSpotName(int)
+
+  void     setDataType(int)
+  <FONT SIZE="-1" COLOR="BLUE"> // use constants: <TT></TT>ExpressionAbsoluteDataType,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //                <TT></TT>ExpressionRatioDataType,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //                <TT></TT>ProbabilityDataType,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //                <TT></TT>ErrorDataType,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //                <TT></TT>UnknownDataType</FONT>
+
+  void     setDataTypeString(String)
+  <FONT SIZE="-1" COLOR="BLUE"> // valid names are:</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   "Abs.Expression", "Ratio Expression", </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   "Probability", "Error Value", </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   "Unknown"</FONT>
+
+  int      getDataType()
+  <FONT SIZE="-1" COLOR="BLUE"> // see constants above</FONT>
+  
+  String   getDataTypeString()   
+  <FONT SIZE="-1" COLOR="BLUE"> // returns one of "INTEGER", "DOUBLE", "CHAR", "TEXT"</FONT>
+
+  void     setShow(boolean)
+  boolean  getShow()
+  <FONT SIZE="-1" COLOR="BLUE"> // whether this Measurement is considered for display</FONT>
+
+  void     setData(double[])
+  double[] getData() 
+  <FONT SIZE="-1" COLOR="BLUE"> // the data vector</FONT>
+
+  DataTags getDataTags()
+  void     setDataTags(DataTags)
+  <FONT SIZE="-1" COLOR="BLUE"> // see the <A HREF="#datatags">DataTags</A> class below</FONT>
+
+</PRE>
+<A NAME="meas_attrib"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Attributes</B></A>
+
+<P>&nbsp;&nbsp;&nbsp;(used to store arbitrary &lt;name,value&gt; pairs in the Measurement)</P>
+<PRE>
+  void    setAttribute(String name, String source, String value)
+  <FONT SIZE="-1" COLOR="BLUE"> // source should indicate where the attribute came from</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // will replace existing value if both name and source match existing attribute</FONT>
+
+  void    addAttribute(String name, String source, String value) 
+  <FONT SIZE="-1" COLOR="BLUE"> // makes sure the name is unique by adding numeric suffix if required</FONT>
+
+  String  getAttribute(String name)
+</PRE>
+<A NAME="meas_sa"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Spot Attributes</B></A>
+
+<P>&nbsp;&nbsp;&nbsp;(used to store additional data vectors in the Measurement)</P>
+<PRE>
+  int  getNumSpotAttributes()
+
+  String getSpotAttributeName(int)
+  <FONT SIZE="-1" COLOR="BLUE"> // get <b>name</b> from <b>index</B></FONT>
+
+  int  getSpotAttributeFromName(String)
+  <FONT SIZE="-1" COLOR="BLUE"> // get <b>index</b> from <b>name</B></FONT>
+
+  void  addSpotAttribute(String name, String datatype, Object[] data)
+  <FONT SIZE="-1" COLOR="BLUE"> // use constants: <TT>SpotAttributeIntDataType</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //                <TT>SpotAttributeDoubleDataType</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //                <TT>SpotAttributeCharDataType</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //                <TT>SpotAttributeTextDataType</TT></FONT>
+
+  String getSpotAttributeUnit(int)
+  <FONT SIZE="-1" COLOR="BLUE"> // the unit name (if any)</FONT>
+
+  int    getSpotAttributeDataTypeCode(int)
+  <FONT SIZE="-1" COLOR="BLUE"> // one of the above constants </FONT>
+  String getSpotAttributeDataType(int)
+  <FONT SIZE="-1" COLOR="BLUE"> // returns one of "INTEGER", "DOUBLE", "CHAR", "TEXT"</FONT>
+
+  Object getSpotAttributeData(String)
+  Object getSpotAttributeData(int)
+  <FONT SIZE="-1" COLOR="BLUE"> // returns <TT>int[]</TT>, <TT>double[]</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //         <TT>char[]</TT> or <TT>String[]</TT></FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // (depending on the DataType of the SpotAttribute)</FONT>
+
+  void setSpotAttributeData(int a, Object o)
+  <FONT SIZE="-1" COLOR="BLUE"> // 'o' should be <TT>int[]</TT>, <TT>double[]</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //               <TT>char[]</TT> or <TT>String[]</TT></FONT>
+
+  String getSpotAttributeDataValueAsString(int attr, int spot)
+  <FONT SIZE="-1" COLOR="BLUE"> // returns String irrespective of underlying type</FONT>
+
+  void setSpotAttributeName( int spot_attr_id, String new_name )
+  <FONT SIZE="-1" COLOR="BLUE"> // change the name of an existing <TT>SpotAttribute</TT></FONT>
+
+  void removeSpotAttribute( int spot_attr_id )
+  <FONT SIZE="-1" COLOR="BLUE"> // removes the specified <TT>SpotAttribute</TT> from this Measurement</FONT>
+  
+  void removeAllSpotAttributes()
+  <FONT SIZE="-1" COLOR="BLUE"> // remove all <TT>SpotAttribute</TT>s from this Measurement</FONT>
+</PRE>
+
+<P><HR></P>
+
+<H2><IMG SRC="images/roundarrow.jpg">&nbsp;<A NAME="cluster">class Cluster</H2></a>
+
+<A NAME="clust_constr"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Constructors</B></A>
+<PRE>
+  Cluster()
+  Cluster(String name)
+  Cluster(String name, int elem_name_mode)
+  Cluster(String name, int elem_name_mode, Vector elems)
+  Cluster(int name_mode, Vector elems)
+
+  <FONT SIZE="-1" COLOR="BLUE"> // use these constants for <B>elem_name_mode</B></FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>SpotName</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>SpotIndex</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>ProbeName</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>GeneName</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>MeasurementName</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> //   <TT>MeasurementIndex</TT>,</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // and provide a collection of names in <B>elems</B></FONT>
+
+</PRE>
+<A NAME="clust_methods"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Cluster methods</B></A>
+
+<P><TABLE CELLPADDING=5 WIDTH="95%" BGCOLOR="#eeeeee"><TR><TD>
+<I>Note: </I>changing values via these methods will not
+generate update events. To cause events to be generated, use the
+corresponding methods in <A HREF="#expedata">ExprData</A> class
+instead.</TD></TR></TABLE></P>
+
+<PRE>
+  String  getName()
+  void    setName(String n )    
+
+  int     getSize()
+  int[]   getElements()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns an array of Spot or   Measurement indices</FONT>
+
+  void setElementNames(int elem_name_mode, Vector elem_names)
+  <FONT SIZE="-1" COLOR="BLUE"> // see constructors for <B>elem_name_mode</B> constants</FONT>
+  
+  Vector  getElementNames()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the original names used to construct this cluster</FONT>
+  int getElementNameMode()
+
+  boolean getShow()
+  void    toggleShow()
+  void    setShow(boolean)
+  <FONT SIZE="-1" COLOR="BLUE"> // whether the cluster should be displayed</FONT>
+
+  int     getGlyph()
+  void    setGlyph(int)
+  Color   getColour()
+  void    setColour(Color) 
+  <FONT SIZE="-1" COLOR="BLUE"> // how the cluster is displayed</FONT>
+
+  Cluster getParent()
+  int     getNumChildren()
+  Vector  getChildren()
+  <FONT SIZE="-1" COLOR="BLUE"> // how the cluster is related to others</FONT>
+
+  void    addCluster(Cluster)
+  <FONT SIZE="-1" COLOR="BLUE"> // add a new child to this cluster</FONT>
+    
+</PRE>
+
+<A NAME="clust_iter_methods"><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Cluster Iterator methods</B></A>
+<PRE>
+  ClusterIterator()
+  Cluster reset()
+  Cluster getCurrent() 
+  Cluster getNext()
+</PRE>
+
+<P><HR></P>
+
+<H2><IMG SRC="images/roundarrow.jpg">&nbsp;<A NAME="maxdView">class maxdView</H2></A>
+
+<A NAME="mview_output"><P><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Displaying Information</B></P></A>
+
+<P><TABLE CELLPADDING=5 WIDTH="95%" BGCOLOR="#eeeeee"><TR><TD>
+These methods all display <I>modal</I> dialog boxes which stop interaction with all 
+other parts of the system until the "OK" button is pressed.
+</TD></TR></TABLE></P>
+<PRE>
+  void informationMessage( String )
+  <FONT SIZE="-1" COLOR="BLUE"> // displays the string in a dialog box</FONT>
+  void successMessage( String )
+  <FONT SIZE="-1" COLOR="BLUE"> // displays the string in a dialog box decorated with a 'success' icon</FONT>
+  void errorMessage( String )
+  <FONT SIZE="-1" COLOR="BLUE"> // displays the string in a dialog box decorated with an 'error' icon</FONT>
+
+</PRE>
+<A NAME="mview_input"><P><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;User input</B></P></A>
+
+<P><TABLE CELLPADDING=5 WIDTH="95%" BGCOLOR="#eeeeee"><TR><TD>
+These methods all display dialog boxes with "Cancel" buttons. If the
+user presses cancel, a <TT>UserInputCancelled</TT> exception will be thrown.
+</TD></TR></TABLE></P>
+
+<PRE>
+  int infoQuestion(String question_string, String option_1, String option_2)
+  <FONT SIZE="-1" COLOR="BLUE"> // displays a dialog box containing a question and two options </FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // (e.g. "Are you sure?", "Yes" and "No")</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // returns 0 for the first option and 1 for the second</FONT>
+
+  int errorQuestion(String question_string, String option_1, String option_2)
+  <FONT SIZE="-1" COLOR="BLUE"> // as above but decorated with an 'error' icon </FONT>
+
+  int getChoice(String name, String[] options) throws UserInputCancelled
+  <FONT SIZE="-1" COLOR="BLUE"> // displays a dialog box with a selection of choices specified in the array <B>options</B></FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // and returns the index of the users choice</FONT>
+  int getChoice(String name, String[] options, int init) throws UserInputCancelled
+  <FONT SIZE="-1" COLOR="BLUE"> // as above but with an initial choice selected</FONT>
+  
+  int getMeasurementChoice( String msg ) throws UserInputCancelled
+  <FONT SIZE="-1" COLOR="BLUE"> // displays a dialog box allowing one measurement to be selected</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // and returns the ID of the selection</FONT>
+  
+  int[] getMeasurementsChoice( String msg ) throws UserInputCancelled
+  <FONT SIZE="-1" COLOR="BLUE"> // displays a dialog box allowing one or more measurements to be selected</FONT>
+  <FONT SIZE="-1" COLOR="BLUE"> // and returns an array of the selected IDs</FONT>
+
+  int getMeasurementChoice(  ) throws UserInputCancelled
+  int[] getMeasurementsChoice( ) throws UserInputCancelled
+  <FONT SIZE="-1" COLOR="BLUE"> // as above, but with a default message</FONT>
+
+  ExprData.Cluster getCluster(String message) throws UserInputCancelled
+  <FONT SIZE="-1" COLOR="BLUE"> // displays a dialog box allowing a cluster to be picked</FONT>
+
+  ExprData.Cluster getCluster(String message, ExprData.Cluster init) throws UserInputCancelled
+  <FONT SIZE="-1" COLOR="BLUE"> // as above but with an initial choice selected</FONT>
+
+  ExprData.Cluster getSpotCluster(String message) throws UserInputCancelled
+  ExprData.Cluster getSpotCluster(String message, ExprData.Cluster init) throws UserInputCancelled
+  <FONT SIZE="-1" COLOR="BLUE"> // as above but only allowing Spot clusters to be selected</FONT>
+
+  ExprData.Cluster getMeasurementCluster(String message) throws UserInputCancelled
+  ExprData.Cluster getMeasurementCluster(String message, ExprData.Cluster init) throws UserInputCancelled
+  <FONT SIZE="-1" COLOR="BLUE"> // as above but only allowing Measurement clusters to be selected</FONT>
+
+  int getInteger(String name, int min, int max) throws UserInputCancelled
+  <FONT SIZE="-1" COLOR="BLUE"> // displays a dialog box asking for an integer value in the range <B>min</B>...<B>max</B></FONT>
+  int getInteger(String name, int min, int max, int init) throws UserInputCancelled
+  <FONT SIZE="-1" COLOR="BLUE"> // as above but with an initial value</FONT>
+  
+  double getDouble(String name, double min, double max) throws UserInputCancelled
+  <FONT SIZE="-1" COLOR="BLUE"> // displays a dialog box asking for an numeric value in the range <B>min</B>...<B>max</B></FONT>
+  double getDouble(String name, double min, double max, double init) throws UserInputCancelled
+  <FONT SIZE="-1" COLOR="BLUE"> // as above but with an initial value</FONT>
+
+</PRE>
+
+<A NAME="mview_appprops"><P><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Application Properties</B></P></A>
+
+<P><TABLE CELLPADDING=5 WIDTH="95%" BGCOLOR="#eeeeee"><TR><TD ALIGN=LEFT>
+Application Properties are values which persist between runs of maxdView. 
+</TD></TR></TABLE></P>
+
+<PRE>
+  void    putProperty(String name, String val)
+  String  getProperty(String name, String default_value)
+  <FONT SIZE="-1" COLOR="BLUE"> // the <B>default_value</B> is returned if <B>name</B> is not found in the properties</FONT>
+  
+  void  putIntProperty(String name, int val)
+  int   getIntProperty(String name, int default_value) 
+  <FONT SIZE="-1" COLOR="BLUE"> // the <B>default_value</B> is returned if <B>name</B> is not found in the properties</FONT>
+  
+  void    putDoubleProperty(String name, double val)
+  double  getDoubleProperty(String name, double default_value) 
+  <FONT SIZE="-1" COLOR="BLUE"> // the <B>default_value</B> is returned if <B>name</B> is not found in the properties</FONT>
+
+  void     putBooleanProperty(String name, boolean val)
+  boolean  getBooleanProperty(String name, boolean default_value) 
+  <FONT SIZE="-1" COLOR="BLUE"> // the <B>default_value</B> is returned if <B>name</B> is not found in the properties</FONT>
+
+</PRE>
+
+<P><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Plugin Control</B></P>
+
+<PRE>
+  Plugin  runPlugin(String plugin_name)
+  <FONT SIZE="-1" COLOR="BLUE"> // starts the named plugin and returns the object for later use</FONT>
+
+  void  sendCommandToPlugin( Plugin,  String command,  String[] args )
+  <FONT SIZE="-1" COLOR="BLUE"> // sends a command to a plugin which is already running</FONT>
+  void  sendCommandToPlugin( String plugin_name,  String command,  String[] args )
+  <FONT SIZE="-1" COLOR="BLUE"> // starts the named plugin and sends the command to it</FONT>
+
+</PRE>
+
+<P><B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Help Browser</B></P>
+
+<PRE>
+  void  getHelpTopic(String topic)
+  void  getHelpTopic(String topic, String subtopic)
+  void  getPluginHelpTopic(String plugin_name, String topic)
+  void  getPluginHelpTopic(String plugin_name, String topic, String sub_topic)
+</PRE>
+
+
+<P><HR></P>
+
+<H2><IMG SRC="images/roundarrow.jpg">&nbsp;<A NAME="datatags">class DataTags</H2></a>
+
+<P><TABLE CELLPADDING=5 WIDTH="95%" BGCOLOR="#eeeeee"><TR><TD>
+<I>Note: </I>changing values via these methods will not
+generate update events. To cause events to be generated, use the
+corresponding methods in <A HREF="#expedata">ExprData</A> class
+instead.  </TD></TR></TABLE></P>
+
+<B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Constructors</B>
+<PRE>
+  DataTags()
+  DataTags(String[] sn, String[] pn)
+  DataTags(String[] sn, String[] pn, String[][] gn)
+</PRE>
+<B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Accessors for all values</B>
+<PRE>
+  String[]   getSpotName()
+  String[]   getProbeName()
+  String[][] getGeneNames()
+
+  void setSpotName(String[] sn)    
+  void setProbeName(String[] pn)   
+  void setGeneNames(String[][] gn) 
+
+</PRE>
+<B><IMG SRC="images/smallroundarrow.jpg">&nbsp;&nbsp;Accessors for single values</B>
+<PRE>
+  void setSpotName(int s, String sn)    
+  void setProbeName(int s, String pn)   
+  void setGeneNames(int s, String[] gn) 
+  void setGeneName(int s, int g, String[] gn) 
+  void addGeneName(int s, String gn)
+
+  String   getSpotName(int s)
+  String   getProbeName(int s)
+  String[] getGeneNames(int s)
+</PRE>
+
+<P><HR></P>
+
+<H2><IMG SRC="images/roundarrow.jpg">&nbsp;<A NAME="tagattrs">class TagAttrs</H2></a>
+
+<P><TABLE CELLPADDING=5 WIDTH="95%" BGCOLOR="#eeeeee"><TR><TD>
+<B><TT>TagAttrs</TT></B> are used to store arbitrary attrbiutes in name tags. 
+Each of the three types of name (Spot, Probe and Gene) have a <TT>TagAttrs</TT> object 
+(retrieved using methods in  <A HREF="#exprdata"><TT>ExprData</TT></A><BR><BR>
+<I>Note: </I>changing values via these methods will not
+generate update events.</TD></TR></TABLE></P>
+<PRE>
+
+  int getNumAttrs()
+
+  int addAttr(String the_attr_name)
+  int getAttrID(String the_attr_name)
+
+  String getAttrName(int the_attr_id)
+
+  void removeAttr(String the_attr_name)
+  void removeAllAttrs()
+
+  String    getTagAttr(String the_tag_name, int the_attr_id)
+  String    getTagAttr(String the_tag_name, String the_attr_name)
+  Hashtable getTagAttrs(String the_tag_name)
+
+  void setTagAttr(String the_tag_name, int the_attr_id, String the_val)
+  void setTagAttr(String the_tag_name, String the_attr_name, String the_val)
+
+</PRE>
+
+
+<P><HR></P>
+
+<H2><IMG SRC="images/roundarrow.jpg">&nbsp;<A NAME="dataplot">class DataPlot</H2></a>
+
+<P><TABLE CELLPADDING=5 WIDTH="95%" BGCOLOR="#eeeeee"><TR><TD ALIGN=LEFT>
+The <TT>DataPlot</TT> class draws the main display window and provides
+the following methods useful for writing <I>Viewer</I> plugins.
+</TD></TR></TABLE></P>
+
+<PRE>
+  Polygon[] getScaledClusterGlyphs( int height )
+  <FONT SIZE="-1" COLOR="BLUE"> // returns a array of <TT>Polygon</TT> objects scaled to the specified <B>height</b> </FONT>
+ 
+  Color getDataColour(double value, int m_id)
+  <FONT SIZE="-1" COLOR="BLUE"> // finds the colour assigned to <B>value</B> in <TT>Measurement</TT> <B>m_id</B> </FONT>
+
+  String getTrimmedSpotLabel(int spot_id)
+  <FONT SIZE="-1" COLOR="BLUE"> // returns a label using the user-controlled source and trim parameters </FONT>
+
+  Font getFont()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the user-controlled font </FONT>
+
+  Color getTextColour()
+  Color getBackgroundColour()
+  <FONT SIZE="-1" COLOR="BLUE"> // returns the user-controlled foreground and background colours </FONT>
+
+  void displaySpot( int spot_index )
+  <FONT SIZE="-1" COLOR="BLUE"> // causes the main display window to scroll to the specified <B>spot_index</b> </FONT>
+
+</PRE>
+<P><HR></P>
+
+<H2><IMG SRC="images/roundarrow.jpg">&nbsp;<A NAME="annlo">class AnnotationLoader</H2></a>
+<PRE>
+  String loadAnnotation( int spot_id )
+  String loadAnnotation( int spot_id, boolean reload )
+  
+  String loadAnnotation( String name )
+  String loadAnnotation( String name, boolean reload )
+
+</PRE>
+
+<P><HR></P>
+
+<H2><IMG SRC="images/roundarrow.jpg">&nbsp;<A NAME="event">class ExprData.UpdateEvent</H2></a>
+
+<PRE>
+  public class UpdateEvent
+  {
+  	public int event;
+  
+  	public int getEventCode()
+  }
+  
+  public class DataUpdateEvent extends UpdateEvent
+  {
+   public int spot; 
+   <FONT SIZE="-1" COLOR="BLUE"> // the actual index of the first spot that has changed or -1 if all spots have changed</FONT>
+   public int measurement;
+   <FONT SIZE="-1" COLOR="BLUE"> // which measurement was affected, or -1 if all measurments</FONT>
+   public double old_value;
+   <FONT SIZE="-1" COLOR="BLUE"> // the previous value of the spot (NOT USED)</FONT>
+  }
+  
+  public class ClusterUpdateEvent extends UpdateEvent
+  {
+  	public Cluster cluster;
+  }
+  
+  public class MeasurementUpdateEvent extends UpdateEvent
+  {
+  	public int measurement;
+  }
+  
+  public class EnvironmentUpdateEvent extends UpdateEvent
+  {
+  	public String data;
+  }
+</PRE>
+
+<P><HR></P>
+
+<H2><IMG SRC="images/roundarrow.jpg">&nbsp;<A NAME="plugin">interface Plugin</H2></a>
+<PRE>
+  interface Plugin
+  {
+      public void   startPlugin();
+      public void   stopPlugin();
+      
+      public void   runCommand(String name, String[] args, CommandSignal done);
+      
+      public PluginInfo      getPluginInfo();
+      public PluginCommand[] getPluginCommands();
+  } 
+
+</PRE>
+
+<P><HR></P>
+
+<H2><IMG SRC="images/roundarrow.jpg">&nbsp;<A NAME="filter">interface ExprData.Filter</H2></a>
+<PRE>
+  interface Filter
+  { 
+    public boolean enabled();
+    <FONT SIZE="-1" COLOR="BLUE"> // is it currently enabled?</FONT>
+
+    public String  getName();
+    <FONT SIZE="-1" COLOR="BLUE"> // descriptive name of this filter</FONT>
+ 
+    public boolean filter(int spot); 
+    <FONT SIZE="-1" COLOR="BLUE"> // should this Spot be displayed?</FONT>
+    <FONT SIZE="-1" COLOR="BLUE"> // </FONT>
+    <FONT SIZE="-1" COLOR="BLUE"> //    return TRUE for spots which pass through the filter,</FONT>
+    <FONT SIZE="-1" COLOR="BLUE"> //    and FALSE for spots which match the filter</FONT>
+  }
+
+</PRE>
+
+<P><HR></P>
+
+</BODY>
+</HTML> 

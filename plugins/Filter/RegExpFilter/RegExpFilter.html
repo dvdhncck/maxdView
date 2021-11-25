@@ -1,0 +1,146 @@
+<HTML>
+<HEAD>
+<TITLE>RegExp Filter</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>RegExp Filter</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#package">The ORO-Matcher Package</A>
+<LI><A HREF="#syntax">Regular Expression Syntax</A>
+<LI><A HREF="#commands">Plugin Commands</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The <I>RegExp Filter</I> uses pattern matching (Perl 5 regular
+expressions) against the text associated with each spot.</P>
+
+<P>The filter can be applied to any combination of the Spot, Probe or
+Gene names, and to the Annotation associated with either Gene or Probe
+names.</P>
+
+<P>At the bottom of the window the percentage of Spots which are
+trapped by the filter is shown in red and the percentage of Spots
+which are not trapped is shown in green. Note that the percentages
+only reflect the filtering that is done by this filter, and do not
+take into account any filtering being done by other filter plugins
+that are also active.</P>
+
+<P>As with all filter plugins, closing the plugin's window deactives
+the filter (but iconifying it does not).</P>
+
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<CENTER><P><IMG SRC="RegExpFilter.jpg"></P></CENTER>
+
+<P>Enter the regular expression into the type-in field and select which
+text to match it against using the checkboxes.</P>
+
+<P>By default, matching is not case sensitive, but this can be changed
+using the "<B>Case sensitive</B>" checkbox under the type-in field.</P>
+
+<P>The "<B>Invert logic</B>" option swaps the sense of the pattern
+matching - things that previously matched are not matched and vice
+versa.</P>
+
+
+<HR>
+
+<A NAME="package"><H3>The ORO-Matcher Package</H3></A>
+
+<P>The <I>RegExp Filter</I> uses a package called <I>ORO-Matcher</I>
+available from <A
+HREF="http://www.oroinc.com/">http://www.oroinc.com/</A>.
+<I>ORO-Matcher</I> is an implementation of Perl 5 regular expression
+matching that is freely available (but comes without source code). A
+version of this package is included with maxdView, and should be
+automatically located. If not, use the file browser to navigate to the
+"<TT>external/OROMatcher-1.1.0/</TT>" directory.</P>
+
+<HR>
+
+<A NAME="syntax"><H3>Regular Expression Syntax</H3></A>
+
+<P><I>(this is not intended to be a complete description of Perl 5
+regexp syntax, for more details see any good Perl
+documentation.)</I></P>
+
+<DL>
+<P>
+<DT><B>fish</B></DT>
+<DD>matches any occurence of the string "fish" (including
+occurences within other strings such as "oafish").</DD>
+</P>
+<P>
+<DT><B>.ish</B></DT>
+<DD>matches any sequence composed of any character followed by "ish",
+such as "fish", "dish", "5ish".</DD>
+</P>
+<P>
+<DT><B>f..t</B></DT>
+<DD>matches any sequence composed of "f" followed by any two characters followed by "t",
+such as "foot", "feat", "f01t".</DD>
+</P>
+<P>
+<DT><B>fish|chips</B></DT> 
+<DD>matches any occurence of the string "fish" or the string
+"chips".</DD>
+</P>
+<P>
+<DT><B>[A-Z]*[0-9]</B></DT> 
+<DD>matches any string composed of 1 or more letters followed by a single
+digit.</DD>
+</P>
+<P>
+<DT><B>^hum</B></DT> 
+<DD>matches any string which <I>starts with</I> the 3 letters
+"hum"</DD>
+</P>
+<P>
+<DT><B>^12.*rna$</B></DT> 
+<DD>matches any string which starts with "12" and ends with "rna", for
+example "1234rna", "1289 human rna" and "12rna".</DD>
+</P>
+
+</DL>
+
+<P><HR></P>
+
+<A NAME="commands"><H3>Plugin Commands</H3></A>
+
+<UL>
+<P><LI><TT>set</TT>
+<FONT SIZE=-1>
+<P>&nbsp;&nbsp;<TT> string : filter</TT><BR>
+&nbsp;&nbsp;<TT>boolean : case_sensitive</TT><BR>
+&nbsp;&nbsp;<TT>boolean : gene_names</TT><BR>
+&nbsp;&nbsp;<TT>boolean : probe_name</TT><BR>
+&nbsp;&nbsp;<TT>boolean : spot_name</TT><BR>
+&nbsp;&nbsp;<TT>boolean : annotation</TT><BR></P>
+</FONT></P>
+<P><LI><TT>start</TT></P>
+<FONT SIZE=-1>
+<P>&nbsp;&nbsp;<TT> string : filter</TT><BR>
+&nbsp;&nbsp;<TT>boolean : case_sensitive</TT><BR>
+&nbsp;&nbsp;<TT>boolean : gene_names</TT><BR>
+&nbsp;&nbsp;<TT>boolean : probe_name</TT><BR>
+&nbsp;&nbsp;<TT>boolean : spot_name</TT><BR>
+&nbsp;&nbsp;<TT>boolean : annotation</TT><BR></P>
+</FONT></P>
+<P><LI><TT>stop</TT></P>
+</UL>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

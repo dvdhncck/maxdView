@@ -1,0 +1,171 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView: Wrapping maxdView with another application</TITLE>
+<META name="description" content="maxdView 0.8.x Wrapping maxdView with another application">
+<META name="keywords" content="maxd, maxdView, microarray, expression, data,
+analysis, visualisation, visualization ,viewing">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><A NAME="top"><H1>Tutorial: Wrapping maxdView with another application</H1></A></P>
+
+<P>It is possible to write a `wrapper' class which instantiates a
+maxdView object and controls it directly. This enables you to
+integrate maxdView's functionality with another application.</P>
+
+<P>This tutorial shows the various interfaces that maxdView provides
+can be used for integration.</P>
+
+<P>An example wrapper class is provided in <A
+HREF="../WrapperDemo.java"><TT>WrapperDemo.java</TT></A>.</P>
+
+<P><I>Contents</I>:<UL>
+<LI><P><A HREF="#wrap">Creating a maxdView object</A></P>
+<LI><P><A HREF="#events">Recieve events using the <TT>DataObserver</TT> interface</A></P>
+<LI><P><A HREF="#sellist">Monitor the selection with the <TT>ExternalSelectionListener</TT> interface</A></P>
+<LI><P><A HREF="#datasink">Register objects that can process data with the <TT>ExternalDataSink</TT> interface</A></P>
+<LI><P><A HREF="#entry">Add customised menu entries to the popup menu</A></P>
+</UL></P>
+
+<P></P>
+
+
+
+<P>&nbsp;</P>
+
+<A NAME="wrap"><P><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Creating a maxdView object</B></P></A>
+
+<P>The following code creates a <TT>maxdView</TT> object and uses the
+<TT>getBusy()</TT> method to start the application:</P>
+ 
+<PRE>
+  public static void main(String[] args) 
+  {
+      try
+      {
+  	 maxdView mv = new maxdView(args);
+         mv.getBusy();
+      }
+      catch(java.rmi.RemoteException re) 
+      {
+      }
+  }
+</PRE>
+
+<P>(the <TT>java.rmi.RemoteException</TT> is only thrown when the
+maxdView object is running in <A HREF="RMIInterface.html">RMI
+mode</A>.)</P>
+
+<A NAME="events"><P><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Recieve events using the <TT>DataObserver</TT> interface</A></B></P></A>
+
+<P>An object of a class which implements the
+<TT>ExprData.ExprDataObserver</TT> can be registered to recieve events.</P>
+
+
+<PRE>
+  public interface ExprDataObserver
+  {
+    public void dataUpdate        (DataUpdateEvent due);
+    public void clusterUpdate     (ClusterUpdateEvent cue);
+    public void measurementUpdate (MeasurementUpdateEvent mue);
+    public void environmentUpdate (EnvironmentUpdateEvent eue);
+  }
+</PRE>
+
+<P>The object is registered by a call to:</P>
+
+<PRE>
+  void ExprData.addObserver(ExprDataObserver edo)
+</PRE>
+
+<P>and can be un-registered with:</P>
+
+<PRE>
+  void ExprData.removeObserver(ExprDataObserver edo)
+</PRE>
+
+<P>The more information about maxdView events, see the <A
+HREF="ProgGuide.html">Programmer's Guide</A>.</P>
+
+<A NAME="sellist"><P><IMG SRC="images/roundarrow.jpg">&nbsp;<B>The <TT>ExternalSelectionListener</TT> interface</B></P></A>
+
+<P>The current selection (which can be Spots, Clusters or
+SpotMeasurements) can be monitored by installing an object of a class
+which implements the following interface:</P>
+
+<PRE>
+  public interface ExternalSelectionListener
+  {
+    public void spotSelectionChanged(int[] spots_ids);
+    public void clusterSelectionChanged(ExprData.Cluster[] clusters);
+    public void spotMeasurementSelectionChanged(int[] spot_ids, int[] meas_ids);
+  }
+</PRE>
+
+
+When any of the selections change the correspnding method in the
+<TT>ExternalSelectionListener</TT> object will be called.</P>
+
+<P>The object is registered by a call to:</P>
+
+<PRE>
+   int ExprData.addExternalSelectionListener(ExternalSelectionListener esl)
+</PRE>
+
+<P>which returns an integer 'handle' which can be used to subsequently
+un-register the object:</P>
+
+<PRE>
+   void ExprData.removeExternalSelectionListener(int esl_handle)
+</PRE>
+
+<P>The example wrapper class provided in <A
+HREF="../WrapperDemo.java"><TT>WrapperDemo.java</TT></A> includes an
+demonstration of this interface.</P>
+
+<A NAME="datasink"><P><IMG SRC="images/roundarrow.jpg">&nbsp;<B>The <TT>ExternalDataSink</TT> interface</B></P></A>
+
+An <TT>ExternalDataSink</TT> is an object to which the data selection
+can be sent. Registering an <TT>ExternalDataSink</TT> object causes a
+new option to appear in the "Send to..." entry in the selection popup
+menu.</P>
+
+<PRE>
+  public interface ExternalDataSink
+  {
+    // these methods specify what sort of data that class can accept
+    public boolean likesSpots();
+    public boolean likesSpotMeasurements();
+    public boolean likesClusters();
+
+    // these methods are used to pass data to the class
+    public void consumeSpots(int[] spots_ids);
+    public void consumeSpotMeasurements(int n_spots, int n_meas, double[][] data);
+    public void consumeClusters(Cluster[] clusters);
+
+    // this method returns the name that will be used for this sink in menu entries 
+    public String getName();
+  }
+</PRE>
+
+<P>The example wrapper class provided in <A
+HREF="../WrapperDemo.java"><TT>WrapperDemo.java</TT></A> includes an
+demonstration of this interface.</P>
+
+<A NAME="entry"><P><IMG SRC="images/roundarrow.jpg">&nbsp;<B>Add customised menu entries to the popup menu</B></P></A>
+
+<P>It is possible to add entries to the <A HREF="Popup.html">popup
+menu</A> (accessed in the main display window).<P>
+
+<P>The <TT>maxdView</TT> class provides a public method:</P>
+
+<PRE>
+   void addPopupMenuEntry( String name, ActionListener al )
+</PRE>
+
+<P>which will add entry with the specified "<TT>name</TT>". The
+<TT>java.awt.event.ActionListener</TT> will be invoked if this entry
+is selected by the user.</P>
+
+</BODY> </HTML>

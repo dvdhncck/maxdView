@@ -1,0 +1,170 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView : Popup menu</TITLE>
+</HEAD>
+<BODY>
+
+<H1><A NAME="intro">The Popup Menu</H1>
+
+<P>The popup menu appears in the main display when the right mouse
+button is pressed (alternatively via 'Ctrl+Alt+left mouse' or
+'Ctrl+SpaceBar').</P>
+
+<P>The popup menu can be removed by pressing the 'Escape' key.</P>
+
+<P>Each menu has the common entries &quot;<A
+HREF="#select">Selection</a>&quot; and &quot;<A
+HREF="#custom">Custom</a>&quot;. In addition to these, the menus
+contain entries relevant to the entity under the mouse cursor when the
+menu was opened. </P>
+
+<P>There are four possible menus depending on where in the display the
+menu is invoked:</P>
+
+<UL>
+<LI><A HREF="#name">Name or Name Attribute</A>
+<LI><A HREF="#meas">Measurement Name</A>
+<LI><A HREF="#clust">Cluster</A>
+<LI><A HREF="#spot">Spot</A>
+</UL>
+
+<P>&nbsp;</P>
+
+<A NAME="name"><B><NOBR>The <I>Name or Name Attribute</I> menu</NOBR></B></A>
+
+<TABLE WIDTH=90%>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Display
+Annotation</I>&nbsp;</TD><TD WIDTH=60% >Open a new <A
+HREF="AnnotationViewer.html">Annotation Viewer</A> and load the
+annotation for this Spot</TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Edit Names & Attrs</I>&nbsp;</TD><TD>Start
+the <A HREF="NameTagEditor.html">Name Tag Editor</A> for this Spot</TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Show in this
+column...</I>&nbsp;</TD><TD>Select which Name or Name Attribute to use in
+this column (see the <A HREF="ViewerLayout.html">layout control
+panel</A>)</TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Add another column</I>&nbsp;</TD><TD>Add
+another name column after this one </TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Remove this
+column</I>&nbsp;</TD><TD>Removes this name column from the display</TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Sort this
+column</I>&nbsp;</TD><TD>Reorders the Spot rows so that the values in the
+column are in alphabetical order</TD></TR>
+</TABLE>
+
+<P>&nbsp;</P>
+
+<A NAME="meas"><NOBR><B>The <I>Measurement Name</I> menu</B></NOBR></A>
+
+<TABLE WIDTH=90%>
+<TR><TD WIDTH=40% ALIGN=RIGHT VALIGN=TOP><I>Hide this
+Measurement</I></TD><TD WIDTH=60%>Hide this Measurement (see the
+Measurements <A HREF="Measurements.html">control panel</A>)</TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Show all
+Measurements</I></TD><TD>Make all hidden Measurements
+visible</TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Show Properties</I></TD><TD>Open
+the Measurement <A HREF="Measurements.html">control
+panel</A></TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Pick Colouriser</I></TD><TD>Display
+a list of available <A
+HREF="ViewerColours.html">Colourisers</A></TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Show Attributes</I></TD><TD>Open
+the Measurement <A HREF="Measurements.html#attributes">attributes
+panel</A></TD></TR>
+</TABLE>
+
+<P>&nbsp;</P>
+
+<A NAME="clust"><B><NOBR>The <I>Cluster</I> menu</NOBR></B></A>
+
+<TABLE WIDTH=90%>
+<TR><TD WIDTH=40% ALIGN=RIGHT VALIGN=TOP><I>Show
+Properties</I></TD><TD WIDTH=60%>Open the <A
+HREF="../plugins/Viewer/ClusterManager/ClusterManager.html">Cluster
+Manager</A></TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Hide children</I></TD><TD>Hide the
+children of this Cluster</TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Show children</I></TD><TD>Show all
+of the children of this Cluster</TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Hide parent</I></TD><TD>Hide the
+parent of this Cluster</TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Show parent</I></TD><TD>Show the
+parent of this Cluster</TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Show parent and
+siblings</I></TD><TD>Show the parent of this Cluster and all of the
+other children of the parent</TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Hide all others</I></TD><TD>Hide
+all other Clusters except this one</TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP><I>Show all others</I></TD><TD>Show all
+other Clusters</TD></TR>
+</TABLE>
+
+<P>&nbsp;</P>
+
+<A NAME="spot"><NOBR><B>The <I>Spot</I> menu</B></NOBR></A>
+
+<TABLE WIDTH=90%>
+<TR><TD WIDTH=40% ALIGN=RIGHT VALIGN=TOP><I>Display
+Annotation</I></TD><TD WIDTH=60%>Open a new <A
+HREF="AnnotationViewer.html">Annotation Viewer</A> and load the
+annotation for this Spot</TD></TR>
+
+<TR><TD WIDTH=40% ALIGN=RIGHT VALIGN=TOP><I>Edit Names &amp;
+Attrs</I></TD><TD WIDTH=60%>Start the <A
+HREF="NameTagEditor.html">Name Tag Editor</A> for this Spot</TD></TR>
+
+<TR><TD WIDTH=40% ALIGN=RIGHT VALIGN=TOP><I>Sort ascending</I></TD><TD
+WIDTH=60%>Reorder the Spots based on the values in this
+column</TD></TR>
+
+<TR><TD WIDTH=40% ALIGN=RIGHT VALIGN=TOP><I>Sort
+descending</I></TD><TD WIDTH=60%>Reorder the Spots based on the values
+in this column</TD></TR>
+</TABLE>
+
+<P>&nbsp;</P>
+
+<P><B><A NAME="select">The Selection Menu</A></B></P>
+
+<P>The <B>Selection</B> sub-menu contains options for manipulating the
+<A HREF="Concepts.html#sel">data selection</A>. See the <A
+HREF="SelectionMenu.html">Selection Menu</A> help page for
+full details.</P>
+
+<P>&nbsp;</P>
+
+<P><B><A NAME="custom">The Custom Menu</A></B></P>
+
+<P>All popup menus contain the <B>Custom</B>
+sub-menu where you can collect frequently used commands for easy
+access. See the <A HREF="CustomMenu.html">Custom menu</A> help page
+for more information.</P>
+
+
+<P>&nbsp;</P>
+
+<HR>
+<P>See also:</P>
+<UL>
+<LI><A HREF="CustomMenu.html">The Custom menu</A>
+<LI><A HREF="SelectionMenu.html">The Selection menu</A>
+</UL>
+</BODY>
+</HTML>

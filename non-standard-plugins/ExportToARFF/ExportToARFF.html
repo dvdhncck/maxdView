@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE>Export Weka Dataset</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Export Weka Dataset</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<P><HR></P>
+
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>Export data to a Weka ARFF (Attribute-Relation File Format) text file. <A HREF="http://www.cs.waikato.ac.nz/~ml/weka/index.html">Weka</A> is an open-source machine learning toolkit developed in Java by some friendly folks at Waikato Univerity in New Zealand.  ARFF files can be loaded directly into the The Weka Knowledge Explorer which provides a user-friendly graphical interface to the Weka toolkit.</P>
+
+<P><HR></P>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<CENTER><P><IMG SRC="ExportToARFF.jpg"></P></CENTER>
+
+<P><B>Dataset Name</B> is used to fill the <B>@relation</B> field of the ARFF file, which is the title given to the data set.</P>
+
+<P><B>Include Measurement Labels</B> determines whether the measurement labels are included as an <B>@attribute</B> in the ARFF file.</P>
+
+<P><B>Export Measurement Attributes</B> chooses which measurement attributes are exported as <B>@attribute</B>s with the data. The measurement attributes can be used to describe known classifications of the data for use in building classification algorithms in Weka.</P>
+
+<P><B>Significant Figures</B> lets you select how many decimal places are included in the ARFF file.</P>
+
+<P>Use the <B>Apply filter</B> checkbox to determine whether the currently active <A HREF="../../../docs/Filters.html">Filters</A> (if any) are applied to the spots as they is saved.</P>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

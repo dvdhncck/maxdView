@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<TITLE>Database Loader</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Database Loader</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>The <I>Database Loader</I>  plugin can import data from a <A
+HREF="http://www.bioinf.man.ac.uk/microarray/maxd/maxdSQL/"><B>maxdSQL</B></A>
+database using a JDBC connection.</P>
+
+<P>When this plugin is started, the <A
+HREF="../../../docs/DatabaseConnection.html">Database Connection</A>
+panel will be displayed. Use this panel to login to a maxdSQL
+database.</P>
+
+<P><HR></P>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<CENTER><P><IMG SRC="load.jpg"></P></CENTER>
+
+<P>Once you have logged in, a new panel appears. This panel is
+initially empty</P>
+
+<P><B>1. Choose browse table</B></P>
+
+<P>Use the "<B>Browse by</B>" dropdown menu to select which database
+table is used to generate the list of Measurements. You can choose
+between Array, ArrayType, Experiment, Extract, Hybridisation ,and
+Image.</P>
+
+<P>The "<B>and show</B>" dropdown menu will be updated to contain all
+of the entries from the table selected in "<B>Browse by</B>".</P>
+
+<P>Use the "<B>and show</B>" menu to pick one instance. The
+Measurement list in the top-left panel will now display all
+Measurements which are linked to this instance.</P>
+
+<P><B>2. Select Measurement(s)</B></P>
+
+<P>In the top-left panel, a list of Measurement names will be
+displayed. The contents of the list depend on the <B>Browse by</B> and
+<B>and show</B> selections. Changing either of these selections
+results in a new list being shown.</P>
+
+<P>Select a single Measurement by clicking on it. Select a continuous
+range by clicking on the first Measurement in the sequence and
+'Shift-Click'ing on the last one. Use 'Ctrl-Click's to toggle the
+selection of a single Measurement.</P>
+
+<P><B>3. View details</B></P>
+
+<P>The top-right  panel displays the details of the database
+relationships of the currently selected Measurements. Details include
+the names of the samples, extracts, protocols used to generate this
+data. This data will be loaded as <A
+HREF="../../../docs/Measurements.html#attributes">Measurement
+attributes</A>.</P>
+
+<P><B>4. Select Spot Attributes</B></P>
+
+<P>By default, any <A HREF="../../../docs/Concepts.html#spot">Spot
+Attributes</A> that Measurements have will not be loaded.</P>
+
+<P>In the bottom-left panel are checkboxes for the Spot Attributes of
+the selected Measurements. Each Spot Attribute can be independantly
+selected for loading.</P>
+
+<P>When more than one Measurement is selected, checkboxes for all spot
+attributes found in any selected Measurements are shown. If a spot
+attribute is not present in all selected Measurements, then the number
+of Measurements that do have it is shown beside the name.</P>
+
+<P><B>5. Select Gene, Probe and Spot details</B></P>
+
+<P>Additional data may exist in the database for each of the Spot,
+Probe and Gene names. This information can be loaded into
+<B>maxdView</B> as <A HREF="../../../docs/Concepts.html#spot">Name
+Attributes</A>.</P>
+
+<P>Controls in the bottom-right panel determine whether these details
+are loaded for each of the name types.</P>
+
+<P><B>6. Load the data</B></P>
+
+<P>Once you have selected all of the Measurements (and additional data)
+you are interested in, use <B>Merge</B> to add them to the existing
+data, or <B>Replace</B> to remove the existing data prior to
+loading. See the <A HREF="../../../docs/Merging.html">Merging data</A>
+help page more details on how merging is performed.</P>
+
+</BODY>
+</HTML>

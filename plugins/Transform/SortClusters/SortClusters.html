@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE>Sort Clusters</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Sort Clusters</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#commands">Plugin Commands</A>
+</UL>
+
+<P><HR></P>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>This plugin reorders the rows and/or columns of the data to brings
+the elements of any visible clusters together.</P>
+
+<P>Clusters which are not currenty visible (i.e. they have been
+switched off in the <A
+HREF="../../Viewer/ClusterManager/ClusterManager.html">Cluster
+Manager</A>) are not considered in the sorting process.</P>
+
+<P>If each Measurement or Spot in the data is in at most one cluster,
+ then the data will be reordered to exactly match the current cluster
+ hierarchy. If some Measurements or Spots are in more than one
+ cluster, then a secondary algorithm will attempt to produce a
+ ordering which groups things in same clusters together.</P>
+
+<P><HR></P>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P>Select <B>Sort by Spot clusters</B> to have the rows reordered, and
+<B>Sort by Measurement clusters</B> to have the columns reordered.</P>
+
+<P>The <B>Show Progress</B> option makes the plugin display the
+partially sorted data from time to time as it the algorithm
+proceeds.</>
+
+<P><HR></P>
+
+<A NAME="commands"><H3>Plugin Commands</H3></A>
+
+<UL>
+<P><LI><TT>sort</TT>
+<FONT SIZE=-1>
+<P>&nbsp;&nbsp;<TT>boolean : sortSpots</TT><BR>
+&nbsp;&nbsp;<TT>boolean : sortMeasurements</TT></P>
+</FONT></P>
+<P><LI><TT>sortSpots</TT></P>
+<P><LI><TT>sortMeasurements</TT></P>
+</UL>
+
+<P>&nbsp;</P>
+
+</BODY>
+</HTML>

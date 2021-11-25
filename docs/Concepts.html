@@ -1,0 +1,391 @@
+<HTML>
+<HEAD>
+<TITLE>maxdView Concepts</TITLE>
+</HEAD>
+<BODY>
+<H1>maxdView Concepts</H1>
+<P>
+<UL>
+<LI><A HREF="#spot">Spots, Names and Name Attributes</A>
+<LI><A HREF="#meas">Measurements</A>
+<LI><A HREF="#nans">Special numerical values</A>
+<LI><A HREF="#filt">Filters</A>
+<LI><A HREF="#clust">Clusters</A>
+<LI><A HREF="#anno">Annotation</A>
+<LI><A HREF="#event">Events</A>
+<LI><A HREF="#plug">Plugins</A>
+<LI><A HREF="#col">Colourisers</A>
+<LI><A HREF="#merge">Data Merging</A>
+<LI><A HREF="#cust">Custom Menu</A>
+<LI><A HREF="#drag">Drag and Drop</A>
+<LI><A HREF="#sel">Selection</A>
+</UL>
+</P>
+
+<P><HR></P>
+
+<H2><A NAME="spot">Spots, Names and Name Attributes</A></H2>
+
+<P<B>Spots</B> are <B>maxdView</B>'s basic unit of data. <B>Spot</B>s
+represent all the values associated with a single cell on an
+array.</P>
+
+<P>Each <B>Spot</B> has a name and also records the name of the
+<B>Probe</B> contained in that <B>Spot</B>. <B>Probe</B> refers to the
+biological material placed in the cells of an array. Each <B>Probe</B>
+may be linked to zero or more <B>Gene</B> names.</P>
+
+<P>The <B>Spot</B> names must be unique within a data set as it is
+these names which are used to identify a specify spot on an array. The
+<B>Gene</B> and <B>Probe</B> names can be replicated to model
+duplicate elements on the array.</P>
+
+<P>All three names of name can have optional <B>Name
+Attributes</B>. Attributes are text values that can be associated with
+Spot, Probe and Gene names. Gene names, for example, might have
+"Accession number", "Description" and "Function" attributes used to
+record information about each gene. Names and their attrbiutes are
+available for use in searching and other text matching operations.</P>
+
+<P>The <A HREF="NameTagEditor.html">Name Tag Editor</A> is used manipulate
+all types of name and their attributes. It is created from the popup
+menu that appears over spot and name columns in the main display.</P>
+
+<P>The <A HREF="../plugins/Transform/NameMunger/NameMunger.html">Name
+Munger</A></NOBR> plugin can be used to manipulate both names and name
+attributes tags in a variety of ways.</P>
+
+<P><B>maxdView</B> does not presently specify, or support, any
+particular naming convention. Names are stored and manipulated as Java
+String objects, and conventional string matching rules determine
+whether one name is the same as another.</P>
+
+<P>See a picture of the <A HREF="DataModel.html">Data Model</A> for
+more information about this topic.</P>
+
+<P><HR></P>
+
+<H2><A NAME="meas">Measurements</A></H2>
+
+<P>A <B>Measurement</B> is collection of numbers representing values
+recorded from a set of <B>Spots</B>. It corresponds closely to a single
+column a numbers in a spreadsheet or traditional flat file.</P>
+
+<P><B>Measurement</B>s have a <B>Data Type</B> which determines how
+they will be coloured for display.  The <B>Data Type</B> can also be
+used to group <B>Measurement</B>s together, for example applying a
+command to all <B>Measurement</B> of a particular type.</P>
+
+<P>Any number of <B>Measurement Attribute</B>s, i.e.
+<NOBR><I>name-value</I></NOBR> pairs, can be associated with each
+<B>Measurement</B>. This data can be accessed via the "Attributes" tab
+found on the <A
+HREF="../plugins/Viewer/MeasurementManager/MeasurementManager.html">Measurement
+Manager</A> plugin.</P>
+
+<P>Additional data values for each <B>Spot</B> can also be linked to a
+<B>Measurement</B>. This sort of data, called <B>SpotAttribute</B>s
+can record supplimentary information about the numerical levels, such
+as confidence levels, signal intensities, and derived statistical
+values. The <A
+HREF="../plugins/Viewer/SpotAttributes/SpotAttributes.html">Spot
+Attributes</a> plugin can be used to see these values.</P></P>
+
+<P>See a picture of the <A HREF="DataModel.html">Data Model</A> for
+more information about this topic.</P>
+
+<P><HR></P>
+
+<H2><A NAME="nans">Special numerical values</A></H2>
+
+<P>The special value '<TT>NaN</TT>' (<I>not-a-number</I>) is used to represent
+a value which is unknown or missing.</P>
+
+<P>All comparisions in which a <TT>NaN</TT> value is tested against any non-<TT>NaN</TT> value
+will be false, for example "<TT>NaN &gt; 3</TT>",  "<TT>NaN &gt;=
+-2000</TT>", "<TT>400 &lt; NaN</TT>"
+and "<TT>NaN &gt; NaN</TT>" are all false.</P> 
+
+<P><TT>NaN</TT> values are equal to other <TT>NaN</TT> values, for example "<TT>NaN
+&gt;= NaN</TT>", "<TT>NaN &lt;= NaN</TT>" and "<TT>NaN = NaN</TT>" are
+all true.</P>
+
+<P>The special values '<TT>Infinity</TT>' and '<TT>-Infinity</TT>' represent positive and
+negative infinity respectively.</P>
+
+<P>Infinity values behave like extreme versions of normal values, so
+<TT>Infinity</TT> is greater than any other number, and
+<TT>-Infinity</TT> is less than any other number.</P>
+
+<P>Comparison of <TT>NaN</TT> values with <TT>Infinity</TT> values are always
+false, for example "<TT>Infinity &lt; NaN</TT>", "<TT>NaN &gt;=
+-Infinity</TT>" and "<TT>NaN = Infinity</TT>" are all false.</P>
+
+<P>A complete description of how comparisons with <TT>NaN</TT>,
+<TT>-Infinity</TT> and <TT>-Infinity</TT> values work can be found <A
+HREF="DoubleCompare.html">here</A>.</P>
+
+<P><HR></P>
+
+<H2><A NAME="filt">Filters</A></H2>
+
+<P>A Filter is a rule applied to each of the <B>Spot</B>s in
+turn. <B>Spot</B>s which do not obey the rule are trapped by the
+filter and are temporarily ignored by the rest of maxdView. This
+feature is useful for reducing the complexity of analyses or
+visualisations by discarding uninteresting <B>Spot</B>s. It can also
+be used to locate <B>Spot</B>s which match particular criteria.</P>
+
+<P>Using Filters does not permanently remove Spots, they are only hidden
+whilst the Filter is enabled. Disabling, or altering the filter will
+cause hidden Spots to reappear.</P>
+
+<P><B>maxdView</B> allows multiple <B>Filters</b> to be active
+simultaneously. They are applied in turn, in the order in which they
+were created. If a <B>Spot</B> is trapped by <I>any</I> of the
+<B>Filter</B>s, it will be ignored.</P>
+
+<P>A collection of general-purpose <B>Filter</B>s is supplied with
+<B>maxdView</B>. New ones can be created internally using the <A
+HREF="../plugins/Transform/CodeRunner/CodeRunner.html">Code
+Runner</A></NOBR>, or defined externally as <B>Plugin</b> classes.</P>
+
+<P>See also:
+<UL>
+<LI><A HREF="../plugins/Filter/FilterByNameOrValue/FilterByNameOrValue.html">Filter by Name or Value</A>
+<LI><A HREF="../plugins/Filter/RegExpFilter/RegExpFilter.html">RegExp Filter</A>
+<LI><A HREF="../plugins/Filter/FilterByClusters/FilterByClusters.html">Filter By Clusters</A>
+<LI><A HREF="../plugins/Filter/FilterBySelection/FilterBySelection.html">Filter By Selection</A>
+<LI><A HREF="../plugins/Filter/MathFilter/MathFilter.html">Math Filter</A>
+<LI><A HREF="../plugins/Filter/MultiFilter/MultiFilter.html">Multi Filter</A>
+<LI><A HREF="../plugins/Filter/ProfileFilter/ProfileFilter.html">Profile Filter</A>
+</UL></P>
+
+<P><HR></P>
+
+<H2><A NAME="clust">Clusters</A></H2>
+
+<P>A Cluster is a collection of Spots or Measurements that have been
+grouped together. Things might be grouped because they have similar
+expression profiles, share some common annotation, or for some other
+reason. The Spots or Measurements in a Cluster are termed its
+<I>elements</I>.</P>
+
+<P>In addition to elements, <B>Cluster</B>s can also contain one or
+more child <B>Cluster</B>s. This allows hierarchical structures to be
+contructed, to capture, for example, the output of an external
+clustering program.</P>
+
+<P>Each <B>Cluster</B> has a number of attributes associated with it; including
+a name and a coloured glyph. These attributes, and the hierarchy of
+<B>Cluster</B>s themselves, can be manipulated in the <A
+HREF="../plugins/Viewer/ClusterManager/ClusterManager.html">Cluster
+Manager</A>.</P>
+
+<P><B>Cluster</B>s can be defined using any of the names associated
+with a <B>Spot</B>. A <B>Cluster</B> with elements defined by
+<B>Spot</B> name can be re-applied to any other <B>Measurement</B>
+from the same type of array. <B>Cluster</B>s with elements defined
+using <B>Probe</B> or <B>Gene</B> names can be reapplied to
+<B>Measurement</B>s from arrays containing any of these entities.</P>
+
+<P>See also:
+<UL>
+<LI><A HREF="ClusterTutorial.html">Tutorial: Working with Clusters</A>
+</UL></P>
+
+<P><HR></P>
+
+<H2><A NAME="anno">Annotation</A></H2>
+
+<P>Annotation refers to any text which is associated with a Probe or
+Gene name. Annotation for a particular entity can be gathered from
+multiple sources (i.e databases like EMBL and SwissProt) and stored
+locally to reduce data loading times.</P>
+
+<P>More information:<BR> 
+<UL>
+<LI><A HREF="AnnotationLoader.html">Annotation Loader</A> 
+<LI><A HREF="AnnotationViewer.html">Annotation Viewer</A> 
+</UL></P>
+
+<P><HR></P>
+
+<H2><A NAME="event">Events</A></H2>
+
+<P><B>maxdView</B> is an <I>event-driven</I> system, which means that as the
+data is updated, each of the system's components are notified by being
+sent an Event.</p>
+
+<P>Different types of event are dispatched depending on how the data
+has changed. This enables the various components of the system decide
+whether they need to take any action in response to the change.</P>
+
+<p>To see behind the scenes, use the <NOBR>
+<A HREF="../plugins/Viewer/EventWatcher/EventWatcher.html">Event
+Watcher</A></NOBR> which reports events as they occur.</p>
+
+
+<P><HR></P>
+
+<H2><A NAME="plug">Plugins</A></H2>
+
+<P><B>Plugins</B> are Java classes which can be loaded into
+<B>maxdView</B> whilst it is running. The code for the plugin classes
+is not loaded until the plugin is needed, which saves space and
+reduces the applications start-up time.</P>
+
+<P>Plugins provide an easy way to extend the <B>maxdView</B> core
+functionality to add extra capabilites. Plugins can have a user
+interface and manipulate and display data in any way they want. Plugin
+classes can also receive <B>Event</B>s, enabling then to react to changes
+made by other components.</P>
+
+<P>See also:
+<UL>
+<LI><A HREF="Plugins.html">Using Plugins</A>
+<LI><A HREF="ProgGuide.html">Programmer's Guide</A>
+</UL></P>
+
+<P><HR></P>
+
+<H2><A NAME="col">Colourisers</A></H2>
+
+<P>Colourisers are objects which convert a numerical value into a
+colour for display. </P>
+
+<P>Colourisers are created and edited using the <A
+HREF="ViewerColours.html">Colouriser</A> panel accessed from the
+"Display" menu.  The assignment of Colourisers to Measurement is done
+ia the <A
+HREF="../plugins/Viewer/MeasurementManager/MeasurementManager.html">Measurement
+Manager</A> plugin or the Measurement name <A
+HREF="Popup.html#meas">popup menu</A> in the main display window.</P>
+
+<P><HR></P>
+
+<H2><A NAME="merge">Data Merging</A></H2>
+
+When data is loaded (via any of the importing plugins; "<A
+HREF=../plugins/Importer/ReadNative/ReadNative.html>Read Native</A>",
+"<A HREF=../plugins/Importer/LoadPlainText/LoadPlainText.html>Load
+Plain Text</A>", and "<A
+HREF=../plugins/Importer/DatabaseLoader/DatabaseLoader.html>Database
+Loader</A>") it can either replace the existing data or be merged with
+it.</P>
+
+<P>Merging is done by matching either the Spot, Probe or Gene names
+associated with each spot. Names which are not recognised can be
+either ignored or allocated to new Spots. More details can be found in
+the <A HREF="Merging.html">Merging data</A> help page.</P>
+
+ <P><HR></P>
+
+<H2><A NAME="cust">Custom Menu</A></H2>
+
+<P>The Custom Menu is accessed via the context sensitive <A
+HREF="Popup.html">popup menu</A> used in the main display. Press the
+<I>right</I>&nbsp; mouse button whilst pointing at a Name, Spot,
+Measurement or Cluster in the display. The popup menu which appears
+has a "Custom" submenu containing the option "Edit" which opens the <A
+HREF="CustomMenu.html">custom menu editor</A>.</P>
+
+<P>The editor allows to add and remove <I>command</I> enties from the
+custom menu. Commands are associated with <B>plugins</B> and allow you
+to access a plugin functions without launching it's user interface.</P>
+
+
+<P><HR></P>
+
+<H2><A NAME="drag">Drag and Drop</A></H2>
+
+<P>Drag-and-drop is an easy method for moving information (such as
+Spot, Measurement and Cluster names) between parts of
+<B>maxdView</B>.</P>
+
+<P>Press and hold the left mouse button to start the drag. A small
+folder icon appears beside the mouse cursor. This icon can then be
+'dragged' to another window and 'dropped' by releasing the mouse
+button.</P>
+
+<P>Drag-and-drop is presently supported by:<BR>
+<UL>
+<LI>Spots, Measurements and Clusters in the main display
+<LI>The "Find" dialog box
+<LI>Clusters in the <I>Cluster Manager</I>'s tree
+<LI>The <I>Notepad</I> plugin
+<LI>The <I>Sort Clusters</I> plugin
+<LI>The <I>Scatter Plot</I> plugin
+<LI>The <I>RegExp Filter</I> plugin
+<LI>The <I>Stack Plot</I> plugin
+<LI>The <I>Profile Filter</I> plugin
+<LI>The <I>HyperCube Plot</I> plugin
+<LI>The <I>Profile Viewer</I> plugin
+<LI>The <I>Just-o-Clust</I> plugin
+<LI>The <I>Compare Clusters</I> plugin
+</UL>
+</P>
+
+<P><HR></P>
+
+<H2><A NAME="sel">Selection</A></H2>
+
+<P>Data can be selected by clicking on elements in the main display
+window, or programatically via the selection API. Spots, Measurements
+and Clusters can be selected independantly.</P>
+
+<P>Selected items are highlighted in the main display. Selected Spot
+and Measurement names are drawn in inverted colours and selected
+Clusters are drawn with a surrounding box.</P>
+
+<P>The <A
+HREF="../plugins/Filter/FilterBySelection/FilterBySelection.html">Filter
+By Selection</A> plugin can be used to show or hide the selected
+Spots.</P>
+
+<P><B>Spots</B> are selected by clicking on them in the main display
+window. An extended selection can be made by clicking on the start
+Spot and then holding the 'Shift' key and clicking on the end
+Spot. Holding the 'Ctrl' key when clicking on a Spot toggles the
+selection of that Spot. </P>
+
+<P><B>Measurements</B> are selected in the same way, i.e. by clicking
+on their names. The 'Shift' and 'Ctrl' key can be used as before.</P>
+
+<P><B>Clusters</B> are selected as follows:</P>
+<TABLE>
+<TR><TD ALIGN=CENTER><I>click</I></TD><TD>select just this Cluster</TD></TR>
+<TR><TD ALIGN=CENTER><I>Shift + click</I></TD><TD>add this Cluster to the selection</TD></TR>
+<TR><TD ALIGN=CENTER><I>Ctrl + click</I></TD><TD>toggle selection of this Cluster</TD></TR>
+</TABLE>
+</P>
+
+<P>Note: The 'Ctrl' key is no longer used to activate the popup menu
+(for systems with a single-button mouse) instead use 'Ctrl' and 'Alt'
+mouse-click to activate the popup menu.<P>
+
+<P>The <B>Selection Menu</B> is accessed via the context sensitive <A
+HREF="Popup.html">popup menu</A> used in the main display. It contains
+entries which manipulate the selection. See the <A
+HREF="SelectionMenu.html">Selection Menu</A> help page for
+full details.</P>
+
+
+<P><HR></P>
+
+See Also:
+<UL>
+<LI>
+<A HREF="Glossary.html">Glossary</A>
+<LI>
+<A HREF="Overview.html">Overview</A>
+<LI>
+<A HREF="Commands.html">Commands</A>
+<LI>
+<A HREF="Plugins.html">Plugins</A>
+<LI>
+<A HREF="FileFormats.html">File formats</A>
+</UL>
+
+</BODY>
+</HTML>

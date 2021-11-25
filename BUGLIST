@@ -1,0 +1,350 @@
+
+as of 1.0.0
+
+[   ] = pending
+[ S ] = some progess made, but bug is not fixed
+[ P ] = probably fixed (i.e. fixed, but not thoroughly tested)
+[ F ] = fixed
+[ M ] = mysteriously vanished
+
+===========================================================================================
+
+
+[   ]   'too many gene names' when exporting plain text for data with
+        multiple genes per probe
+  
+
+[   ]   divide by zero problem in SimpleMaths
+        (cannot replicate bug report from florent_cripeau)
+
+[   ]   AnnotationViewer:
+
+            url=  http://www.ncbi.nlm.nih.gov/LocusLink/LocRpt.cgi
+	    args= l=4893   {Gene name}
+
+	    some HTML is loaded, but nothing is displayed
+
+
+[ F ]   "Measurement Ordering is wrong length" when exporting a subset of
+        Measurements using "Write Native"
+
+
+[ F ]   plugin library doesn't work - plugins are in the wrong directory?
+        (acutally, the directory didn't exist!)
+
+
+[ F ]   Progress window does not shut when merging data is completed
+
+
+[   ]   "Filter By Name Or Value" doesn't work using the Cogeme_Chemostat
+        data set
+
+
+[   ]   "Show Attrs" and "Show Props" in the DataPlot popup for Measurment
+	both open the Measurement Manager
+	
+
+[   ]   Measurement clusters exported from ClusterManager not importable
+	(reported by Paul Edlefsen)
+
+
+[   ]   JAR file not unloaded after use in DatabaseLoader
+	(will be fixed when CustomClassLoader is upgraded)
+
+
+[   ]   DatabaseConnection displays no feedback during  connection on low
+	bandwidth connection
+
+
+[   ]   DatabaseConnection is not used in all places that it should be
+	(i.e. AnnotationLoader)
+
+
+[ P ]   When replacing data, the user should be queried as to whether they
+	want the existing clusters to be removed. If not, cluster->spot
+	mappings to need to be rechecked more carefully
+
+
+[ F ]   sql.ResultSet and sql.Statement need to be closed() properly as
+	per lastest maxdLoad version
+
+
+[   ]   DatabaseLoader should be multithreaded and be able to be interrupted
+
+
+[ F ]   All filters need load/save function as per MultiFilter
+
+
+[ F ]   All filters should have a history list and history editor to make
+	it easy to store common filters and reapply previously stored filters
+
+
+[ S ]   Scatter Plot & Hypercube Plot should support log axis scaling
+
+
+[   ]   ScatterPlot becomes confused when the existing data is replaced
+	(i.e. when Measurements that are currently being plotted no longer exist)
+
+
+[ F ]   Math Filter's "scale to fit" is broken
+
+
+[ F ]   Math Filter should have auto-counting like the other filters
+
+
+[ S ]   CodeRunner library entries should not be included in distribution JAR file
+
+
+[   ]   The ConnectionManager for DatabaseLoader has no 'help' function
+
+
+[   ]   The ConnectionManager for DatabaseLoader should not be modal
+
+
+[   ]   The Method list in CodeRunner should (optionally) be alphabetical and
+	(ideally) should have a one line comment for each method
+
+
+[ S ]   Compilation should be threaded in the CodeRunner, with some feedback
+
+
+[ S ]   unknown bug in CodeRunner: see "code-fragments/cannot-be-compiled.java"
+        (possibly in parsing the compiler output, or generating the popup window?)
+	(report: java.lang.InternalError: getGraphics implemented only for Canvas Components)
+ 
+        furthermode: seems to be something to do with either the UserInputCancelled
+	exception or the getMEasurementChoice user input method
+
+	compilation of code examples with these functions is odd, either compiled
+	and then no output, or compilation never terminates
+
+	believed to be caused by interactions between different versions of the
+	compiler; if maxdView is compiled with 1.3, and the CodeRunner is
+	using 1.2.2, then it will stall under certain conditions
+
+	a time-out has been added that will kill the compiler after a fixed
+	amount of time has passed without it completed.
+	
+
+[   ]   Several examples in code-fragments need documenting and/or updating
+
+
+[   ]   some viewer plugins (StackPlot, AppInABox, EventWatcher, ...) should be 
+	optional and not included by default (this requires the addition of
+	a 'PluginManager')
+
+
+[   ]   NotePad plugin causes NPE when opened with null ExprData
+
+
+[   ]   SpotAttr names not properly detected in LoadPlainText ?
+
+
+[   ]   SpotAttribute viewer should show the current spot selection and should
+	permit sorting on any of the spot attrs
+
+
+[   ]   SortByNameOrValue should permit sorting on any of the spot attrs
+
+
+[   ]   WriteNative should add a .maxd suffix to filenames if not provided by the user
+
+
+[ F ]   ReadNative doesn't handle 'Infinity' as a value
+
+
+[   ]   WriteNative includes things such as ArrayType, SpotSelection when they are empty,
+	needs to be more selective
+
+
+[   ]   ScatterPlot should close the "Pick Meas" window if it is open when the plugin
+	is shut down by the user
+
+
+[   ]   LoadPlainText displays the "data in column X has illegal entries" repeatedly,
+	once per column, rather than accumulating all the errors together.
+
+
+[ F ]   MultiFilter panel should include a scrollpane (and maybe a scale slider?)
+
+
+[   ]   TextExplorer tokenising is too slow
+
+
+[   ]   CodeRunner sometimes displays a totally unrelated message after a successful
+        "update" operation
+
+
+[ F ]   Measurement properties should give some stats about the Measurement(S)
+	eg min, max, #nans
+
+
+[   ]   class Measurement should have getMinValue and getMaxValue methods
+
+
+[ F ]   Table cells in the Measurement attribute editor should not be editable
+
+
+[   ]   The progress-o-meter should be temporarily hidden when requesing user
+	input during a data merge. The p-o-m does not disspear correctly at the
+        end of the merge too....
+
+ 
+[ F ]   when a progress-o-meter is killed by hand, something odd happens to the
+	focus on XP (i.e. it keeps shifting out of the current window, perhaps
+	the JTimer is still running?)
+
+
+[ F ]   The getChoice() input methods need a scrollpane when there are a lot of
+	options
+
+
+[   ]   When clusters are renamed in the ClusterManager, the tree view is not
+	updated to show the new name
+
+
+[   ]   The ClusterManager.ColourSetChooser is not compiled by default
+	update: it _is_ compiled, but sometimes the class is not found on its first use 
+
+
+[ P ]   [from D.Hoyle] Filtering. If I created filtered data sets using
+        a)  Filter by name or value,  b)Math filter,  (but in each case using the
+        same mathematical expression) I got different results when using the
+        distrogram plugin.
+	update: probably caused by the Measurement indexing bug in MathFilter (see below)
+
+
+[   ]   [from D.Hoyle] I did a PCA analysis of a data set and then
+        plotted the projections onto the 1st and 2nd principle
+        components using Scatter plot. However there appeared to be a
+        spurious point plotted whose coordinate corresponded to the max
+        and min intensity values observed within the raw data set.
+
+
+[ F ]	[re: rmiDemo, from P. Edelfsen] 
+	
+	The line (ExprData.java:6776) was:
+		    rsl = 
+	(RemoteSelectionListener)external_selection_listeners.elementAt(r);
+	It needs to be:
+		    rsl = 
+	(RemoteSelectionListener)remote_selection_listeners.elementAt(r);
+
+
+[   ]   ScatterPlot 'spot/measurement picker' windows can be easily duplicated 
+        and/or orphaned: need to keep track of them
+
+
+[ P ]   The custom column ordering in SaveAsText is lost whenever the table
+	is rebuilt (but it should be retained where possible)
+
+
+[   ]   The eigen-genes and eigen-arrays plots in SVR are redundant. Instead
+	the GraphPanel should be used to display the EigenValues (scree-plot) 
+
+
+[ F ]  The MathFilter was using the wrong Measurements under certain conditions
+	(confusion between getMeasurement and getMeasurementAtIndex)
+
+
+[   ]  Multiple Spot labels inthe Spot Attribute viewer should be given multiple
+	columns in the table
+
+
+[ F ]  bool-ops in the MultiFilter are not drawn in the right place when the
+	window is resized (too wide)
+
+
+[ P ]  MultiFilter doesn't notice when new SpotAttributes are added to 
+	(should update the list in the rule editor)
+	-> all rule editors are removed whenever a measurement update event
+	   is recieved.
+
+[   ]  FilterByNameOrValue user interface gets out of hand with large numbers
+       of measurements. 
+       options: 1. remove this filter altogether (functionality available elsewhere)
+	         2. add splitpane and limit size of lower panel
+	         3. ability to add/remove the individual rules on demand
+
+
+[   ]   LoadPlainText's AutoPArse function doesn't guess the data start and end lines
+	correctly
+
+
+[ F ]   SaveAsText column headers do not correspond with column contents when
+	a column is empty, for example when Gene name(s) are requested in the 
+	output, but none are present.
+
+	cause: ExprData.getFullNameTagArray() does not work as advertised.
+	fixed in 0.9.5/b3
+
+
+[   ]   'browse' in RunExternal does not work
+
+
+[   ]   Normalise plugin (the different methods) needs more documentation
+
+
+[   ]   SVD plugin needs more documentation
+
+
+[   ]   Read Native needs updated documentation for new options
+
+
+[   ]   Save As Text documentation is very out-of-date
+
+
+[   ]   Save To Database plugin needs more documentation
+
+
+[   ]   Code Runner needs updated documentation for new options
+
+
+[   ]   Super Grouper plugin needs more documentation
+
+
+[   ]   Scatter Plot  plugin needs more documentation (about the Axes and Decorations features)
+
+
+[   ]   Distrogram  plugin documentation is very out-of-date
+
+
+[   ]   Spot Attributes plugin needs updated documentation for new options
+
+
+[   ]   Compare Clusters plugin needs more documentation
+
+
+[   ]   HyperCube Plot plugin documentation is very out-of-date
+
+
+[   ]   PRogrammer's Guide is missing several advertised sections
+
+
+[   ]   from: mitzi@genomes.rockefeller.edu
+
+         there's bug such that if I open the normalise window,
+	 then do nothing and try and close it again,
+	 the program throws and error, and I get a pop-up window
+	 saying so.  when I click on "OK", the error message window
+	 goes away.  the normalize window is still open, however,
+	 so I click to close and get the pop-up window again,
+	 ad infinitum.
+	 
+	 here's what the error log looks like:
+	 
+	 java.lang.NullPointerException
+	 at GGMNormaliser.saveProperties(GGMNormaliser.java:28)
+	 at Normalise.cleanUp(Normalise.java:22)
+
+[   ]   from: norm
+	 Simple Maths Plugin:
+	   This proved popular except when just pointing and clicking....
+	   i.e. "Column1" -"Column2"
+	   Didn't  work because there wasn't a space between the minus operator and
+	   the next column header. Silly I know but it was baffling and annoying
+	   for some users.
+
+
+[   ]   SpacePlot layout of bottom button panel takes up too much V
+        space for no good reason

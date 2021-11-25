@@ -1,0 +1,106 @@
+<HTML>
+<HEAD>
+<TITLE>SVD</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>SVD</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<P>See the <A
+HREF="../../../docs/PluginCommandsList.html#SVD">Plugin
+Commands</A> help page for details on the commands offered by this
+plugin.</P>
+
+<P>&nbsp;</P>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>This plugin calculates a Singular Value Decomposition (SVD) of a matrix. SVD is a method of representing 
+the matrix in terms of a set of orthogonal vectors - the eigenvectors, with different weights - the 
+eigenvalues. The larger the eigenvalue the greater the contribution the corresponding eigenvector makes in 
+representing the matrix. A few of the largest eigenvalue, eigenvector pairs can then approximate accurately 
+the original matrix, making SVD a useful method of approximating a data matrix using just a few dimensions.</P>
+
+<P>Formally the SVD of a matrix <B>A</B> is defined as 
+<B>A</B> = <B>UDV</B><SUP>T</SUP>, where <B>V</B><SUP>T</SUP> is the transpose of <B>V</B>. The matrix 
+<B>D</B> is diagonal, whose elements contain the eigenvalues. The columns of the matrices 
+<B>U</B> and <B>V</B> correspond to the eigenvectors of <B>A</B>.</P>
+  
+<P>Given a selected set of 
+Measurements the user has the option of calculating the SVD of the sample covariance matrix formed from 
+the selected Measurements, or the SVD of the Wishart matrix formed from the selected Measurements.</P>
+
+<P>If the selected Measurements form a data matrix <B>X</B> then the Wishart matrix is equal to 
+<B>XX</B><SUP>T</SUP> 
+(where <B>X</B><SUP>T</SUP> is the transpose of <B>X</B>).</P>
+<P>The sample covariance matrix is equal to 
+<B>(X - m)(X - m)</B><SUP>T</SUP> (where <B>m</B> is the mean of <B>X</B>).</P>
+
+<P>Principal Component Analysis (PCA) is essentially an SVD of the data covariance matrix.</P>
+
+<P>Once the SVD of the chosen matrix has been calculated the eigenvalues are displayed. Also displayed 
+is a plot of the eigenvalues against the expected eigenvalues from a random covariance matrix with the 
+same total variance. This gives a (non-rigorous) means of identifying by eye how many eigenvalues and 
+eigenvectors are significant.<P>
+
+<P> Finally the plugin allows the user to project the original data onto the eigenvectors - either the 
+columns of <B>U</B> or the columns of <B>V</B>. If "PCA of covariance matrix" was the option 
+originally chosen, it is <B>X -m</B> that is projected onto the eigenvectors. </P>
+
+<P><B>Notes</B></P>
+
+<P>For additional details see,
+<UL>
+<LI> <I>Principal Component Analysis</I>, I.T. Jolliffe 
+(Springer-Verlag, New York 1986)
+<LI> O. Alter, P.O. Brown, D. Botstein, (2000),
+"Singular value decomposition for genome-wide expression data processing and modelling",  
+<I>Proc. Natl. Acad. Sci. USA</I> <B>97</B>:10101-10106.
+</UL>
+</P>
+
+
+
+
+<P>&nbsp</P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P><IMG SRC="SVD1.gif"></P>
+
+<P>Select Measurements to form the data matrix from the list on the left-hand side of the
+panel. Select the matrix (covariance or Wishart) on which to perform the SVD.</P>
+
+
+<P><IMG SRC="SVD2.gif"></P>
+
+<P> Eigenvalues are displayed in the left hand graph. The right hand graph shows a "Wachter plot" of the eigenvalues. This is a plot of the eigenvalues against the expected eigenvalue, at the same quantile, 
+from a random matrix. The random matrix has independent and identically distributed (<I>i.i.d.</I>) 
+elements drawn from a distribution whose variance is equal to the average of the observed eigenvalues. 
+This gives a (non-rigorous) means of assessing whether an observed eigenvalue is the consequence of a 
+genuine dominant direction in the data, or the result of just a chance fluctuation due to the finite number 
+of Measurements in what should otherwise be data that has no dominant directions. The solid black line 
+shows  the y = x line. Eigenvalues above this line are usually taken to be of potential interest. For 
+more details see, for example, Johnstone, I.M. (2001), 
+"On the distribution of the largest eigenvalue in Principal 
+Component Analysis", <I>Annals of Statistics</I> <B>29</B>:295-327.</P>
+
+<P><IMG SRC="SVD3.gif"></P>
+Choose whether to project onto the eigenvectors corresponding to the columns of <B>U</B>, or the 
+eigenvectors corresponding to the columns of <B>V</B>.</P> 
+
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

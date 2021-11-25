@@ -1,0 +1,174 @@
+<HTML>
+<HEAD>
+<TITLE>Filter by Name or Value</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Filter by Name or Value</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+<LI><A HREF="#nans">Handling of NaN and Infinity values</A>
+</UL>
+
+<HR>
+<H3>Overview</H3>
+
+This panel lets you selectively hide some of the rows of data by
+filtering them out. 
+
+The filter is constructed from a series of rules, such as:
+
+<PRE>
+  Probe Name contains "RNA" 
+  PROB_2 &gt; 0.01
+  TIME_2 &lt; 3.5
+</PRE>
+ 
+<P>There are two global rules, and one optional rule for each
+Measurement. All of the rules are combined using a <I>logical AND</I>
+operation, this means only genes which obey all of the rules will be
+displayed.</P>
+
+<P>At the bottom of the window the percentage of Spots which are
+trapped by the filter is shown in red and the percentage of Spots
+which are not trapped is shown in green. Note that the percentages
+only reflect the filtering that is done by this filter, and do not
+take into account any filtering being done by other filter plugins
+that are also active.</P>
+
+<P>As with all filter plugins, closing the plugin's window deactives
+the filter (but iconifying it does not).</P>
+
+<HR>
+
+<H3>User Interface</H3>
+
+<IMG SRC="FilterByNameOrValue.jpg">
+
+<P><B>Name filtering....</B></P>
+
+<IMG SRC="FilterByNameOrValue_Name.jpg">
+
+<P>The first rule  applies the to the names, and can be specify that
+the name must include some sequence of characters, or must not include
+some sequence. Select which of the names to use (either Probe, Gene(s)
+or Spot) and select which matching criterion to use.</P>
+
+<P>As you type characters into the edit field, the filter is
+continuously updated and spots are removed or displayed based whether
+whether their name matches the rule.</P>
+
+<P><B>Value filtering....(global)</B></P>
+
+<IMG SRC="FilterByNameOrValue_Value.jpg">
+
+<P>The second rule applies to the all of numerical values associated
+with each spot. These values are grouped based on the type assigned to
+them in the <A HREF="../../../docs/Measurements.html">Measurements</A> panel. You
+can select between requiring "No value" "Any value" (i.e. 1
+or more) or "All values" to conform to the rule.</P>
+
+<P>The <I>operand</I> selection allows to you to choose how to compare
+the numercial values with some constant value that you supply. The
+options are:
+
+<TABLE>
+<TR><TD><B>=</B> <TD>equal to
+<TR><TD><B>!=</B> <TD>not equal to
+<TR><TD> <B>&gt;=</B> <TD>greater than or equal to
+<TR><TD> <B>&lt;=</B> <TD>less than or equal to
+<TR><TD> <B>&gt;</B> <TD>greater than
+<TR><TD> <B>&lt;</B> <TD>less than
+<TR><TD> <B>&lt;&gt;</B> <TD>in this range (+/-)
+<TR><TD> <B>!&lt;&gt;</B><TD>not in this range (+/-)
+</TABLE>
+
+<P>The edit field to the right of the <I>operand</I> selection is where
+you enter the constant value to compare the numercial values to.</P>
+
+<I><B>Example</B></I>:<BR>
+
+<P>To exclude any spot with a missing Expression value in any of it's
+Measurements, set the rule to</P>
+
+<P><TT>&nbsp;&nbsp;"Expression" "No values" "=" "NaN"</TT></P>
+
+<P>(NaN is the special value used to represent a missing number)</P>
+
+<P>To exclude any spot with a very high value, set the rule to</P>
+
+<P><TT>&nbsp;&nbsp;"Expression" "Any value" ">" "100000"</TT></P>
+
+<P><B>Value filtering....(per Measurement rules)</B></P>
+
+<IMG SRC="FilterByNameOrValue_Measurement.jpg">
+
+<P>The bottom part of the Filter panel contains controls for filter
+rules to apply to each of the individual Measurements. Each rule can
+be enabled or disabled separately using the checkbox next to it's
+name.</P>
+
+<P>The <I>operand</I> selection and edit field for the constant value
+  are the same as for the global value filter. The rule is applied
+  only to this the Measurement, and only if the rule has been
+  enabled.</P>
+
+<P>&nbsp</P>
+
+<P><HR></P>
+
+<A NAME="nans"><H3>Missing values (i.e. NaNs)</H3></A>
+
+<A NAME="nans"><H3>Handling of NaN and Infinity values</H3></A>
+
+<P><B>Note:</B> This behaviour is different to that of versions prior to 1.0.4</P>
+
+<P>The special value '<TT>NaN</TT>' (<I>not-a-number</I>) is used to represent
+a value which is unknown or missing.</P>
+
+<P>All comparisions in which a <TT>NaN</TT> value is tested against any non-<TT>NaN</TT> value
+will be false, for example "<TT>NaN &gt; 3</TT>",  "<TT>NaN &gt;=
+-2000</TT>", "<TT>400 &lt; NaN</TT>"
+and "<TT>NaN &gt; NaN</TT>" are all false.</P> 
+
+<P><TT>NaN</TT> values are equal to other <TT>NaN</TT> values, for example "<TT>NaN
+&gt;= NaN</TT>", "<TT>NaN &lt;= NaN</TT>" and "<TT>NaN = NaN</TT>" are
+all true.</P>
+
+<P><TT>NaN</TT> values are not equal to any other value, for example "<TT>NaN
+= 1.0</TT>" is false.</P>
+
+<P>The special values '<TT>Infinity</TT>' and '<TT>-Infinity</TT>' represent positive and
+negative infinity respectively.</P>
+
+<P>Infinity values behave like extreme versions of normal values, so
+<TT>Infinity</TT> is greater than any other number, and
+<TT>-Infinity</TT> is less than any other number.</P>
+
+<P>Magnitude comparisons of <TT>NaN</TT> values with <TT>Infinity</TT>
+values are always false, for example "<TT>Infinity &lt; NaN</TT>" and
+"<TT>NaN &gt;= -Infinity</TT>" are both false. However, equality tests
+between <TT>NaN</TT> values with <TT>Infinity</TT> values behave as
+normal, so "<TT>Infinity = NaN</TT>" is false and "<TT>-Infinity !=
+NaN</TT>" is true.</P>
+
+<P>A complete description of how comparisons with <TT>NaN</TT>,
+<TT>-Infinity</TT> and <TT>-Infinity</TT> values work can be found <A
+HREF="../../../docs/DoubleCompare.html">here</A>.</P>
+
+<P>&nbsp</P>
+
+<HR>
+
+<P>See also:
+<UL>
+<LI><A HREF="../../../ApplyFilter.html">Apply filter</a>
+</UL></P>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

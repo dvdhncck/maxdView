@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+<TITLE>Save To Database</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<P><I><B>Note:</B> this help page is incomplete.</I></P>
+
+<H2>Save To Database</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P>Store a Measurement in a maxdSQL database</P>
+
+<P>See the <A
+HREF="http://www.bioinf.man.ac.uk/microarray/maxd/">maxdSQL and
+maxdLoad</A> documentation for full details about building and
+populating a maxdSQL database.</P>
+
+<P>When this plugin is started, the <A
+HREF="../../../docs/DatabaseConnection.html">Database Connection</A>
+panel will be displayed. Use this panel to login to a maxdSQL
+database.</P>
+
+<P><HR></P>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<CENTER><P><IMG SRC="SaveToDatabase.jpg"></P></CENTER>
+
+<P>(In the following steps the names of maxdSQL objects are written
+<TT>like this</TT>.)
+
+<UL>
+<P><LI>Connect to a maxdSQL database in the same way as in the <A
+HREF="../../../plugins/Importer/DatabaseLoader/DatabaseLoader.html">DatabaseLoader</A>
+plugin.</P>
+
+<P><LI>Pick a Measurement from the list then press "Next"</P>
+
+<P><LI>Identify which database <TT>Image</TT> that the Measurement
+should be linked to. The "Pick" button in the "Image" panel will
+display a list of all <TT>Image</TT>s in the database. Select the one
+that corresponds to the Measurement.</P>
+
+<P></P>
+
+<P>The selected <TT>Image</TT> identifies a single
+<TT>ArrayType</TT>. Details of this ArrayType will be shown in the
+"Array Type" panel once an <TT>Image</TT> has been selected. The
+<TT>ArrayType</TT> determines the collection of Spots in the database
+that can be matched to Spots in the Measurments.</P>
+
+<P></P>
+
+<P>All of the Spot Names in the Measurement must be matched with the
+Spot Names on the selected <TT>ArrayType</TT>. (Not all of the Spots
+on the <TT>ArrayType</TT> have to be supplied, so subsets of the
+<TT>ArrayType</TT> can be saved.)</P>
+
+<P></P>
+
+<P>If the Measurement was previously loaded from a maxdSQL database it
+will have <A
+HREF="../../../docs/Measurements.html#attribute">attributes</A> that
+identify which <TT>Image</TT> it is linked with. These attributes will be
+detected by the <I>Save To Database</I> plugin.</P>
+
+<LI><P>Press the "Pick" button on the "Image Analysis Protocol" panel and
+choose one protocol from the list that will be displayed.</P>
+
+<P>The selected <TT>ImageAnalysisProtocol</TT> determines which <A
+HREF="../../../docs/Concepts.html#meas">Spot Attributes</A> can be
+saved along with the Measurement.</P>
+
+</UL>
+
+<P>&nbsp</P>
+
+<P><I><B>Note:</B> this help page is incomplete.</I></P>
+
+</BODY>
+</HTML>

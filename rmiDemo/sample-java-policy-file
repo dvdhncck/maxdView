@@ -1,0 +1,36 @@
+/* AUTOMATICALLY GENERATED ON Sat Mar 03 16:34:00 GMT+00:00 2001*/
+/* DO NOT EDIT */
+
+grant {
+  permission java.net.SocketPermission "*:1024-65535", "connect,accept";
+  permission java.net.SocketPermission "*:80", "connect";
+};
+
+grant {
+  permission java.io.FilePermission "/home/dave/bio/maxd/maxdView/rmiDemo/ComputeDemo/-", "read";
+  permission java.io.FilePermission "/home/dave/bio/maxd/maxdView/rmiDemo/-", "read";
+  permission java.io.FilePermission "/home/dave/bio/maxd/maxdView/-", "read, write";
+};
+
+grant {
+  permission java.util.PropertyPermission "user.*", "read";
+  permission java.util.PropertyPermission "java.*", "read";
+};
+
+grant {
+  permission java.io.FilePermission "/", "read";
+
+  permission java.io.FilePermission "/tmp", "read";
+  permission java.io.FilePermission "/tmp", "write";
+
+  permission java.io.FilePermission "/home/", "read";
+  permission java.io.FilePermission "/home/dave/", "read";
+  permission java.io.FilePermission "/home/dave/-", "read";
+  permission java.io.FilePermission "/home/dave/-", "write";
+  permission java.io.FilePermission "/home/dave/", "write";
+};
+
+grant {
+  permission java.lang.RuntimePermission "getClassLoader";
+  permission java.lang.RuntimePermission "createClassLoader";
+};

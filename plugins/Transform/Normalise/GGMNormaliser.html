@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<TITLE>Normalise - Geometric Mean</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Geometric Mean Normaliser</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<P>See the <A
+HREF="../../../docs/PluginCommandsList.html#Normalise">Plugin
+Commands</A> help page for details on the commands offered by this
+plugin.</P>
+
+<P>&nbsp;</P>
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<P> The Geometric mean normalization method corresponds to a location and scale transformation of the 
+distribution of the logged data. The data passed to the algorithm is logged (logarithms to base <I>e</I> 
+taken). The mean and standard deviation of the un-normalized logged data are then calculated. 
+We then subtract the mean from the un-normalized logged data and divide by the standard deviation. 
+The normalized logged data will have a mean of zero and a standard deviation of approximately 1. This can 
+be useful when comparing biological data sets whose ranges of expression are expected to be of comparable 
+size. Note that if the Geometric mean normalization method is applied to ratio data (i.e. ratios of 
+intensities) the normalized values <B>DO NOT</B> represent normalized log-ratios. 
+Exponentiating the normalized 
+value will not give a fold-change. The normalized values represent values that can be used (with other 
+data sets) to detect differential expression.</P>   
+
+<P><B>Notes</B></P>
+
+<P>A trimmed standard deviation is actually calculated, i.e. i) first the standard deviation is 
+calculated is using all the data points ii)the standard deviation is re-calculated 
+from all data points that differ from the mean by +/- 3 times the un-trimmed standard deviation. 
+This reduces the effect large outliers have upon the estimate of the standard deviation.</P>
+
+<P>All logarithms used are natural 
+logarithms, i.e. logarithms to base <I>e</I>. The normalized values returned are normalized logged data, 
+transformed to a mean of zero and standard deviation of approximately 1.</P> 
+
+<P>If you wish to apply the Geometric mean method to ratios of intensities, you must 
+calculate the ratios first (e.g. using the "Simple Maths" menu option on the "Transform" menu) 
+before using the normalization algorithm.</P>
+
+<P>&nbsp</P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P><IMG SRC="NormaliseGeometricMean1.gif"></P>
+
+<P>Select Measurements to normalize from the list on the left-hand side of the
+panel.</P>
+
+<P><IMG SRC="NormaliseGeometricMean2.gif"></P>
+
+<P> Set the noise threshold. Un-normalized data values below the noise threshold will be set to the 
+threshold.</P>
+<P>If the "show statistics" option is checked, basic summary statistics about the raw, un-normalized data 
+will be displayed.</P>
+<P>Choose whether to create new Measurements in the main table, or overwrite the Measurements 
+selected with the normalized data.</P> 
+
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>

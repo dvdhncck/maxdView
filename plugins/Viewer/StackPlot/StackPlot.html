@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<TITLE>Stack Plot</TITLE>
+</HEAD>
+<BODY>
+<!-- PAGE BREAK -->
+
+<H2>Stack Plot</H2>
+
+<UL>
+<LI><A HREF="#overview">Overview</A>
+<LI><A HREF="#interface">User interface</A>
+</UL>
+
+<HR>
+
+<A NAME="overview"><H3>Overview</H3></A>
+
+<IMG SRC="StackPlotDiagram.jpg">
+
+<P>Show the co-relation between two measurements on a 2&frac12;D plot</P>
+
+<P>The Stack Plot is so-called because it stacks up multiple spots
+which fall into the same bin. Bins are created by dividing the range
+of data in a Measurement into a number of discrete chunks.</P>
+
+<HR>
+
+<A NAME="interface"><H3>User Interface</H3></A>
+
+<P>The configuration of X and Y axes is done by the two sets of controls
+in the top left corner of the window. The controls (from left to
+right) for each axis are the same; three drop-down menus:
+
+<UL>
+<LI>Measurement
+<LI>Number of bins - choose from a preset selection of sizes
+<LI>Boundary mode - either equally filled or equally spaced
+</UL>
+</P>
+
+<P>A scrollbar on the left-hand side on the window controls the global
+scale of the stacks. When set to zero, i.e. fully down, the stack plot
+becomes completely 2D.</P>
+
+<P>A set of checkboxes in the top-right corner control additional
+features:
+<TABLE>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Use filter</B><TD> selects between showing all of the data
+or only showing the data items which pass through the current <A
+HREF="../../../docs/Filters.html">Filter</A>.</TR>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Auto reset view</B><TD> causes the
+view to rescale itself when changing from one Measurement to
+another. When this switch is off, the view position and scaling is
+unchanged when swtching between Measurements.</TR>
+<TR><TD ALIGN=RIGHT VALIGN=TOP><B>Auto levelise</B><TD> mode updates
+the bin boundaries to attempt to more evenly distribute the data. This
+option is only available when both axes are in <I>equally filled</I> mode</TR>
+</TABLE>
+</P>
+
+<P>&nbsp</P>
+
+</BODY>
+</HTML>
