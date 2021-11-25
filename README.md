@@ -1,4 +1,4 @@
-Developed between 2001/2006 for the Univerity of Manchester & UK Science funding Agencies
+Developed between 2001/2006 for the Univerity of Manchester & UK Science Funding Agencies
 
 Released as Open Source under PERL licence
 
